@@ -1,14 +1,16 @@
-from pathlib import Path
+from pathlib import Path 
+ 
+fichero = Path("kb")/"ingredientes.txt" 
+entrada = Path("sbc")/"entrada.in"  
 
-fichero = Path("kb")/"ingredientes.txt"
+lineas = fichero.read_text(encoding="utf8").splitlines() 
+ingredientes = [linea.lower() for linea in lineas if linea.strip()] 
 
-lineas = fichero.read_text(encoding="utf8").splitlines()
-ingredientes = [linea.lower() for linea in lineas if linea.strip()]
+lineas_entrada = entrada.read_text(encoding="utf8").splitlines() 
+ingredientes_buscar = [linea.lower() for linea in lineas_entrada if linea.strip()]  
 
-
-ingrediente_buscar = "tomate"
-
-if ingrediente_buscar.lower() in ingredientes:
-    print(f"'{ingrediente_buscar}' está en la lista.")
-else:
-    print(f"'{ingrediente_buscar}' no está en la lista")
+for ingrediente in ingredientes_buscar:     
+    if ingrediente.lower() in ingredientes:         
+        print(f"'{ingrediente}' SÍ está en la lista.")     
+    else:         
+        print(f"'{ingrediente}' NO está en la lista.")
