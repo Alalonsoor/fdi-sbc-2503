@@ -1,2 +1,3 @@
-tomate
-cebolla
+tomate cantidad muchos
+cebolla cantidad poco
+Vino color rojo

@@ -1,16 +1,40 @@
-from pathlib import Path 
- 
-fichero = Path("kb")/"ingredientes.txt" 
-entrada = Path("sbc")/"entrada.in"  
+from pathlib import Path
+from pyparsing import Word, alphas, alphanums, Regex
 
-lineas = fichero.read_text(encoding="utf8").splitlines() 
-ingredientes = [linea.lower() for linea in lineas if linea.strip()] 
+# Definimos el parser: palabra palabra palabra
+word = Word(alphas + "áéíóúÁÉÍÓÚñÑ", alphanums + "áéíóúÁÉÍÓÚñÑ")  
+parser = word("ingrediente") + word("atributo") + word("valor")
 
-lineas_entrada = entrada.read_text(encoding="utf8").splitlines() 
-ingredientes_buscar = [linea.lower() for linea in lineas_entrada if linea.strip()]  
+# Archivos
+fichero = Path("kb") / "ingredientes.txt"
+entrada = Path("sbc") / "entrada.in"
 
-for ingrediente in ingredientes_buscar:     
-    if ingrediente.lower() in ingredientes:         
-        print(f"'{ingrediente}' SÍ está en la lista.")     
-    else:         
-        print(f"'{ingrediente}' NO está en la lista.")
+lineas_kb = fichero.read_text(encoding="utf8").splitlines()
+base_conocimiento = {}
+
+for linea in lineas_kb:
+    
+    parsed = parser.parse_string(linea)
+    ingrediente = parsed.ingrediente.lower()
+    atributo = parsed.atributo.lower()
+    valor = parsed.valor.lower()
+    base_conocimiento[(ingrediente, atributo)] = valor
+    
+
+token_any = Regex(r"\S+")
+lineas_in = entrada.read_text(encoding="utf8").splitlines()
+parser_in = word("ingrediente") + word("atributo") + word("valor") + token_any("signo")
+for linea in lineas_in:
+    
+    parsed = parser_in.parse_string(linea)
+    ingrediente = parsed.ingrediente.lower()
+    atributo = parsed.atributo.lower()
+    valor = parsed.valor.lower()
+    signo = parsed.signo
+    if signo == "?":
+        if (ingrediente, atributo) in base_conocimiento:
+            print(f"{ingrediente} {atributo} -> {base_conocimiento[(ingrediente, atributo)]}")
+        else:
+            print(f"No se encuentra información para {ingrediente} {atributo}.")
+    else:
+        print(f"Entrada no es una consulta: {linea}")
