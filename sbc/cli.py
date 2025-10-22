@@ -48,7 +48,7 @@ def leer_consultas(ruta_archivo):
 def procesar_consulta(ingrediente, atributo, valor, signo, linea_original, base_conocimiento):
     if signo == "?":
         if (ingrediente, atributo) in base_conocimiento:
-            yield f"{ingrediente} {atributo} -> {base_conocimiento[(ingrediente, atributo)]}"
+            yield f"{base_conocimiento[(ingrediente, atributo)]}"
         else:
             yield f"No se encuentra información para {ingrediente} {atributo}."
     else:
