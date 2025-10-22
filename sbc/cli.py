@@ -1,12 +1,14 @@
-from pathlib import Path
+﻿from pathlib import Path
 from pyparsing import Word, alphas, alphanums, Regex
 
 
 def crear_parser_palabra():
+    """Crea un parser para palabras que incluye caracteres acentuados y la letra ñ."""
     return Word(alphas + "áéíóúÁÉÍÓÚñÑ", alphanums + "áéíóúÁÉÍÓÚñÑ")
 
 
 def leer_base_conocimiento(ruta_archivo):
+    """Lee la base de conocimiento desde un archivo y devuelve tuplas de (ingrediente, atributo, valor)."""
     word = crear_parser_palabra()
     parser = word("ingrediente") + word("atributo") + word("valor")
     
@@ -22,6 +24,7 @@ def leer_base_conocimiento(ruta_archivo):
 
 
 def construir_diccionario_conocimiento(ruta_archivo):
+    """Construye un diccionario de la base de conocimiento a partir de un archivo."""
     base_conocimiento = {}
     for ingrediente, atributo, valor in leer_base_conocimiento(ruta_archivo):
         base_conocimiento[(ingrediente, atributo)] = valor
@@ -29,6 +32,7 @@ def construir_diccionario_conocimiento(ruta_archivo):
 
 
 def leer_consultas(ruta_archivo):
+    """Lee las consultas desde un archivo y devuelve tuplas de (ingrediente, atributo, valor, signo, línea original)."""
     word = crear_parser_palabra()
     token_any = Regex(r"\S+")
     parser_in = word("ingrediente") + word("atributo") + word("valor") + token_any("signo")
@@ -46,6 +50,7 @@ def leer_consultas(ruta_archivo):
 
 
 def procesar_consulta(ingrediente, atributo, valor, signo, linea_original, base_conocimiento):
+    """Procesa una consulta y devuelve los resultados."""
     if signo == "?":
         if (ingrediente, atributo) in base_conocimiento:
             yield f"{base_conocimiento[(ingrediente, atributo)]}"
