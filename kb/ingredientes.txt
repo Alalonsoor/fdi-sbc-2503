@@ -33,3 +33,100 @@ pan color dorado
 pan sabor neutro
 pan temperatura templado
 pan precio accesible
+trigo tipo cereal
+trigo contiene gluten
+cebada tipo cereal
+cebada contiene gluten
+centeno tipo cereal
+centeno contiene gluten
+espelta tipo cereal
+espelta contiene gluten
+avena tipo cereal
+avena contiene gluten
+
+leche tipo lacteo
+leche contiene lactosa
+queso tipo lacteo
+queso contiene lactosa
+mantequilla tipo lacteo
+mantequilla contiene lactosa
+nata tipo lacteo
+nata contiene lactosa
+yogur tipo lacteo
+yogur contiene lactosa
+
+almendra tipo fruto_seco
+nuez tipo fruto_seco
+avellana tipo fruto_seco
+pistacho tipo fruto_seco
+cacahuete tipo fruto_seco
+
+gamba tipo marisco
+langostino tipo marisco
+mejillon tipo marisco
+almeja tipo marisco
+
+salmon tipo pescado
+atun tipo pescado
+bacalao tipo pescado
+merluza tipo pescado
+
+pollo tipo carne
+ternera tipo carne
+cerdo tipo carne
+bacon tipo carne
+jamon tipo carne
+
+tofu tipo legumbre
+soja tipo legumbre
+garbanzo tipo legumbre
+lenteja tipo legumbre
+alubia tipo legumbre
+
+arroz tipo cereal
+pasta tipo cereal
+harina tipo cereal
+pan tipo cereal
+
+huevo tipo proteina
+aceite tipo grasa
+aceite_oliva tipo grasa
+miel tipo edulcorante
+azucar tipo edulcorante
+sal tipo condimento
+pimienta tipo condimento
+ajo tipo condimento
+
+espinaca tipo verdura
+zanahoria tipo verdura
+pepino tipo verdura
+tomate tipo verdura
+patata tipo tuberculo
+calabaza tipo verdura
+judia_verde tipo verdura
+pimiento tipo verdura
+cebolla tipo verdura
+
+manzana tipo fruta
+platano tipo fruta
+fresa tipo fruta
+naranja tipo fruta
+piña tipo fruta
+
+pan ingrediente trigo
+pizza ingrediente queso
+ensalada ingrediente tomate
+ensalada ingrediente lechuga
+ensalada ingrediente cebolla
+batido ingrediente leche
+batido ingrediente platano
+tarta ingrediente harina
+tarta ingrediente huevo
+tarta ingrediente azucar
+tarta ingrediente mantequilla
+sopa ingrediente patata
+sopa ingrediente cebolla
+sopa ingrediente zanahoria
+pasta_bolo ingrediente pasta
+pasta_bolo ingrediente carne
+pasta_bolo ingrediente tomate
