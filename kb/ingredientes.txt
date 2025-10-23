@@ -1,116 +1,277 @@
-# HECHOS BÁSICOS - PROPIEDADES DE INGREDIENTES
+# COLORES
+tomate color rojo
+platano color amarillo
+patata color marron
+carne_roja color roja
+pollo color rosa
+pavo color rosa
+pasta color amarillo
+leche color blanco
+vino_rojo color rojo
+vino_blanco color blanco
+mantequilla color amarillo
+pescado color gris
+salmón color salmon
+jamón color rojo
+cebolla color blanco
+repollo color verde
+
+# CANTIDADES
+tomate cantidad mucho
+platano cantidad poco
+leche cantidad mucho
+cebolla cantidad mucho
+
+# GRANOS
 trigo tipo grano
 cebada tipo grano
 centeno tipo grano
+maíz tipo grano
+arroz tipo grano
+pasta tipo grano
+harina_arroz tipo grano
+harina_trigo tipo grano
+
+# LÁCTEOS
 leche tipo lacteo
 queso tipo lacteo
 mantequilla tipo lacteo
+mozzarella tipo lacteo
+crema tipo lacteo
+yogur tipo lacteo
+nata tipo lacteo
+
+# FRUTOS SECOS
 almendra tipo fruto_seco
 nuez tipo fruto_seco
-camaron tipo marisco
-tofu tipo legumbre
+avellana tipo fruto_seco
+pistacho tipo fruto_seco
+
+# CARNES
 carne_roja tipo carne
 pollo tipo carne
-pescado tipo marisco
+cerdo tipo carne
+pavo tipo carne
+jamon tipo carne
+
+# PESCADOS
+pescado tipo pescado
+salmon tipo pescado
+trucha tipo pescado
+sardina tipo pescado
+atun tipo pescado
+bacalao tipo pescado
+anchoa tipo pescado
+merluza tipo pescado
+
+# MARISCOS
+camaron tipo marisco
+gamba tipo marisco
+gambon tipo marisco
+langostino tipo marisco
+mejillon tipo marisco
+ostra tipo marisco
+almeja tipo marisco
+vieira tipo marisco
+cangrejo tipo marisco
+
+# LEGUMBRES Y PROTEÍNAS VEGETALES
+soja tipo legumbre
+tofu tipo legumbre
+seitán tipo legumbre
+
+# VERDURAS
 cebolla tipo verdura
 tomate tipo verdura
 ajo tipo verdura
 broccoli tipo verdura
 zanahoria tipo verdura
+pimiento tipo verdura
+repollo tipo verdura
+
+# FRUTAS
 manzana tipo fruta
 naranja tipo fruta
 limon tipo fruta
-chocolate tipo postre
-arroz tipo grano
-pasta tipo grano
-legumbre tipo proteina
-aceite tipo grasa
-aceite_oliva tipo grasa
-aceite_coco tipo grasa
-soja tipo legumbre
-seitán tipo legumbre
-stevia tipo edulcorante
-harina_arroz tipo grano
-harina_trigo tipo grano
-leche_vegetal tipo bebida
-semilla_chia tipo semilla
-huevo tipo proteina
-cerdo tipo carne
-pavo tipo carne
-sardina tipo pescado
-salmon tipo pescado
-trucha tipo pescado
-mejillon tipo marisco
-ostra tipo marisco
-chile tipo verdura
-cilantro tipo hierba
-jengibre tipo especia
-pimienta tipo especia
-albahaca tipo hierba
-mozzarella tipo lacteo
-crema tipo lacteo
-yogur tipo lacteo
-jamon tipo carne
 melon tipo fruta
 fresa tipo fruta
 platano tipo fruta
+aceituna tipo fruta
 
-# PROPIEDADES NUTRICIONALES
+# HIERBAS Y ESPECIAS
+cilantro tipo hierba
+albahaca tipo hierba
+jengibre tipo especia
+pimienta tipo especia
+canela tipo especia
+
+# OTROS
+chocolate tipo postre
+aceite tipo grasa
+aceite_oliva tipo grasa
+aceite_coco tipo grasa
+leche_vegetal tipo bebida
+semilla_chia tipo semilla
+huevo tipo proteina
+embutido tipo carne
+
+# CATEGORÍAS GENÉRICAS
+carne tipo carne
+verdura tipo verdura
+fruta tipo fruta
+fruto_seco tipo fruto_seco
+marisco tipo marisco
+legumbre tipo legumbre
+postre tipo postre
+
+# PROPIEDADES NUTRICIONALES - PROTEÍNA
 carne proteina alto
+pollo proteina alto
+cerdo proteina alto
+pavo proteina alto
 legumbre proteina alto
+soja proteina alto
+tofu proteina alto
+seitán proteina alto
 pescado proteina alto
+salmon proteina alto
 huevo proteina alto
+queso proteina alto
+
+# PROPIEDADES NUTRICIONALES - CARBOHIDRATOS
 pasta carbohidrato alto
 arroz carbohidrato alto
+trigo carbohidrato alto
+platano carbohidrato alto
+melon carbohidrato bajo
+
+# PROPIEDADES NUTRICIONALES - FIBRA
 verdura fibra alto
 legumbre fibra alto
 fruta fibra alto
+broccoli fibra alto
+zanahoria fibra alto
+manzana fibra alto
+fresa fibra alto
+repollo fibra alto
+
+# PROPIEDADES NUTRICIONALES - GRASAS
 aceite grasa alto
+aceite_oliva grasa alto
+aceite_coco grasa alto
 fruto_seco grasa alto
+almendra grasa alto
+nuez grasa alto
+mantequilla grasa alto
+nata grasa alto
+embutido grasa alto
+
+# PROPIEDADES NUTRICIONALES - VITAMINAS Y MINERALES
+naranja vitamina_c alto
+limon vitamina_c alto
+fresa vitamina_c alto
+zanahoria vitamina_a alto
+broccoli vitamina_a alto
+salmon omega3 alto
+pescado omega3 alto
+huevo hierro alto
+legumbre hierro alto
 
 # ALÉRGENOS BÁSICOS
 almendra alergeno frutos_secos
 nuez alergeno frutos_secos
+avellana alergeno frutos_secos
+pistacho alergeno frutos_secos
 camaron alergeno marisco
+gamba alergeno marisco
+langostino alergeno marisco
+mejillon alergeno marisco
+ostra alergeno marisco
+almeja alergeno marisco
+vieira alergeno marisco
+cangrejo alergeno marisco
+salmon alergeno pescado
+atun alergeno pescado
+bacalao alergeno pescado
+sardina alergeno pescado
+anchoa alergeno pescado
+merluza alergeno pescado
+huevo alergeno huevo
+leche alergeno lactosa
+queso alergeno lactosa
+mantequilla alergeno lactosa
+nata alergeno lactosa
+yogur alergeno lactosa
+crema alergeno lactosa
+mozzarella alergeno lactosa
 tofu alergeno soja
+soja alergeno soja
+trigo alergeno gluten
+cebada alergeno gluten
+centeno alergeno gluten
+seitán alergeno gluten
 
 # SUSTITUCIONES
 leche_vegetal sustituye leche
 tofu sustituye carne
 seitán sustituye carne
 semilla_chia sustituye huevo
-stevia sustituye azucar
 harina_arroz sustituye harina_trigo
 aceite_coco sustituye mantequilla
+aceite_vegetal sustituye aceite
+queso_vegano sustituye queso
+pollo sustituye carne_roja
+pavo sustituye carne_roja
+cerdo sustituye carne_roja
 
-# COMBINACIONES DE SABORES
-albahaca combina_bien tomate
-mozzarella combina_bien tomate
-pescado combina_bien limon
-aceite combina_bien ajo
-naranja combina_bien chocolate
-canela combina_bien manzana
-queso combina_mal pescado
-jamon combina_mal melon
-
-# CONSERVACIÓN
+# CONSERVACIÓN - REFRIGERACIÓN
 leche conservar refrigerado
 carne conservar refrigerado
+pollo conservar refrigerado
+cerdo conservar refrigerado
+pavo conservar refrigerado
+jamon conservar refrigerado
 pescado conservar refrigerado
+salmon conservar refrigerado
+atun conservar refrigerado
+marisco conservar refrigerado
+queso conservar refrigerado
+yogur conservar refrigerado
+crema conservar refrigerado
+nata conservar refrigerado
+mantequilla conservar refrigerado
+
+# CONSERVACIÓN - AMBIENTE
 arroz conservar ambiente
+pasta conservar ambiente
+harina_arroz conservar ambiente
+harina_trigo conservar ambiente
 fruta conservar ambiente
+chocolate conservar ambiente
 
 # TEXTURAS
 crema textura cremoso
+queso textura cremoso
+yogur textura cremoso
 frutos_secos textura crujiente
-huevo textura suave
-pasta textura firme
 verdura textura crujiente
+huevo textura suave
+tomate textura jugoso
+melon textura jugoso
+pescado textura firme
+carne textura firme
+pasta textura firme
+arroz textura grumoso
 
-# ARMONÍAS CULINARIAS
-tomate armonia mediterranea
-aceite_oliva armonia mediterranea
-soja armonia asiatica
-jengibre armonia asiatica
-chile armonia mexicana
-cilantro armonia mexicana
+# SABORES
+queso sabor salado
+jamon sabor salado
+aceite_oliva sabor suave
+naranja sabor dulce
+limon sabor acido
+chocolate sabor dulce
+chile sabor picante
+jengibre sabor picante
+ajo sabor fuerte
+cilantro sabor fresco
+pimiento sabor picante
