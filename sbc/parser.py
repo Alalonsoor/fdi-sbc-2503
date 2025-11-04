@@ -61,7 +61,7 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     # El ultimo elemento debe ser ? o .
     ultimo = partes[3]
     if ultimo not in ['?', '.']:
-        raise ValueError(f'La consulta debe terminar en ? (query) o . (assert)')
+        raise ValueError(f'La consulta debe terminar en ? (consulta) o . (hecho)')
 
     tipo = 'consulta' if ultimo == '?' else 'hecho'
 

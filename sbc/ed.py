@@ -1,6 +1,6 @@
 """
 Define estructuras de datos:
-    Tripleta : sujeto, predicado, valor
+    Tripleta : sujeto, predicado, objeto
     Regla: tripleta_consecuente <- tripleta_antecedente
     Sustitucion: diccionario
 """
@@ -16,25 +16,25 @@ def es_literal(term: str) -> bool:
 
 @dataclass
 class Tripleta:
-    """Una Tripleta es un objeto con 3 terminos: Sujeto, Predicado, Valor"""
+    """Una Tripleta es un objeto con 3 terminos: Sujeto, Predicado, Objeto"""
     sujeto: str
     predicado: str
-    valor: str
+    objeto: str
 
     def __iter__(self):
         """Permite desempaquetar Tripletas: s, p, v = una tripelta o iterar sobre una tripleta"""
-        return iter([self.sujeto, self.predicado, self.valor])
+        return iter([self.sujeto, self.predicado, self.objeto])
     
     def terminos(self) -> list[str]:
         """Devuelve una lista con todos los términos"""
-        return [self.sujeto, self.predicado, self.valor]
+        return [self.sujeto, self.predicado, self.objeto]
     
     def aplicar_sustitucion(self, ss: 'Sustitucion') -> 'Tripleta':
         """Dado una Sustitucion ss crea una nueva Tripleta aplicando dicha sustitucion"""
         return Tripleta(
             ss.aplicar(self.sujeto),
             ss.aplicar(self.predicado),
-            ss.aplicar(self.valor)
+            ss.aplicar(self.objeto)
         )
     
 @dataclass
