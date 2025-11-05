@@ -1,75 +1,71 @@
 ﻿from pathlib import Path
-from pyparsing import Word, alphas, alphanums, Regex
+from sbc.cargar_kb import carga_kb
+from sbc.parser import parsear_consulta
+from sbc.query import query
+from sbc.ed import Tripleta, es_variable
 
+def extraer_variables(tripleta: Tripleta) -> list[str]:
+    """Extrae todas las variables únicas de una tripleta."""
+    variables = []
+    for termino in tripleta.terminos():
+        if es_variable(termino) and termino not in variables:
+            variables.append(termino)
+    return variables
 
-def crear_parser_palabra():
-    """Crea un parser para palabras que incluye caracteres acentuados y la letra ñ."""
-    return Word(alphas + "áéíóúÁÉÍÓÚñÑ", alphanums + "áéíóúÁÉÍÓÚñÑ")
+def formatear_resultados(consulta_str: str, kb: list):
+    """Consulta la KB y produce strings formateados como resultado"""
 
+    tripleta_consulta, tipo = parsear_consulta(consulta_str)
 
-def leer_base_conocimiento(ruta_archivo):
-    """Lee la base de conocimiento desde un archivo y devuelve tuplas de (ingrediente, atributo, valor)."""
-    word = crear_parser_palabra()
-    parser = word("ingrediente") + word("atributo") + word("valor")
-    
-    fichero = Path(ruta_archivo)
-    lineas = fichero.read_text(encoding="utf8").splitlines()
-    
-    for linea in lineas:
-        parsed = parser.parse_string(linea)
-        ingrediente = parsed.ingrediente.lower()
-        atributo = parsed.atributo.lower()
-        valor = parsed.valor.lower()
-        yield (ingrediente, atributo, valor)
+    # Si es hecho, agregar a la KB, la lista
+    if tipo == 'hecho':
+        kb.append(tripleta_consulta)
+        yield f'Hecho agregado: {tripleta_consulta.sujeto} {tripleta_consulta.predicado} {tripleta_consulta.valor}'
+        return
 
+    # Si es consulta, procesar normalmente
+    resultados = list(query(tripleta_consulta, kb))
+    variables = extraer_variables(tripleta_consulta)
 
-def construir_diccionario_conocimiento(ruta_archivo):
-    """Construye un diccionario de la base de conocimiento a partir de un archivo."""
-    base_conocimiento = {}
-    for ingrediente, atributo, valor in leer_base_conocimiento(ruta_archivo):
-        base_conocimiento[(ingrediente, atributo)] = valor
-    return base_conocimiento
+    # No existen variables -> SI/NO
+    if not variables:
+        yield 'SI' if resultados else 'NO'
+        return
 
-
-def leer_consultas(ruta_archivo):
-    """Lee las consultas desde un archivo y devuelve tuplas de (ingrediente, atributo, valor, signo, línea original)."""
-    word = crear_parser_palabra()
-    token_any = Regex(r"\S+")
-    parser_in = word("ingrediente") + word("atributo") + word("valor") + token_any("signo")
-    
-    entrada = Path(ruta_archivo)
-    lineas = entrada.read_text(encoding="utf8").splitlines()
-    
-    for linea in lineas:
-        parsed = parser_in.parse_string(linea)
-        ingrediente = parsed.ingrediente.lower()
-        atributo = parsed.atributo.lower()
-        valor = parsed.valor.lower()
-        signo = parsed.signo
-        yield (ingrediente, atributo, valor, signo, linea)
-
-
-def procesar_consulta(ingrediente, atributo, valor, signo, linea_original, base_conocimiento):
-    """Procesa una consulta y devuelve los resultados."""
-    if signo == "?":
-        if (ingrediente, atributo) in base_conocimiento:
-            yield f"{base_conocimiento[(ingrediente, atributo)]}"
-        else:
-            yield f"No se encuentra información para {ingrediente} {atributo}."
+    # Una o mas variables
+    if len(variables) == 1:
+        var = variables[0]
+        for ss in resultados:
+            valor = ss.aplicar(var)
+            if tripleta_consulta.sujeto == var:
+                yield valor
+            else:
+                yield f'{tripleta_consulta.predicado} = {valor}'
     else:
-        yield f"Entrada no es una consulta: {linea_original}"
+        for ss in resultados:
+            valores = [ss.aplicar(v) for v in variables]
+            yield ' '.join(valores)
 
+if __name__ == '__main__':
+    # Cargar la base de conocimientos
+    kb_dir = Path('kb')
+    fichero_hechos = kb_dir / "ingredientes.txt"
+    fichero_reglas = kb_dir / "reglas.txt"
 
-def ejecutar_sistema():
-    # Construir base de conocimientos
-    base_conocimiento = construir_diccionario_conocimiento("kb/ingredientes.txt")
-    
-    # Procesar consultas
-    for ingrediente, atributo, valor, signo, linea in leer_consultas("sbc/entrada.in"):
-        for resultado in procesar_consulta(ingrediente, atributo, valor, signo, linea, base_conocimiento):
-            yield resultado
+    kb = carga_kb(fichero_hechos=fichero_hechos, fichero_reglas=fichero_reglas)
 
+    while True:
+        try:
+            usr_input = input('Consulta>>> ').strip()
 
-if __name__ == "__main__":
-    for mensaje in ejecutar_sistema():
-        print(mensaje)
+            if usr_input.lower() in ('exit', 'quit', 'q', 'cerrar', 'e'):
+                print('Hasta luego!!!')
+                break
+            if not usr_input:
+                continue
+
+            for res in formatear_resultados(usr_input, kb):
+                print(res)
+            print()
+        except Exception as e:
+            print(f'Error: {e}')
