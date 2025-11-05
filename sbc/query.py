@@ -55,3 +55,38 @@ def query_all(antecedentes: list[Tripleta], kb: list[Tripleta | Regla], ss_inici
         # Recursivamente satisfacer el resto de antecedentes
         for ss_resto in query_all(resto_antecedentes, kb, merged):
             yield ss_resto
+            
+def descubrir(kb: list[Tripleta | Regla]) -> list[Tripleta]:
+    """
+    Encadenamiento hacia delante: descubre nuevos hechos aplicando reglas.
+    Retorna la lista de nuevos hechos descubiertos y los agrega a la KB.
+    """
+    nuevos_hechos = []
+
+    # Obtener solo los hechos (no reglas) de la KB
+    hechos_actuales = [item for item in kb if isinstance(item, Tripleta)]
+
+    # Iterar sobre cada regla
+    for item in kb:
+        if isinstance(item, Regla):
+            regla = item
+
+            # Intentar satisfacer todos los antecedentes de la regla
+            # usando los hechos actuales
+            for ss in query_all(regla.antecedentes, kb, Sustitucion()):
+                # Si se satisfacen todos los antecedentes, aplicar sustitución al consecuente
+                nuevo_hecho = regla.consecuente.aplicar_sustitucion(ss)
+
+                # Verificar que el nuevo hecho no tenga variables
+                tiene_variables = any(es_variable(t) for t in nuevo_hecho.terminos())
+                if tiene_variables:
+                    continue
+
+                # Verificar que el nuevo hecho no exista ya en la KB
+                if nuevo_hecho not in hechos_actuales and nuevo_hecho not in nuevos_hechos:
+                    nuevos_hechos.append(nuevo_hecho)
+
+    # Agregar los nuevos hechos a la KB
+    kb.extend(nuevos_hechos)
+
+    return nuevos_hechos

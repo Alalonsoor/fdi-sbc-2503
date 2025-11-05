@@ -1,7 +1,7 @@
 ﻿from pathlib import Path
 from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
-from sbc.query import query
+from sbc.query import query, descubrir
 from sbc.ed import Tripleta, es_variable
 
 def extraer_variables(tripleta: Tripleta) -> list[str]:
@@ -62,6 +62,18 @@ if __name__ == '__main__':
                 print('Hasta luego!!!')
                 break
             if not usr_input:
+                continue
+            
+            # Comando descubrir!
+            if usr_input == 'descubrir!':
+                nuevos_hechos = descubrir(kb)
+                if nuevos_hechos:
+                    print(f'Se descubrieron {len(nuevos_hechos)} nuevos hechos:')
+                    for hecho in nuevos_hechos:
+                        print(f'  {hecho.sujeto} {hecho.predicado} {hecho.objeto}')
+                else:
+                    print('No se descubrieron nuevos hechos')
+                print()
                 continue
 
             for res in formatear_resultados(usr_input, kb):
