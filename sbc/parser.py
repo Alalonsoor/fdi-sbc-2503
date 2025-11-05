@@ -3,10 +3,10 @@ from pyparsing import Word, alphanums, Suppress, alphas, delimitedList
 from sbc.ed import Tripleta, Regla
 
 # Definir variables: cualquier string que empiece con mayuscula
-variable = Word(alphas.upper(), alphanums + '_')
+variable = Word(alphas.upper(), alphanums + '_'  + 'áéíóúñÁÉÍÓÚÑ')
 
 # Literal: empieza con minuscula
-literal = Word(alphas.lower(), alphanums + '_')
+literal = Word(alphas.lower(), alphanums + '_' + 'áéíóúñÁÉÍÓÚÑ')
 
 # Termino o es literal o variable
 termino = variable | literal
