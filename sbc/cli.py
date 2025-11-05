@@ -20,7 +20,7 @@ def formatear_resultados(consulta_str: str, kb: list):
     # Si es hecho, agregar a la KB, la lista
     if tipo == 'hecho':
         kb.append(tripleta_consulta)
-        yield f'Hecho agregado: {tripleta_consulta.sujeto} {tripleta_consulta.predicado} {tripleta_consulta.valor}'
+        yield f'Hecho agregado: {tripleta_consulta.sujeto} {tripleta_consulta.predicado} {tripleta_consulta.objeto}'
         return
 
     # Si es consulta, procesar normalmente
