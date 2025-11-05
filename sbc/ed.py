@@ -39,9 +39,9 @@ class Tripleta:
     
 @dataclass
 class Regla:
-    """Una regla esta formado por consecuente <- antecedente, ambas son tripletas"""
+    """Una regla esta formado por consecuente <- lista[antecedente], ambas son tripletas"""
     consecuente: Tripleta
-    antecedente: list[Tripleta]
+    antecedentes: list[Tripleta]
 
 @dataclass
 class Sustitucion:

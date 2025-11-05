@@ -36,7 +36,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion:
             ss.add(t1, t2)
             return ss
 
-def unify(x: Tripleta, y: Tripleta, ss = Sustitucion | None) -> list[Sustitucion]:
+def unify(x: Tripleta, y: Tripleta, ss: Sustitucion | None = None) -> list[Sustitucion]:
     """
     Unifica dos tripletas x, y. 
     Retorna una lista con una Sustitucion si  tiene éxito, lista vacía en caso contrario.
