@@ -16,6 +16,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion:
             if t2 in ss:
                 return unify_terms(t1, ss.get(t2), ss)
             ss.add(t2, t1)
+            return ss
         
         # Caso 3: variable con literañ (X, tomate)
         case (False, True):
