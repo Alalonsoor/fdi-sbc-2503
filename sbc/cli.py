@@ -12,14 +12,14 @@ def extraer_variables(tripleta: Tripleta) -> list[str]:
             variables.append(termino)
     return variables
 
-def formatear_resultados(consulta_str: str, kb: list):
+def formatear_resultados(consulta_str: str, kb: dict):
     """Consulta la KB y produce strings formateados como resultado"""
 
     tripleta_consulta, tipo = parsear_consulta(consulta_str)
 
-    # Si es hecho, agregar a la KB, la lista
+    # Si es hecho, agregar a la KB
     if tipo == 'hecho':
-        kb.append(tripleta_consulta)
+        kb['hechos'].append(tripleta_consulta)
         yield f'Hecho agregado: {tripleta_consulta.sujeto} {tripleta_consulta.predicado} {tripleta_consulta.objeto}'
         return
 

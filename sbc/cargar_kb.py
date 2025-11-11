@@ -4,7 +4,9 @@ from sbc.ed import Tripleta, Regla
 from sbc.parser import parsear_tripleta, parsear_regla
 
 def carga_kb(fichero_hechos: Path, fichero_reglas: Path) -> list[Tripleta | Regla]:
-    kb = []
+    """Carga la base de conocimiento y retorna un diccionario con hechos y reglas"""
+    hechos = []
+    reglas = []
 
     # Cargar hechos
     if fichero_hechos.exists():
@@ -12,7 +14,7 @@ def carga_kb(fichero_hechos: Path, fichero_reglas: Path) -> list[Tripleta | Regl
             linea = linea.strip()
             # Ignorar lineas que empiezan con '#'
             if linea and not linea.startswith('#'):
-                kb.append(parsear_tripleta(linea))
+                hechos.append(parsear_tripleta(linea))
 
     # Cargar reglas
     if fichero_reglas.exists():
@@ -20,6 +22,6 @@ def carga_kb(fichero_hechos: Path, fichero_reglas: Path) -> list[Tripleta | Regl
             linea = linea.strip()
             # Ignorar lineas que empiezan con '#'
             if linea and not linea.startswith('#'):
-                kb.append(parsear_regla(linea))
+                reglas.append(parsear_regla(linea))
     
-    return kb
+    return {'hechos': hechos, 'reglas': reglas}
