@@ -43,6 +43,11 @@ class Regla:
     consecuente: Tripleta
     antecedentes: list[Tripleta]
 
+    def get_consecuente(self) -> Tripleta:
+        return self.consecuente
+    def get_antecedentes(self) -> list[Tripleta]:
+        return self.antecedentes
+
 @dataclass
 class Sustitucion:
     """Una sustitución es un mapeo de variables -> valor"""
