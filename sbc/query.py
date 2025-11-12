@@ -60,7 +60,7 @@ def descubrir(kb: dict) -> list[Tripleta]:
     nuevos_hechos = []
 
     for regla in kb['reglas']:
-        for ss in query_antecedentes(regla.get_antecedente(), kb, Sustitucion()):
+        for ss in query_antecedentes(regla.get_antecedentes(), kb, Sustitucion()):
             # Si se satisfacen todos los antecedentes (recursivamente), aplicar sustitución al consecuente
             nuevo_hecho = regla.get_consecuente().aplicar_sustitucion(ss)
 
