@@ -1,7 +1,7 @@
 ﻿from pathlib import Path
 from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
-from sbc.query import query, descubrir, razonar
+from sbc.query import query, descubrir
 from sbc.ed import Tripleta, es_variable
 
 def extraer_variables(tripleta: Tripleta) -> list[str]:

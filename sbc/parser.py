@@ -55,7 +55,7 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     # Separar el input en partes
     partes = input.strip().split()
     
-    if partes.lower() == 'descubrir!':
+    if partes[0].lower() == 'descubrir!':
         return None, 'descubrir'
 
     if len(partes) != 4:
