@@ -1,7 +1,7 @@
 ﻿from pathlib import Path
 from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
-from sbc.query import query, descubrir
+from sbc.query import query, descubrir, razonar
 from sbc.ed import Tripleta, es_variable
 
 def extraer_variables(tripleta: Tripleta) -> list[str]:
@@ -15,36 +15,48 @@ def extraer_variables(tripleta: Tripleta) -> list[str]:
 def formatear_resultados(consulta_str: str, kb: dict):
     """Consulta la KB y produce strings formateados como resultado"""
 
-    tripleta_consulta, tipo = parsear_consulta(consulta_str)
+    tripleta_usr, tipo = parsear_consulta(consulta_str)
 
     # Si es hecho, agregar a la KB
     if tipo == 'hecho':
-        kb['hechos'].append(tripleta_consulta)
-        yield f'Hecho agregado: {tripleta_consulta.sujeto} {tripleta_consulta.predicado} {tripleta_consulta.objeto}'
-        return
+        if tripleta_usr not in kb['hechos']:
+            kb['hechos'].append(tripleta_usr)
+            yield f'Hecho agregado: {tripleta_usr.sujeto} {tripleta_usr.predicado} {tripleta_usr.objeto}'
+        
+        yield f'Ya existe el hecho: {tripleta_usr.sujeto} {tripleta_usr.predicado} {tripleta_usr.objeto}'
 
-    # Si es consulta, procesar normalmente
-    resultados = list(query(tripleta_consulta, kb))
-    variables = extraer_variables(tripleta_consulta)
+    elif tipo == 'consulta':
+        # Si es consulta, procesar normalmente
+        resultados = list(query(tripleta_usr, kb))
+        variables = extraer_variables(tripleta_usr)
 
-    # No existen variables -> SI/NO
-    if not variables:
-        yield 'SI' if resultados else 'NO'
-        return
-
-    # Una o mas variables
-    if len(variables) == 1:
-        var = variables[0]
-        for ss in resultados:
-            valor = ss.aplicar(var)
-            if tripleta_consulta.sujeto == var:
-                yield valor
+        # No existen variables -> SI/NO
+        if not variables:
+            yield 'SI' if resultados else 'NO'
+        else:
+            # Una o mas variables
+            if len(variables) == 1: 
+                var = variables[0]
+                for ss in resultados:
+                    valor = ss.aplicar(var)
+                    if tripleta_usr.sujeto == var:
+                        yield valor
+                    else:
+                        yield f'{tripleta_usr.predicado} = {valor}'
             else:
-                yield f'{tripleta_consulta.predicado} = {valor}'
-    else:
-        for ss in resultados:
-            valores = [ss.aplicar(v) for v in variables]
-            yield ' '.join(valores)
+                for ss in resultados:
+                    valores = [ss.aplicar(v) for v in variables]
+                    yield ' '.join(valores)
+    elif tipo == 'descubrir':
+        nuevos_hechos = descubrir(kb)
+        if nuevos_hechos:
+            yield(f'Se descubrieron {len(nuevos_hechos)} nuevos hechos:')
+            for hecho in nuevos_hechos:
+                yield(f'  {hecho.sujeto} {hecho.predicado} {hecho.objeto}')
+        else:
+            yield('No se descubrieron nuevos hechos')
+                
+
 
 if __name__ == '__main__':
     # Cargar la base de conocimientos
@@ -53,31 +65,18 @@ if __name__ == '__main__':
     fichero_reglas = kb_dir / "reglas.txt"
 
     kb = carga_kb(fichero_hechos=fichero_hechos, fichero_reglas=fichero_reglas)
-
-    while True:
+    continuando = True
+    while continuando:
         try:
             usr_input = input('Consulta>>> ').strip()
 
             if usr_input.lower() in ('exit', 'quit', 'q', 'cerrar', 'e'):
                 print('Hasta luego!!!')
-                break
-            if not usr_input:
-                continue
-            
-            # Comando descubrir!
-            if usr_input == 'descubrir!':
-                nuevos_hechos = descubrir(kb)
-                if nuevos_hechos:
-                    print(f'Se descubrieron {len(nuevos_hechos)} nuevos hechos:')
-                    for hecho in nuevos_hechos:
-                        print(f'  {hecho.sujeto} {hecho.predicado} {hecho.objeto}')
-                else:
-                    print('No se descubrieron nuevos hechos')
+                continuando = False
+            else:
+                for res in formatear_resultados(usr_input, kb):
+                    print(res)
                 print()
-                continue
-
-            for res in formatear_resultados(usr_input, kb):
-                print(res)
-            print()
         except Exception as e:
             print(f'Error: {e}')
+            print()

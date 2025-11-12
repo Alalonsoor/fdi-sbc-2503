@@ -54,6 +54,9 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
 
     # Separar el input en partes
     partes = input.strip().split()
+    
+    if partes.lower() == 'descubrir!':
+        return None, 'descubrir'
 
     if len(partes) != 4:
         raise ValueError(f'La consulta tiene que ser 3 terminos + (? o .)')
