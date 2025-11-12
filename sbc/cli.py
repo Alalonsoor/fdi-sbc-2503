@@ -21,9 +21,10 @@ def formatear_resultados(consulta_str: str, kb: dict):
     if tipo == 'hecho':
         if tripleta_usr not in kb['hechos']:
             kb['hechos'].append(tripleta_usr)
-            yield f'Hecho agregado: {tripleta_usr.sujeto} {tripleta_usr.predicado} {tripleta_usr.objeto}'
+            sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
+            yield f'Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}'
         
-        yield f'Ya existe el hecho: {tripleta_usr.sujeto} {tripleta_usr.predicado} {tripleta_usr.objeto}'
+        yield f'Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}'
 
     elif tipo == 'consulta':
         # Si es consulta, procesar normalmente
@@ -39,10 +40,11 @@ def formatear_resultados(consulta_str: str, kb: dict):
                 var = variables[0]
                 for ss in resultados:
                     valor = ss.aplicar(var)
-                    if tripleta_usr.sujeto == var:
+                    sujeto_usr, predicado_usr, _ = tripleta_usr.terminos()
+                    if sujeto_usr == var:
                         yield valor
                     else:
-                        yield f'{tripleta_usr.predicado} = {valor}'
+                        yield f'{predicado_usr} = {valor}'
             else:
                 for ss in resultados:
                     valores = [ss.aplicar(v) for v in variables]
@@ -52,7 +54,8 @@ def formatear_resultados(consulta_str: str, kb: dict):
         if nuevos_hechos:
             yield(f'Se descubrieron {len(nuevos_hechos)} nuevos hechos:')
             for hecho in nuevos_hechos:
-                yield(f'  {hecho.sujeto} {hecho.predicado} {hecho.objeto}')
+                hecho_sujeto, hecho_predicado, hecho_objeto = hecho.terminos()
+                yield(f'  {hecho_sujeto} {hecho_predicado} {hecho_objeto}')
         else:
             yield('No se descubrieron nuevos hechos')
                 
