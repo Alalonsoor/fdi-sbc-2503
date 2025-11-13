@@ -50,14 +50,32 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     Retorna (Tripleta, tipo) donde tipo es:
     - 'consulta': consulta (termina en ?)
     - 'hecho': agregar hecho (termina en .)
+    - 'descubrir' : 'descubrir nuevos hechos (descubrir!)'
+    - 'razonar': consulta con razonamiento (empieza por 'razona si ... ?')
     """
+    input_usr = input.strip()
+    # Separar el input en partes (lista)
+    partes = input_usr.split()
 
-    # Separar el input en partes
-    partes = input.strip().split()
-    
+    # Consultas de 'descubrir!'
     if partes[0].lower() == 'descubrir!':
         return None, 'descubrir'
 
+    # Consultas de 'razona si'
+    if input_usr.startswith('razona si'):
+        # Quitando ['razona', 'si'] el resto de la lista tiene que ser de tamaño 4. 
+        # [Sujeto, Predicado, Objeto, ?] 
+        if len(partes[2:]) != 4:
+            raise ValueError(f'La consulta tiene que ser 3 terminos + (? o .)')
+        if partes[5] != '?':
+            raise ValueError(f'La consulta de razonamiento debe terminar en ?')
+        
+        tripleta_str = ' '.join(partes[2:5])
+        tripleta = parsear_tripleta(tripleta_str)
+
+        return tripleta, 'razonar'
+
+    # Consultas normales: s p o ?
     if len(partes) != 4:
         raise ValueError(f'La consulta tiene que ser 3 terminos + (? o .)')
 
