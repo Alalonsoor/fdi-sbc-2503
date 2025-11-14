@@ -45,8 +45,8 @@ def query_antecedentes(antecedentes: list[Tripleta], kb: dict, ss_inicial: Susti
     # Consultar el primer antecedente
     for ss_primer in query(primer_antecedente_ss, kb):
         # Combinar sustituciones
-        merged = Sustitucion(ss_inicial.mappings.copy())
-        merged.mappings.update(ss_primer.mappings)
+        merged = Sustitucion(ss_inicial.get_mappings().copy())
+        merged.get_mappings().update(ss_primer.get_mappings())
 
         # Recursivamente satisfacer el resto de antecedentes
         for ss_resto in query_antecedentes(resto_antecedentes, kb, merged):
@@ -78,33 +78,8 @@ def razonar(tripleta: Tripleta, kb: dict) -> bool:
     Realiza encadenamiento hacia atrás.
     Retorna True si la tripleta puede demostrarse, False en caso contrario.
     """
-    # Buscar en hechos
-    for hecho in kb['hechos']:
-        match unify(tripleta, hecho):
-            case [ss]:
-                return True
-    
-    # Buscar en reglas
-    for regla in kb['reglas']:
-        match unify(tripleta, regla.get_consecuente()):
-            case [ss]:
-                # Verificar todos los antecedentes
-                if all(satisface_antecedente(ant.aplicar_sustitucion(ss), kb, ss) for ant in regla.get_antecedentes()):
-                    return True
+    # Si hay algún caso que lo satisface, retorna True
+    for _ in query(tripleta, kb):
+        return True
     
     return False
-            
-            
-def satisface_antecedente(antecedente: Tripleta, kb: dict, ss: Sustitucion) -> bool:
-    """
-    Verifica si un antecedente se satisface (es un hecho o se puede razonar)
-    """
-    # Verificar si es un hecho
-    for hecho in kb['hechos']:
-        match unify(antecedente, hecho):
-            case [ss_nuevo]:
-                ss.mappings.update(ss_nuevo.mappings)
-                return True
-    
-    # Intentar razonar recursivamente
-    return razonar(antecedente, kb)
