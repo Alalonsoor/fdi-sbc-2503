@@ -1,7 +1,7 @@
 ﻿from pathlib import Path
 from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
-from sbc.query import query, descubrir
+from sbc.query import query, descubrir, razonar
 from sbc.ed import Tripleta, es_variable
 
 def extraer_variables(tripleta: Tripleta) -> list[str]:
@@ -25,7 +25,9 @@ def formatear_resultados(consulta_str: str, kb: dict):
             yield f'Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}'
         
         yield f'Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}'
-
+    elif tipo == 'razonar':
+        resultado = razonar(tripleta_usr, kb)
+        yield 'SI' if resultado else 'NO'
     elif tipo == 'consulta':
         # Si es consulta, procesar normalmente
         resultados = list(query(tripleta_usr, kb))

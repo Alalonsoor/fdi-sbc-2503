@@ -72,3 +72,39 @@ def descubrir(kb: dict) -> list[Tripleta]:
     kb['hechos'].extend(nuevos_hechos)
 
     return nuevos_hechos
+
+def razonar(tripleta: Tripleta, kb: dict) -> bool:
+    """
+    Realiza encadenamiento hacia atrás.
+    Retorna True si la tripleta puede demostrarse, False en caso contrario.
+    """
+    # Buscar en hechos
+    for hecho in kb['hechos']:
+        match unify(tripleta, hecho):
+            case [ss]:
+                return True
+    
+    # Buscar en reglas
+    for regla in kb['reglas']:
+        match unify(tripleta, regla.get_consecuente()):
+            case [ss]:
+                # Verificar todos los antecedentes
+                if all(satisface_antecedente(ant.aplicar_sustitucion(ss), kb, ss) for ant in regla.get_antecedentes()):
+                    return True
+    
+    return False
+            
+            
+def satisface_antecedente(antecedente: Tripleta, kb: dict, ss: Sustitucion) -> bool:
+    """
+    Verifica si un antecedente se satisface (es un hecho o se puede razonar)
+    """
+    # Verificar si es un hecho
+    for hecho in kb['hechos']:
+        match unify(antecedente, hecho):
+            case [ss_nuevo]:
+                ss.mappings.update(ss_nuevo.mappings)
+                return True
+    
+    # Intentar razonar recursivamente
+    return razonar(antecedente, kb)
