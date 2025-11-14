@@ -54,6 +54,12 @@ class Sustitucion:
     # field(default_factory=dict) -> cada vez que se crea una instancia se crea un nuevo diccionario vacío.
     mappings : dict[str,str] = field(default_factory=dict)
 
+    def get_mappings(self) -> dict[str,str]:
+        """
+        Devuelve en mapeo de las sustituciones
+        """
+        return self.mappings
+    
     def get(self, var: str) -> str | None:
         """Devuelve el valor de una variable var"""
         return self.mappings.get(var)
