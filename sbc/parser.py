@@ -56,6 +56,8 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     input_usr = input.strip()
     # Separar el input en partes (lista)
     partes = input_usr.split()
+    if not partes:
+        raise ValueError("La consulta no puede estar vacía")
 
     # Consultas de 'descubrir!'
     if partes[0].lower() == 'descubrir!':
