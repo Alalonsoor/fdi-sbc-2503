@@ -30,6 +30,8 @@ arroz tipo grano
 pasta tipo grano
 harina_arroz tipo grano
 harina_trigo tipo grano
+quinoa tipo grano
+avena tipo grano
 
 # LÁCTEOS
 leche tipo lacteo
@@ -52,6 +54,7 @@ pollo tipo carne
 cerdo tipo carne
 pavo tipo carne
 jamon tipo carne
+higado tipo carne
 
 # PESCADOS
 pescado tipo pescado
@@ -78,6 +81,8 @@ cangrejo tipo marisco
 soja tipo legumbre
 tofu tipo legumbre
 seitán tipo legumbre
+lenteja tipo legumbre
+garbanzo tipo legumbre
 
 # VERDURAS
 cebolla tipo verdura
@@ -88,6 +93,8 @@ zanahoria tipo verdura
 pimiento tipo verdura
 repollo tipo verdura
 lechuga tipo verdura
+espinaca tipo verdura
+champinon tipo verdura
 
 # FRUTAS
 manzana tipo fruta
@@ -97,6 +104,12 @@ melon tipo fruta
 fresa tipo fruta
 platano tipo fruta
 aceituna tipo fruta
+aguacate tipo fruta
+piña tipo fruta
+uva tipo fruta
+
+# SEMILLAS
+semilla_chia tipo semilla
 
 # HIERBAS Y ESPECIAS
 cilantro tipo hierba
@@ -104,6 +117,18 @@ albahaca tipo hierba
 jengibre tipo especia
 pimienta tipo especia
 canela tipo especia
+
+# CONDIMENTOS
+salsa_picante tipo condimento
+ketchup tipo condimento
+miel_mostaza tipo condimento
+sal tipo condimento
+azucar tipo condimento
+mostaza tipo condimento
+mayonesa tipo condimento
+vinagre tipo condimento
+soja_salsa tipo condimento
+miel tipo endulzante
 
 # OTROS
 chocolate tipo postre
@@ -139,6 +164,9 @@ pescado proteina alto
 salmon proteina alto
 huevo proteina alto
 queso proteina alto
+quinoa proteina alto
+lenteja proteina alto
+garbanzo proteina alto
 
 # PROPIEDADES NUTRICIONALES - CARBOHIDRATOS
 pasta carbohidrato alto
@@ -146,6 +174,7 @@ arroz carbohidrato alto
 trigo carbohidrato alto
 platano carbohidrato alto
 melon carbohidrato bajo
+avena carbohidrato alto
 
 # PROPIEDADES NUTRICIONALES - FIBRA
 verdura fibra alto
@@ -156,6 +185,10 @@ zanahoria fibra alto
 manzana fibra alto
 fresa fibra alto
 repollo fibra alto
+avena fibra alto
+quinoa fibra alto
+lenteja fibra alto
+garbanzo fibra alto
 
 # PROPIEDADES NUTRICIONALES - GRASAS
 aceite grasa alto
@@ -167,17 +200,31 @@ nuez grasa alto
 mantequilla grasa alto
 nata grasa alto
 embutido grasa alto
+aguacate grasa alto
 
 # PROPIEDADES NUTRICIONALES - VITAMINAS Y MINERALES
 naranja vitamina_c alto
 limon vitamina_c alto
 fresa vitamina_c alto
+piña vitamina_c alto
 zanahoria vitamina_a alto
 broccoli vitamina_a alto
+espinaca vitamina_a alto
 salmon omega3 alto
 pescado omega3 alto
 huevo hierro alto
 legumbre hierro alto
+sardina omega3 alto
+
+# ALIMENTOS RICOS EN HIERRO
+espinaca hierro alto
+lenteja hierro alto
+garbanzo hierro alto
+carne_roja hierro alto
+higado hierro alto
+sardina hierro alto
+semilla_chia hierro alto
+
 
 # SUSTITUCIONES
 leche_vegetal sustituye leche
@@ -221,15 +268,18 @@ chocolate conservar ambiente
 crema textura cremoso
 queso textura cremoso
 yogur textura cremoso
+aguacate textura cremoso
 fruto_seco textura crujiente
 verdura textura crujiente
 huevo textura suave
+tofu textura suave
 tomate textura jugoso
 melon textura jugoso
 pescado textura firme
 carne textura firme
 pasta textura firme
 arroz textura grumoso
+champinon textura carnoso
 
 # SABORES
 queso sabor salado
@@ -247,6 +297,24 @@ tomate sabor acido
 fresa sabor dulce
 manzana sabor dulce
 melon sabor dulce
+salsa_picante sabor picante
+ketchup sabor dulce
+miel_mostaza sabor dulce
+sal sabor salado
+azucar sabor dulce
+mostaza sabor picante
+mayonesa sabor cremoso
+vinagre sabor acido
+soja_salsa sabor salado
+miel sabor dulce
+piña sabor dulce
+uva sabor dulce
+
+salsa_picante sabor picante
+ketchup sabor dulce
+miel_mostaza sabor dulce
+sal sabor salado
+azucar sabor dulce
 
 # RECETAS
 pasta_boloñesa tipo plato
@@ -346,3 +414,127 @@ pizza ingrediente queso
 pizza ingrediente mozzarella
 pizza ingrediente tomate
 pizza ingrediente aceite_oliva
+
+ensalada_espinacas tipo plato
+ensalada_espinacas ingrediente espinaca
+ensalada_espinacas ingrediente tomate
+ensalada_espinacas ingrediente queso
+ensalada_espinacas ingrediente vinagre
+
+lentejas_estofadas tipo plato
+lentejas_estofadas ingrediente lenteja
+lentejas_estofadas ingrediente zanahoria
+lentejas_estofadas ingrediente cebolla
+lentejas_estofadas ingrediente tomate
+
+hummus tipo plato
+hummus ingrediente garbanzo
+hummus ingrediente ajo
+hummus ingrediente aceite_oliva
+hummus ingrediente limon
+
+ensalada_quinoa tipo plato
+ensalada_quinoa ingrediente quinoa
+ensalada_quinoa ingrediente aguacate
+ensalada_quinoa ingrediente tomate
+ensalada_quinoa ingrediente limon
+
+tostada_aguacate tipo plato
+tostada_aguacate ingrediente aguacate
+tostada_aguacate ingrediente pan
+tostada_aguacate ingrediente tomate
+tostada_aguacate ingrediente sal
+
+piña_asada tipo plato
+piña_asada ingrediente piña
+piña_asada ingrediente miel
+piña_asada ingrediente canela
+
+ensalada_frutas_tropical tipo plato
+ensalada_frutas_tropical ingrediente piña
+ensalada_frutas_tropical ingrediente uva
+ensalada_frutas_tropical ingrediente melon
+ensalada_frutas_tropical ingrediente naranja
+
+sardinas_plancha tipo plato
+sardinas_plancha ingrediente sardina
+sardinas_plancha ingrediente limon
+sardinas_plancha ingrediente aceite_oliva
+sardinas_plancha ingrediente sal
+
+higado_cebolla tipo plato
+higado_cebolla ingrediente higado
+higado_cebolla ingrediente cebolla
+higado_cebolla ingrediente aceite_oliva
+
+champinones_salteados tipo plato
+champinones_salteados ingrediente champinon
+champinones_salteados ingrediente ajo
+champinones_salteados ingrediente perejil
+champinones_salteados ingrediente aceite_oliva
+
+porridge_avena tipo plato
+porridge_avena ingrediente avena
+porridge_avena ingrediente leche
+porridge_avena ingrediente miel
+porridge_avena ingrediente canela
+
+pudding_chia tipo plato
+pudding_chia ingrediente semilla_chia
+pudding_chia ingrediente leche_vegetal
+pudding_chia ingrediente miel
+pudding_chia ingrediente fresa
+
+brocheta_pollo_piña tipo plato
+brocheta_pollo_piña ingrediente pollo
+brocheta_pollo_piña ingrediente piña
+brocheta_pollo_piña ingrediente pimiento
+brocheta_pollo_piña ingrediente cebolla
+
+wrap_vegano tipo plato
+wrap_vegano ingrediente tofu
+wrap_vegano ingrediente aguacate
+wrap_vegano ingrediente lechuga
+wrap_vegano ingrediente tomate
+
+curry_garbanzos tipo plato
+curry_garbanzos ingrediente garbanzo
+curry_garbanzos ingrediente leche_vegetal
+curry_garbanzos ingrediente jengibre
+curry_garbanzos ingrediente ajo
+
+sopa_espinacas tipo plato
+sopa_espinacas ingrediente espinaca
+sopa_espinacas ingrediente patata
+sopa_espinacas ingrediente cebolla
+sopa_espinacas ingrediente crema
+
+batido_verde tipo plato
+batido_verde ingrediente espinaca
+batido_verde ingrediente platano
+batido_verde ingrediente piña
+batido_verde ingrediente leche_vegetal
+
+tarta_zanahoria tipo plato
+tarta_zanahoria ingrediente zanahoria
+tarta_zanahoria ingrediente harina_trigo
+tarta_zanahoria ingrediente huevo
+tarta_zanahoria ingrediente azucar
+
+# MEZCLAS DE SALSAS
+salsa_agridulce tipo salsa
+salsa_agridulce ingrediente salsa_picante
+salsa_agridulce ingrediente ketchup
+salsa_agridulce ingrediente miel
+salsa_agridulce ingrediente soja_salsa
+
+vinagreta_miel_mostaza tipo salsa
+vinagreta_miel_mostaza ingrediente vinagre
+vinagreta_miel_mostaza ingrediente miel_mostaza
+vinagreta_miel_mostaza ingrediente aceite_oliva
+vinagreta_miel_mostaza ingrediente sal
+
+salsa_mayonesa_ajo tipo salsa
+salsa_mayonesa_ajo ingrediente mayonesa
+salsa_mayonesa_ajo ingrediente ajo
+salsa_mayonesa_ajo ingrediente limon

@@ -53,6 +53,15 @@ Plato rico_en fibra <- Plato ingrediente manzana
 Plato rico_en fibra <- Plato ingrediente fresa
 Plato rico_en fibra <- Plato ingrediente repollo
 
+# PROPIEDADES NUTRICIONALES - RICO EN HIERRO
+Plato rico_en hierro <- Plato ingrediente espinaca
+Plato rico_en hierro  <- Plato ingrediente lenteja
+Plato rico_en hierro <- Plato ingrediente garbanzo
+Plato rico_en hierro <- Plato ingrediente higado
+Plato rico_en hierro <- Plato ingrediente sardina
+Plato rico_en hierro <- Plato ingrediente semilla_chia
+Plato rico_en hierro <- Plato ingrediente carne_roja
+
 # ADVERTENCIAS NUTRICIONALES - EXCESO DE GRASAS SATURADAS
 Plato exceso_en grasas_saturadas <- Plato ingrediente mantequilla
 Plato exceso_en grasas_saturadas <- Plato ingrediente nata
@@ -129,12 +138,32 @@ Plato omega3 alto <- Plato ingrediente salmon
 Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente tipo pescado [0.7]
 
 
-Plato es completo <- Plato rico_en proteina, Plato rico_en fibra
+Plato es completo <- Plato rico_en proteina, Plato rico_en fibra, Plato rico_en carbohidratos,
 Plato es mediterraneo <- Plato ingrediente aceite_oliva, Plato rico_en fibra
 Plato es ensalada <- Plato rico_en fibra, Plato ingrediente lechuga
 Plato es de_mar <- Plato contiene pescado, Plato contiene marisco
+Plato es energético <- Plato rico_en proteina,  Plato rico_en grasas
 
 Plato es balanceado <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en fibra
 Plato es energetico <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en grasas
 Plato es nutritivo <- Plato rico_en proteina, Plato rico_en fibra, Plato conservar frio
 Plato es cardio_saludable <- Plato contiene pescado, Plato rico_en fibra, Plato omega3 alto
+
+# ESTILOS CULINARIOS
+Plato estilo mediterraneo <- Plato ingrediente aceite_oliva, Plato ingrediente tomate, Plato ingrediente verdura
+Plato estilo asiatico <- Plato ingrediente jengibre, Plato ingrediente soja_salsa, Plato ingrediente arroz
+Plato estilo mexicano <- Plato ingrediente chile, Plato ingrediente maiz, Plato ingrediente aguacate
+
+# PLATOS TEXTURAS
+Plato textura cremosa <- Plato ingrediente aguacate
+Plato textura cremosa <- Plato ingrediente crema
+Plato textura cremosa <- Plato ingrediente mayonesa
+
+# SABORES
+Plato sabor picante <- Plato ingrediente salsa_picante
+Plato sabor picante <- Plato ingrediente chile
+Plato sabor picante <- Plato ingrediente jengibre
+
+Plato sabor dulce <- Plato ingrediente miel
+Plato sabor dulce <- Plato ingrediente azucar
+Plato sabor dulce <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
