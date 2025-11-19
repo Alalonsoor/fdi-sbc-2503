@@ -23,11 +23,38 @@ def test_parsear_regla_basica():
     r = parsear_regla("tomate tipo verdura <- tomate color rojo")
     assert isinstance(r, Regla)
     # consecuente es una Tripleta
-    assert isinstance(r.consecuente, Tripleta)
-    assert r.consecuente.terminos() == ["tomate", "tipo", "verdura"]
+    assert isinstance(r.get_consecuente(), Tripleta)
+    assert r.get_consecuente().terminos() == ["tomate", "tipo", "verdura"]
     # antecedentes es lista de Tripleta
-    assert len(r.antecedentes) == 1
+    assert len(r.get_antecedentes()) == 1
     assert r.antecedentes[0].terminos() == ["tomate", "color", "rojo"]
+    
+def test_parsear_tripleta_basico_con_confianza():
+    """
+    Test parsear tripleta con confianza
+    """
+    t = parsear_tripleta("tomate tipo verdura [0.8]")
+    assert isinstance(t, Tripleta)
+    assert t.terminos() == ["tomate", "tipo", "verdura"]
+    assert t.confianza == 0.8
+
+
+def test_parsear_regla_basica_con_confianza():
+    """
+    Test parsear regla con confianza
+    """
+    r = parsear_regla("tomate tipo verdura [0.95] <- tomate color rojo [0.8]")
+    assert isinstance(r, Regla)
+    # consecuente es una Tripleta
+    assert isinstance(r.get_consecuente(), Tripleta)
+    assert r.get_consecuente().terminos() == ["tomate", "tipo", "verdura"]
+    assert r.get_consecuente().confianza == 0.95
+    # antecedentes es lista de Tripleta
+    assert len(r.get_antecedentes()) == 1
+    assert r.antecedentes[0].terminos() == ["tomate", "color", "rojo"]
+    assert r.get_antecedentes()[0].confianza == 0.8
+    
+    assert r.confianza == 1.0
 
 
 # ============================
