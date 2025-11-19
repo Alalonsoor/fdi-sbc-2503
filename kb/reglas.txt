@@ -36,7 +36,7 @@ Plato contiene pescado <- Plato ingrediente sardina
 Plato contiene pescado <- Plato ingrediente anchoa
 Plato contiene pescado <- Plato ingrediente merluza
 Plato contiene pescado <- Plato ingrediente pescado
-Plato contiene pescado <- Plato ingrediente trucha
+Plato contiene pescado <- Plato ingrediente trucha  
 # ALÉRGENO: SOJA
 Plato contiene soja <- Plato ingrediente soja
 Plato contiene soja <- Plato ingrediente tofu
@@ -78,24 +78,26 @@ Plato grasa alta <- Plato ingrediente queso
 Plato conservar frio <- Plato ingrediente pescado
 Plato conservar frio <- Plato ingrediente marisco
 Plato conservar frio <- Plato ingrediente carne
-Plato conservar frio <- Plato ingrediente pollo
-Plato conservar frio <- Plato ingrediente cerdo
-Plato conservar frio <- Plato ingrediente pavo
-Plato conservar frio <- Plato ingrediente nata
-Plato conservar frio <- Plato ingrediente leche
-Plato conservar frio <- Plato ingrediente yogur
-Plato conservar frio <- Plato ingrediente queso
+Plato conservar frio <- Plato ingrediente lacteo
 # INDICACIONES DE CONSERVACIÓN - SECO/AMBIENTE
-Plato conservar seco <- Plato ingrediente arroz
-Plato conservar seco <- Plato ingrediente pasta
-Plato conservar seco <- Plato ingrediente harina_arroz
-Plato conservar seco <- Plato ingrediente harina_trigo
-Plato conservar seco <- Plato ingrediente chocolate
-Plato conservar seco <- Plato ingrediente aceite
-# DIETAS - MEDITERRÁNEA
-Plato apto mediterranea <- Plato ingrediente pescado
-Plato apto mediterranea <- Plato ingrediente aceite_oliva
-Plato apto mediterranea <- Plato ingrediente verdura
-Plato apto mediterranea <- Plato ingrediente fruta
-Plato apto mediterranea <- Plato ingrediente queso
-Plato apto mediterranea <- Plato ingrediente jamon
+Alimento conservar seco <- Alimento ingrediente arroz
+Alimento conservar seco <- Alimento ingrediente pasta
+Alimento conservar seco <- Alimento ingrediente harina_arroz
+Alimento conservar seco <- Alimento ingrediente harina_trigo
+Alimento conservar seco <- Alimento ingrediente chocolate
+Alimento conservar seco <- Alimento ingrediente aceite
+# MARIDAJES
+Plato marida vino_blanco <- Plato ingrediente pescado
+Plato marida vino_blanco <- Plato ingrediente marisco
+Plato marida vino_tinto <- Plato ingrediente carne
+# Combinaciones
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor acido
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo carne, Ingrediente2 tipo verdura
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo pescado, Ingrediente2 tipo verdura
+# ALERGENOS
+X alergeno pescado <- X ingrediente Ingrediente, Ingrediente tipo pescado
+X alergeno pescado <- X tipo Ingrediente, Ingrediente tipo pescado
+X alergeno lactosa <- X tipo lactosa
+X alergeno gluten <- X ingrediente Ingrediente, Ingrediente tipo grano
+X alergeno frutos_secos <- X tipo frutos_secos

@@ -10,8 +10,6 @@ leche color blanco
 vino_rojo color rojo
 vino_blanco color blanco
 mantequilla color amarillo
-pescado color gris
-salmón color salmon
 jamón color rojo
 cebolla color blanco
 repollo color verde
@@ -23,6 +21,7 @@ leche cantidad mucho
 cebolla cantidad mucho
 
 # GRANOS
+pan tipo grano
 trigo tipo grano
 cebada tipo grano
 centeno tipo grano
@@ -177,40 +176,6 @@ pescado omega3 alto
 huevo hierro alto
 legumbre hierro alto
 
-# ALÉRGENOS BÁSICOS
-almendra alergeno frutos_secos
-nuez alergeno frutos_secos
-avellana alergeno frutos_secos
-pistacho alergeno frutos_secos
-camaron alergeno marisco
-gamba alergeno marisco
-langostino alergeno marisco
-mejillon alergeno marisco
-ostra alergeno marisco
-almeja alergeno marisco
-vieira alergeno marisco
-cangrejo alergeno marisco
-salmon alergeno pescado
-atun alergeno pescado
-bacalao alergeno pescado
-sardina alergeno pescado
-anchoa alergeno pescado
-merluza alergeno pescado
-huevo alergeno huevo
-leche alergeno lactosa
-queso alergeno lactosa
-mantequilla alergeno lactosa
-nata alergeno lactosa
-yogur alergeno lactosa
-crema alergeno lactosa
-mozzarella alergeno lactosa
-tofu alergeno soja
-soja alergeno soja
-trigo alergeno gluten
-cebada alergeno gluten
-centeno alergeno gluten
-seitán alergeno gluten
-
 # SUSTITUCIONES
 leche_vegetal sustituye leche
 tofu sustituye carne
@@ -275,3 +240,29 @@ jengibre sabor picante
 ajo sabor fuerte
 cilantro sabor fresco
 pimiento sabor picante
+
+# RECETAS
+pasta_boloñesa ingrediente carne
+pasta_boloñesa ingrediente pasta
+pasta_boloñesa ingrediente tomate
+pasta_boloñesa ingrediente cebolla
+pasta_boloñesa ingrediente zanahoria
+pasta_boloñesa ingrediente vino_tinto
+pasta_boloñesa ingrediente aceite_oliva
+
+huevo_frito ingrediente huevo
+huevo_frito ingrediente aceite_oliva
+huevo_frito ingrediente sal
+
+tortilla ingrediente huevo
+tortilla ingrediente patata
+tortilla ingrediente aceite_oliva
+tortilla ingrediente cebolla
+
+hamburguesa ingrediente carne
+hamburguesa ingrediente lechuga
+hamburguesa ingrediente pan 
+hamburguesa ingrediente tomate
+hamburguesa ingrediente cebolla
+hamburguesa ingrediente salsa
+hamburguesa ingrediente queso
