@@ -8,12 +8,18 @@ from sbc.ed import Tripleta, Regla
 # ============================
 
 def test_parsear_tripleta_basico():
+    """
+    Test parsear tripleta sin confianza
+    """
     t = parsear_tripleta("tomate tipo verdura")
     assert isinstance(t, Tripleta)
     assert t.terminos() == ["tomate", "tipo", "verdura"]
 
 
 def test_parsear_regla_basica():
+    """
+    Test parsear regla sin confianza
+    """
     r = parsear_regla("tomate tipo verdura <- tomate color rojo")
     assert isinstance(r, Regla)
     # consecuente es una Tripleta
@@ -29,6 +35,9 @@ def test_parsear_regla_basica():
 # ============================
 
 def test_parsear_consulta_hecho():
+    """
+    Test parsear consulta tipo "hecho" (tripleta .)
+    """
     tripleta, tipo = parsear_consulta("tomate tipo verdura .")
     assert tipo == "hecho"
     assert isinstance(tripleta, Tripleta)
@@ -36,6 +45,9 @@ def test_parsear_consulta_hecho():
 
 
 def test_parsear_consulta_pregunta():
+    """
+    Test parsear consulta tipo "pregunta" (tripleta ?)
+    """
     tripleta, tipo = parsear_consulta("tomate tipo verdura ?")
     assert tipo == "consulta"
     assert isinstance(tripleta, Tripleta)
@@ -43,6 +55,9 @@ def test_parsear_consulta_pregunta():
 
 
 def test_parsear_consulta_razonar():
+    """
+    Test parsear consulta tipo "razonar" (razona si tripleta ?)
+    """
     tripleta, tipo = parsear_consulta("razona si tomate tipo verdura ?")
     assert tipo == "razonar"
     assert isinstance(tripleta, Tripleta)
@@ -50,6 +65,9 @@ def test_parsear_consulta_razonar():
 
 
 def test_parsear_consulta_descubrir():
+    """
+    Test parsear consulta tipo "descubrir" (descubrir!)
+    """
     tripleta, tipo = parsear_consulta("descubrir!")
     assert tipo == "descubrir"
     assert tripleta is None
@@ -60,6 +78,9 @@ def test_parsear_consulta_descubrir():
 # ============================
 
 def test_parsear_consulta_vacia():
+    """
+    Test de comprobación de manejo de errores para consultas vacías
+    """
     # aquí esperamos que NO pete con IndexError,
     # sino que lance un ValueError controlado
     with pytest.raises(ValueError):
@@ -67,6 +88,9 @@ def test_parsear_consulta_vacia():
 
 
 def test_parsear_consulta_formato_invalido_pocos_terminos():
+    """
+    Test de comprobación de manejo de errores para consultas incompletas
+    """
     # Falta objeto y signo final
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("tomate tipo")
@@ -74,18 +98,28 @@ def test_parsear_consulta_formato_invalido_pocos_terminos():
 
 
 def test_parsear_consulta_formato_invalido_demasiados_terminos():
+    """
+    Test de comprobación de manejo de errores para consultas con demasiados términos
+    """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("tomate tipo verdura extra ?")
     assert "Formato de consulta inválido" in str(excinfo.value)
 
 
 def test_parsear_consulta_ultimo_no_valido():
+    """
+    Test de comprobación de manejo de errores para consultas con final no valido
+    """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("tomate tipo verdura !")
     assert "debe terminar en ? (consulta) o . (hecho)" in str(excinfo.value)
 
 
 def test_parsear_consulta_razonar_longitud_incorrecta():
+    """
+    Test de comprobación de manejo de errores para consultas de 
+    tipo "razonar" incompletos
+    """
     # le falta el objeto
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("razona si tomate tipo ?")
@@ -93,12 +127,20 @@ def test_parsear_consulta_razonar_longitud_incorrecta():
 
 
 def test_parsear_consulta_razonar_sin_interrogacion():
+    """
+    Test de comprobación de manejo de errores para consultas de 
+    tipo "razonar" sin signo de interrogación final.
+    """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("razona si tomate tipo verdura .")
     assert "terminar en ?" in str(excinfo.value)
 
 
 def test_parsear_consulta_descubrir_con_argumentos():
+    """
+    Test de comprobación de manejo de errores para consultas de 
+    tipo "descubrir" con argumentos.
+    """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("descubrir! algo")
     assert 'descubrir!' in str(excinfo.value)
