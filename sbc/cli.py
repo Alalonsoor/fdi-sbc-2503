@@ -19,12 +19,12 @@ def formatear_resultados(consulta_str: str, kb: dict):
 
     # Si es hecho, agregar a la KB
     if tipo == 'hecho':
+        sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
         if tripleta_usr not in kb['hechos']:
             kb['hechos'].append(tripleta_usr)
-            sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
             yield f'Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}'
-        
-        yield f'Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}'
+        else:
+            yield f'Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}'
     elif tipo == 'razonar':
         resultado = razonar(tripleta_usr, kb)
         yield 'SI' if resultado else 'NO'
