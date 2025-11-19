@@ -20,6 +20,7 @@ class Tripleta:
     sujeto: str
     predicado: str
     objeto: str
+    confianza: float = 1.0  # Nivel de confianza (lógica difusa), por defecto 100%
 
     def __iter__(self):
         """Permite desempaquetar Tripletas: s, p, v = una tripelta o iterar sobre una tripleta"""
@@ -34,7 +35,8 @@ class Tripleta:
         return Tripleta(
             ss.aplicar(self.sujeto),
             ss.aplicar(self.predicado),
-            ss.aplicar(self.objeto)
+            ss.aplicar(self.objeto),
+            self.confianza  # Mantener la confianza
         )
     
 @dataclass
@@ -42,6 +44,7 @@ class Regla:
     """Una regla esta formado por consecuente <- lista[antecedente], ambas son tripletas"""
     consecuente: Tripleta
     antecedentes: list[Tripleta]
+    confianza: float = 1.0  # Nivel de confianza de la regla, por defecto 100%
 
     def get_consecuente(self) -> Tripleta:
         return self.consecuente

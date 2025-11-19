@@ -33,31 +33,43 @@ def formatear_resultados(consulta_str: str, kb: dict):
         resultados = list(query(tripleta_usr, kb))
         variables = extraer_variables(tripleta_usr)
 
-        # No existen variables -> SI/NO
+        # No existen variables -> SI/NO con confianza
         if not variables:
-            yield 'SI' if resultados else 'NO'
+            if resultados:
+                # Tomar la confianza máxima de todos los resultados
+                max_confianza = max(confianza for _, confianza in resultados)
+                if max_confianza < 1.0:
+                    yield f'SI (confianza: {int(max_confianza * 100)}%)'
+                else:
+                    yield 'SI'
+            else:
+                yield 'NO'
         else:
             # Una o mas variables
             if len(variables) == 1: 
                 var = variables[0]
-                for ss in resultados:
+                for ss, confianza in resultados:
                     valor = ss.aplicar(var)
                     sujeto_usr, predicado_usr, _ = tripleta_usr.terminos()
+                    conf_str = f' [{int(confianza * 100)}%]' if confianza < 1.0 else ''
                     if sujeto_usr == var:
-                        yield valor
+                        yield f'{valor}{conf_str}'
                     else:
-                        yield f'{predicado_usr} = {valor}'
+                        yield f'{predicado_usr} = {valor}{conf_str}'
             else:
-                for ss in resultados:
+                for ss, confianza in resultados:
                     valores = [ss.aplicar(v) for v in variables]
-                    yield ' '.join(valores)
+                    conf_str = f' [{int(confianza * 100)}%]' if confianza < 1.0 else ''
+                    yield f'{" ".join(valores)}{conf_str}'
+                    
     elif tipo == 'descubrir':
         nuevos_hechos = descubrir(kb)
         if nuevos_hechos:
             yield(f'Se descubrieron {len(nuevos_hechos)} nuevos hechos:')
             for hecho in nuevos_hechos:
                 hecho_sujeto, hecho_predicado, hecho_objeto = hecho.terminos()
-                yield(f'  {hecho_sujeto} {hecho_predicado} {hecho_objeto}')
+                conf_str = f'[{hecho.confianza}]' if hecho.confianza < 1.0 else ''
+                yield(f'  {hecho_sujeto} {hecho_predicado} {hecho_objeto} {conf_str}')
         else:
             yield('No se descubrieron nuevos hechos')
                 

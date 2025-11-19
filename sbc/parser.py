@@ -1,5 +1,5 @@
 """Parsers para tripletas y reglas usando pyparsing"""
-from pyparsing import Word, alphanums, Suppress, alphas, delimitedList, nums
+from pyparsing import Word, alphanums, Suppress, alphas, delimitedList, Optional, Regex, nums
 from sbc.ed import Tripleta, Regla
 
 # Definir variables: cualquier string que empiece con mayuscula
@@ -16,21 +16,28 @@ flecha = Suppress('<-')
 # Si se detecta ',' se ignora (para separar multiples antecedentes)
 coma = Suppress(',')
 
+# Parser para extensión de confianza: [0.8] o [1]
+difusa = Regex(r'0\.\d+|1\.0|1')
+extension = Suppress('[') + difusa + Suppress(']')
+
 def crear_tripleta(tokens)->Tripleta:
-    """Convertir tokens a tripleta"""
-    return Tripleta(str(tokens[0]),str(tokens[1]),str(tokens[2]))
+    """Convertir tokens a tripleta con confianza opcional"""
+    confianza = float(tokens[3]) if len(tokens) > 3 else 1.0
+    return Tripleta(str(tokens[0]), str(tokens[1]), str(tokens[2]), confianza)
 
 def crear_regla(tokens)->Regla:
-    """Convertir tokens a regla con multiples antecedentes"""
+    """Convertir tokens a regla con multiples antecedentes y confianza opcional"""
     consecuente = tokens[0]
-    # tokens[1:] son todos los antecedentes
-    antecedentes = list(tokens[1:])
-    return Regla(consecuente, antecedentes)
+    # Separar antecedentes (Tripletas) de la confianza (float)
+    antecedentes = [t for t in tokens[1:] if isinstance(t, Tripleta)]
+    # La confianza es el último token si es un string (el número parseado)
+    confianza = float(tokens[-1]) if len(tokens) > len(antecedentes) + 1 and isinstance(tokens[-1], str) else 1.0
+    return Regla(consecuente, antecedentes, confianza)
 
-# Parser de tripleta
-tripleta_parser = (termino + termino + termino).setParseAction(crear_tripleta)
-# Parser de regla: consecuente <- antecedente1, antecedente2, ...
-regla_parser = (tripleta_parser + flecha + delimitedList(tripleta_parser, delim=',')).setParseAction(crear_regla)
+# Parser de tripleta con extensión opcional
+tripleta_parser = (termino + termino + termino + Optional(extension)).setParseAction(crear_tripleta)
+# Parser de regla: consecuente <- antecedente1, antecedente2, ... [confianza]
+regla_parser = (tripleta_parser + flecha + delimitedList(tripleta_parser, delim=',') + Optional(extension)).setParseAction(crear_regla)
 
 #
 # Funciones
