@@ -48,8 +48,17 @@ def formatear_resultados(consulta_str: str, kb: dict):
             # Una o mas variables
             if len(variables) == 1: 
                 var = variables[0]
+                # Puede existir resultados duplicados porque pertenecen a diferentes caminos
+                # 'X contiene lacteo ?' Imprime dos veces pizza porque 'pizza contiene queso' y 'pizza contiene mozzarella'
+                # En este diccionario guardamos resultados únicos y con confianza máxima
+                valores_dict = {}
                 for ss, confianza in resultados:
                     valor = ss.aplicar(var)
+                    if valor not in valores_dict or confianza > valores_dict[valor]:
+                        valores_dict[valor] = confianza
+                
+                # Yield de los resultados únicos
+                for valor, confianza in valores_dict.items():
                     sujeto_usr, predicado_usr, _ = tripleta_usr.terminos()
                     conf_str = f' [{int(confianza * 100)}%]' if confianza < 1.0 else ''
                     if sujeto_usr == var:
@@ -57,11 +66,16 @@ def formatear_resultados(consulta_str: str, kb: dict):
                     else:
                         yield f'{predicado_usr} = {valor}{conf_str}'
             else:
+                valores_dict = {}
                 for ss, confianza in resultados:
-                    valores = [ss.aplicar(v) for v in variables]
+                    valores = tuple(ss.aplicar(v) for v in variables)
+                    # Agregar a valores_dict resultados unicos o con confianza máxima
+                    if valores not in valores_dict or confianza > valores_dict[valores]:
+                        valores_dict[valores] = confianza
+                # yield resultados
+                for valores, confianza in valores_dict.items():
                     conf_str = f' [{int(confianza * 100)}%]' if confianza < 1.0 else ''
                     yield f'{" ".join(valores)}{conf_str}'
-                    
     elif tipo == 'descubrir':
         nuevos_hechos = descubrir(kb)
         if nuevos_hechos:
