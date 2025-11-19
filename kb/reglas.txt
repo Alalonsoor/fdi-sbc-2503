@@ -1,45 +1,3 @@
-# ALÉRGENO: GLUTEN
-Plato contiene gluten <- Plato ingrediente trigo
-Plato contiene gluten <- Plato ingrediente cebada
-Plato contiene gluten <- Plato ingrediente centeno
-Plato contiene gluten <- Plato ingrediente seitán
-Plato contiene gluten <- Plato ingrediente pasta
-# ALÉRGENO: LACTOSA
-Plato contiene lactosa <- Plato ingrediente leche
-Plato contiene lactosa <- Plato ingrediente queso
-Plato contiene lactosa <- Plato ingrediente mantequilla
-Plato contiene lactosa <- Plato ingrediente nata
-Plato contiene lactosa <- Plato ingrediente yogur
-Plato contiene lactosa <- Plato ingrediente crema
-Plato contiene lactosa <- Plato ingrediente mozzarella
-# ALÉRGENO: FRUTOS SECOS
-Plato contiene frutos_secos <- Plato ingrediente nuez
-Plato contiene frutos_secos <- Plato ingrediente almendra
-Plato contiene frutos_secos <- Plato ingrediente avellana
-Plato contiene frutos_secos <- Plato ingrediente pistacho
-# ALÉRGENO: HUEVO
-Plato contiene huevo <- Plato ingrediente huevo
-# ALÉRGENO: MARISCO
-Plato contiene marisco <- Plato ingrediente gamba
-Plato contiene marisco <- Plato ingrediente langostino
-Plato contiene marisco <- Plato ingrediente mejillon
-Plato contiene marisco <- Plato ingrediente almeja
-Plato contiene marisco <- Plato ingrediente vieira
-Plato contiene marisco <- Plato ingrediente cangrejo
-Plato contiene marisco <- Plato ingrediente camaron
-Plato contiene marisco <- Plato ingrediente ostra
-# ALÉRGENO: PESCADO
-Plato contiene pescado <- Plato ingrediente salmon
-Plato contiene pescado <- Plato ingrediente atun
-Plato contiene pescado <- Plato ingrediente bacalao
-Plato contiene pescado <- Plato ingrediente sardina
-Plato contiene pescado <- Plato ingrediente anchoa
-Plato contiene pescado <- Plato ingrediente merluza
-Plato contiene pescado <- Plato ingrediente pescado
-Plato contiene pescado <- Plato ingrediente trucha  
-# ALÉRGENO: SOJA
-Plato contiene soja <- Plato ingrediente soja
-Plato contiene soja <- Plato ingrediente tofu
 # MARIDAJES
 Plato marida vino_blanco <- Plato ingrediente pescado
 Plato marida vino_blanco <- Plato ingrediente marisco
@@ -54,31 +12,69 @@ Plato marida cerveza <- Plato ingrediente queso
 Plato marida cava <- Plato ingrediente postre
 Plato marida cava <- Plato ingrediente chocolate
 Plato marida vermut <- Plato ingrediente aceituna
-# PROPIEDADES NUTRICIONALES - PROTEÍNA ALTA
-Plato proteina alta <- Plato ingrediente huevo
-Plato proteina alta <- Plato ingrediente carne
-Plato proteina alta <- Plato ingrediente pollo
-Plato proteina alta <- Plato ingrediente cerdo
-Plato proteina alta <- Plato ingrediente pavo
-Plato proteina alta <- Plato ingrediente pescado
-Plato proteina alta <- Plato ingrediente salmon
-Plato proteina alta <- Plato ingrediente marisco
-Plato proteina alta <- Plato ingrediente legumbre
-Plato proteina alta <- Plato ingrediente soja
-Plato proteina alta <- Plato ingrediente tofu
-Plato proteina alta <- Plato ingrediente queso
-# PROPIEDADES NUTRICIONALES - GRASA ALTA
-Plato grasa alta <- Plato ingrediente mantequilla
-Plato grasa alta <- Plato ingrediente nata
-Plato grasa alta <- Plato ingrediente aceite
-Plato grasa alta <- Plato ingrediente embutido
-Plato grasa alta <- Plato ingrediente fruto_seco
-Plato grasa alta <- Plato ingrediente queso
+
+# PROPIEDADES NUTRICIONALES - RICO EN PROTEÍNA
+Plato rico_en proteina <- Plato ingrediente huevo
+Plato rico_en proteina <- Plato ingrediente carne
+Plato rico_en proteina <- Plato ingrediente pollo
+Plato rico_en proteina <- Plato ingrediente cerdo
+Plato rico_en proteina <- Plato ingrediente pavo
+Plato rico_en proteina <- Plato ingrediente pescado
+Plato rico_en proteina <- Plato ingrediente salmon
+Plato rico_en proteina <- Plato ingrediente marisco
+Plato rico_en proteina <- Plato ingrediente legumbre
+Plato rico_en proteina <- Plato ingrediente soja
+Plato rico_en proteina <- Plato ingrediente tofu
+Plato rico_en proteina <- Plato ingrediente queso
+
+# PROPIEDADES NUTRICIONALES - RICO EN GRASAS
+Plato rico_en grasas <- Plato ingrediente mantequilla
+Plato rico_en grasas <- Plato ingrediente nata
+Plato rico_en grasas <- Plato ingrediente aceite
+Plato rico_en grasas <- Plato ingrediente embutido
+Plato rico_en grasas <- Plato ingrediente fruto_seco
+Plato rico_en grasas <- Plato ingrediente queso
+
+# PROPIEDADES NUTRICIONALES - RICO EN CARBOHIDRATOS
+Plato rico_en carbohidratos <- Plato ingrediente pasta
+Plato rico_en carbohidratos <- Plato ingrediente arroz
+Plato rico_en carbohidratos <- Plato ingrediente trigo
+Plato rico_en carbohidratos <- Plato ingrediente pan
+Plato rico_en carbohidratos <- Plato ingrediente platano
+Plato rico_en carbohidratos <- Plato ingrediente Ingrediente, Ingrediente tipo grano
+
+# PROPIEDADES NUTRICIONALES - RICO EN FIBRA
+Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
+Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
+Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo legumbre
+Plato rico_en fibra <- Plato ingrediente broccoli
+Plato rico_en fibra <- Plato ingrediente zanahoria
+Plato rico_en fibra <- Plato ingrediente manzana
+Plato rico_en fibra <- Plato ingrediente fresa
+Plato rico_en fibra <- Plato ingrediente repollo
+
+# ADVERTENCIAS NUTRICIONALES - EXCESO DE GRASAS SATURADAS
+Plato exceso_en grasas_saturadas <- Plato ingrediente mantequilla
+Plato exceso_en grasas_saturadas <- Plato ingrediente nata
+Plato exceso_en grasas_saturadas <- Plato ingrediente embutido
+
+# ADVERTENCIAS NUTRICIONALES - EXCESO DE SODIO
+Plato exceso_en sodio <- Plato ingrediente embutido
+Plato exceso_en sodio <- Plato ingrediente jamon
+
 # INDICACIONES DE CONSERVACIÓN - REFRIGERACIÓN
-Plato conservar frio <- Plato ingrediente pescado
-Plato conservar frio <- Plato ingrediente marisco
-Plato conservar frio <- Plato ingrediente carne
-Plato conservar frio <- Plato ingrediente lacteo
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo pescado
+X conservar frio <- X tipo pescado
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo marisco
+X conservar frio <- X tipo marisco
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo carne
+X conservar frio <- X tipo carne
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo lacteo
+X conservar frio <- X tipo lacteo
+Plato conservar frio <- Plato ingrediente huevo
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
+
 # INDICACIONES DE CONSERVACIÓN - SECO/AMBIENTE
 Alimento conservar seco <- Alimento ingrediente arroz
 Alimento conservar seco <- Alimento ingrediente pasta
@@ -86,18 +82,59 @@ Alimento conservar seco <- Alimento ingrediente harina_arroz
 Alimento conservar seco <- Alimento ingrediente harina_trigo
 Alimento conservar seco <- Alimento ingrediente chocolate
 Alimento conservar seco <- Alimento ingrediente aceite
-# MARIDAJES
-Plato marida vino_blanco <- Plato ingrediente pescado
-Plato marida vino_blanco <- Plato ingrediente marisco
-Plato marida vino_tinto <- Plato ingrediente carne
+
 # Combinaciones
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor acido
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo carne, Ingrediente2 tipo verdura
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo pescado, Ingrediente2 tipo verdura
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido [0.85]
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor acido [0.8]
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor salado [0.75]
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo carne, Ingrediente2 tipo verdura [0.9]
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo pescado, Ingrediente2 tipo verdura [0.9]
+
 # ALERGENOS
 X alergeno pescado <- X ingrediente Ingrediente, Ingrediente tipo pescado
-X alergeno pescado <- X tipo Ingrediente, Ingrediente tipo pescado
-X alergeno lactosa <- X tipo lactosa
-X alergeno gluten <- X ingrediente Ingrediente, Ingrediente tipo grano
-X alergeno frutos_secos <- X tipo frutos_secos
+X alergeno pescado <- X tipo pescado
+X alergeno marisco <- X ingrediente Ingrediente, Ingrediente tipo marisco
+X alergeno marisco <- X tipo marisco
+X alergeno fruto_seco <- X ingrediente Ingrediente, Ingrediente tipo fruto_seco
+X alergeno fruto_seco <- X tipo fruto_seco
+X alergeno lactosa <- X ingrediente Ingrediente, Ingrediente tipo lacteo
+X alergeno lactosa <- X tipo lacteo
+X alergeno gluten <- X ingrediente trigo
+X alergeno gluten <- X ingrediente cebada
+X alergeno gluten <- X ingrediente centeno
+X alergeno gluten <- X ingrediente seitan
+X alergeno gluten <- X ingrediente pasta
+X alergeno gluten <- X ingrediente pan
+X alergeno gluten <- X ingrediente harina_trigo
+X alergeno huevo <- X ingrediente huevo
+X alergeno soja <- X ingrediente Ingrediente, Ingrediente tipo legumbre
+
+# CONTIENE
+Plato contiene carne <- Plato ingrediente Ingrediente, Ingrediente tipo carne
+Plato contiene pescado <- Plato ingrediente Ingrediente, Ingrediente tipo pescado
+Plato contiene marisco <- Plato ingrediente Ingrediente, Ingrediente tipo marisco
+Plato contiene lacteo <- Plato ingrediente Ingrediente, Ingrediente tipo lacteo
+Plato contiene huevo <- Plato ingrediente huevo
+Plato contiene producto_animal <- Plato contiene carne
+Plato contiene producto_animal <- Plato contiene pescado
+Plato contiene producto_animal <- Plato contiene marisco
+Plato contiene producto_animal <- Plato contiene lacteo
+Plato contiene producto_animal <- Plato contiene huevo
+
+# PROPIEDADES SALUDABLES - VITAMINAS Y MINERALES
+Plato vitaminac alta <- Plato ingrediente naranja
+Plato vitaminac alta <- Plato ingrediente limon
+Plato vitaminac alta <- Plato ingrediente fresa
+Plato omega3 alto <- Plato ingrediente salmon
+Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente tipo pescado [0.7]
+
+
+Plato es completo <- Plato rico_en proteina, Plato rico_en fibra
+Plato es mediterraneo <- Plato ingrediente aceite_oliva, Plato rico_en fibra
+Plato es ensalada <- Plato rico_en fibra, Plato ingrediente lechuga
+Plato es de_mar <- Plato contiene pescado, Plato contiene marisco
+
+Plato es balanceado <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en fibra
+Plato es energetico <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en grasas
+Plato es nutritivo <- Plato rico_en proteina, Plato rico_en fibra, Plato conservar frio
+Plato es cardio_saludable <- Plato contiene pescado, Plato rico_en fibra, Plato omega3 alto

@@ -7,7 +7,7 @@ pollo color rosa
 pavo color rosa
 pasta color amarillo
 leche color blanco
-vino_rojo color rojo
+vino_tinto color rojo
 vino_blanco color blanco
 mantequilla color amarillo
 jamón color rojo
@@ -87,6 +87,7 @@ broccoli tipo verdura
 zanahoria tipo verdura
 pimiento tipo verdura
 repollo tipo verdura
+lechuga tipo verdura
 
 # FRUTAS
 manzana tipo fruta
@@ -113,6 +114,8 @@ leche_vegetal tipo bebida
 semilla_chia tipo semilla
 huevo tipo proteina
 embutido tipo carne
+sal tipo condimento
+salsa tipo condimento
 
 # CATEGORÍAS GENÉRICAS
 carne tipo carne
@@ -218,7 +221,7 @@ chocolate conservar ambiente
 crema textura cremoso
 queso textura cremoso
 yogur textura cremoso
-frutos_secos textura crujiente
+fruto_seco textura crujiente
 verdura textura crujiente
 huevo textura suave
 tomate textura jugoso
@@ -240,8 +243,13 @@ jengibre sabor picante
 ajo sabor fuerte
 cilantro sabor fresco
 pimiento sabor picante
+tomate sabor acido
+fresa sabor dulce
+manzana sabor dulce
+melon sabor dulce
 
 # RECETAS
+pasta_boloñesa tipo plato
 pasta_boloñesa ingrediente carne
 pasta_boloñesa ingrediente pasta
 pasta_boloñesa ingrediente tomate
@@ -250,19 +258,91 @@ pasta_boloñesa ingrediente zanahoria
 pasta_boloñesa ingrediente vino_tinto
 pasta_boloñesa ingrediente aceite_oliva
 
+huevo_frito tipo plato
 huevo_frito ingrediente huevo
 huevo_frito ingrediente aceite_oliva
 huevo_frito ingrediente sal
 
+tortilla tipo plato
 tortilla ingrediente huevo
 tortilla ingrediente patata
 tortilla ingrediente aceite_oliva
 tortilla ingrediente cebolla
 
-hamburguesa ingrediente carne
+hamburguesa tipo plato
+hamburguesa ingrediente carne [0.8]
 hamburguesa ingrediente lechuga
-hamburguesa ingrediente pan 
+hamburguesa ingrediente pan
 hamburguesa ingrediente tomate
 hamburguesa ingrediente cebolla
 hamburguesa ingrediente salsa
 hamburguesa ingrediente queso
+
+ensalada_cesar tipo plato
+ensalada_cesar ingrediente lechuga
+ensalada_cesar ingrediente pollo
+ensalada_cesar ingrediente queso
+ensalada_cesar ingrediente pan
+
+paella_marisco tipo plato
+paella_marisco ingrediente arroz
+paella_marisco ingrediente marisco
+paella_marisco ingrediente pescado
+paella_marisco ingrediente pimiento
+paella_marisco ingrediente tomate
+paella_marisco ingrediente aceite_oliva
+
+risotto tipo plato
+risotto ingrediente arroz
+risotto ingrediente queso
+risotto ingrediente mantequilla
+risotto ingrediente vino_blanco
+
+salmon_horno tipo plato
+salmon_horno ingrediente salmon
+salmon_horno ingrediente limon
+salmon_horno ingrediente aceite_oliva
+
+ensalada_frutas tipo plato
+ensalada_frutas ingrediente manzana
+ensalada_frutas ingrediente naranja
+ensalada_frutas ingrediente fresa
+ensalada_frutas ingrediente melon
+
+gazpacho tipo plato
+gazpacho ingrediente tomate
+gazpacho ingrediente pimiento
+gazpacho ingrediente cebolla
+gazpacho ingrediente ajo
+gazpacho ingrediente aceite_oliva
+
+tarta_chocolate tipo plato
+tarta_chocolate ingrediente chocolate
+tarta_chocolate ingrediente harina_trigo
+tarta_chocolate ingrediente huevo
+tarta_chocolate ingrediente mantequilla
+
+curry_verduras tipo plato
+curry_verduras ingrediente zanahoria
+curry_verduras ingrediente broccoli
+curry_verduras ingrediente pimiento
+curry_verduras ingrediente leche_vegetal
+curry_verduras ingrediente jengibre
+
+sopa_lentejas tipo plato
+sopa_lentejas ingrediente soja
+sopa_lentejas ingrediente zanahoria
+sopa_lentejas ingrediente cebolla
+sopa_lentejas ingrediente tomate
+
+bocadillo_jamon tipo plato
+bocadillo_jamon ingrediente pan
+bocadillo_jamon ingrediente jamon
+bocadillo_jamon ingrediente tomate
+
+pizza tipo plato
+pizza ingrediente harina_trigo
+pizza ingrediente queso
+pizza ingrediente mozzarella
+pizza ingrediente tomate
+pizza ingrediente aceite_oliva
