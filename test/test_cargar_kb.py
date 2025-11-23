@@ -1,6 +1,4 @@
 import pytest
-from pathlib import Path
-from sbc.parser import parsear_consulta, parsear_tripleta, parsear_regla
 from sbc.ed import Tripleta, Regla
 from sbc.cargar_kb import carga_kb
 
