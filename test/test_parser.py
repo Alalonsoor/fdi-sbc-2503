@@ -119,6 +119,122 @@ def test_comando_descubrir():
 
 
 # ============================
+#  Test EBNF - El parser NO debe crashear con ninguna sintaxis válida
+# ============================
+
+def test_ebnf_parser_no_crashea():
+    """
+    Test que verifica que el parser NO CRASHEA con ninguna sintaxis EBNF válida.
+    El parser DEBE devolver algo (valor, excepción controlada) pero NUNCA crashear.
+    Comprueba toda la sintaxis EBNF especificada.
+    """
+    casos_ebnf = [
+        # Literales y variables básicos
+        ("literal minúscula", lambda: parsear_tripleta("abc def ghi")),
+        ("variable mayúscula", lambda: parsear_tripleta("X Y Z")),
+        ("literal con números", lambda: parsear_tripleta("abc123 def456 ghi789")),
+        ("literal con guion bajo", lambda: parsear_tripleta("abc_def ghi_jkl mno_pqr")),
+        ("mezcla caracteres", lambda: parsear_tripleta("abc_123 DEF_456 ghi_XYZ")),
+        
+        # Tripletas
+        ("tripleta básica", lambda: parsear_tripleta("tomate tipo verdura")),
+        ("tripleta con variables", lambda: parsear_tripleta("X tipo Y")),
+        ("tripleta mixta", lambda: parsear_tripleta("tomate tipo X")),
+        
+        # Afirmaciones con extensión difusa
+        ("afirmación sin extensión", lambda: parsear_tripleta("a b c")),
+        ("afirmación con difusa 0.X", lambda: parsear_tripleta("a b c [0.5]")),
+        ("afirmación con difusa 0.XX", lambda: parsear_tripleta("a b c [0.95]")),
+        ("afirmación con difusa 1", lambda: parsear_tripleta("a b c [1]")),
+        ("afirmación con difusa 1.0", lambda: parsear_tripleta("a b c [1.0]")),
+        
+        # Extensión con precedencia (puede no estar implementada)
+        ("extensión precedencia 3 dígitos", lambda: parsear_tripleta("a b c [100]")),
+        ("extensión precedencia 2 dígitos", lambda: parsear_tripleta("a b c [50]")),
+        ("extensión precedencia 1 dígito", lambda: parsear_tripleta("a b c [5]")),
+        
+        # Extensión con restricción (puede no estar implementada)
+        ("restricción <", lambda: parsear_tripleta("a b c [X < 5]")),
+        ("restricción <=", lambda: parsear_tripleta("a b c [X <= 10]")),
+        ("restricción =", lambda: parsear_tripleta("a b c [Y = 3]")),
+        ("restricción >=", lambda: parsear_tripleta("a b c [Z >= 20]")),
+        ("restricción >", lambda: parsear_tripleta("a b c [X > 100]")),
+        
+        # Extensión con múltiples opcionales (puede no estar implementada)
+        ("múltiple: difusa; precedencia", lambda: parsear_tripleta("a b c [0.8; 100]")),
+        ("múltiple: difusa; restricción", lambda: parsear_tripleta("a b c [0.9; X > 5]")),
+        ("múltiple: precedencia; restricción", lambda: parsear_tripleta("a b c [100; X < 10]")),
+        ("múltiple: todos", lambda: parsear_tripleta("a b c [0.8; 100; X > 5]")),
+        
+        # Reglas simples
+        ("regla simple", lambda: parsear_regla("A tipo B <- X color rojo")),
+        ("regla con literales", lambda: parsear_regla("tomate tipo verdura <- tomate color rojo")),
+        
+        # Reglas con múltiples antecedentes
+        ("regla 2 antecedentes", lambda: parsear_regla("A tipo B <- X color rojo, Y tamaño grande")),
+        ("regla 3 antecedentes", lambda: parsear_regla("A b C <- X y Z, P q R, S t U")),
+        
+        # Reglas con confianza
+        ("regla consecuente con difusa", lambda: parsear_regla("A tipo B [0.9] <- X color rojo")),
+        ("regla antecedente con difusa", lambda: parsear_regla("A tipo B <- X color rojo [0.8]")),
+        ("regla ambos con difusa", lambda: parsear_regla("A tipo B [0.9] <- X color rojo [0.8]")),
+        ("regla múltiples ant con difusa", lambda: parsear_regla("A B C <- X Y Z [0.8], P Q R [0.7]")),
+        
+        # Reglas con extensiones (puede no estar implementada)
+        ("regla con precedencia", lambda: parsear_regla("A B C [100] <- X Y Z")),
+        ("regla con restricción", lambda: parsear_regla("A B C [X > 5] <- X Y Z")),
+        
+        # Consultas
+        ("consulta simple", lambda: parsear_consulta("tomate tipo verdura ?")),
+        ("consulta con variables", lambda: parsear_consulta("X tipo verdura ?")),
+        ("consulta todas variables", lambda: parsear_consulta("X Y Z ?")),
+        
+        # Razonamiento
+        ("razonamiento simple", lambda: parsear_consulta("razona si tomate tipo verdura ?")),
+        ("razonamiento con variables", lambda: parsear_consulta("razona si X tipo Y ?")),
+        
+        # Comandos
+        ("comando descubrir", lambda: parsear_consulta("descubrir!")),
+        
+        # Hechos
+        ("hecho simple", lambda: parsear_consulta("tomate tipo verdura .")),
+        ("hecho con variables", lambda: parsear_consulta("X tipo verdura .")),
+        
+        # Negación (puede no estar implementada)
+        ("negación simple", lambda: parsear_consulta("no tomate tipo verdura ?")),
+        ("negación con variables", lambda: parsear_consulta("no X tipo Y ?")),
+        ("negación en razonamiento", lambda: parsear_consulta("razona si no tomate tipo verdura ?")),
+    ]
+    
+    fallos = []
+    
+    for nombre, funcion in casos_ebnf:
+        try:
+            resultado = funcion()
+            # Si devuelve algo, está bien (implementado o excepción controlada)
+            # No verificamos QUÉ devuelve, solo que NO crashee
+        except (ValueError, Exception) as e:
+            # ValueError y ParseException son excepciones controladas del parser
+            # ValueError: errores de formato/validación
+            # ParseException: sintaxis EBNF no implementada aún
+            # Ambos son aceptables - solo crashea si es IndexError, AttributeError, etc.
+            if type(e).__name__ in ('ValueError', 'ParseException'):
+                pass  # Excepción controlada - OK
+            else:
+                # Crash real (IndexError, KeyError, etc.) - NO está bien
+                fallos.append(f"{nombre}: {type(e).__name__}: {str(e)}")
+    
+    # Si hay fallos (crashes), mostrarlos
+    if fallos:
+        mensaje = "El parser CRASHEÓ con las siguientes entradas EBNF válidas:\n"
+        mensaje += "\n".join(f"  - {fallo}" for fallo in fallos)
+        assert False, mensaje
+    
+    # Si no hay fallos, el test pasa
+    assert True
+
+
+# ============================
 #  Tests parsear_tripleta / regla (originales)
 # ============================
 
