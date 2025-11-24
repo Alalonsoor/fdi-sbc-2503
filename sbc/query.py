@@ -20,8 +20,8 @@ def query(tripleta: Tripleta, kb: dict):
             case [ss]:
                 # Satisfacer TODOS los antecedentes
                 for resultado_ss, confianza_ant in query_antecedentes(regla.get_antecedentes(), kb, ss):
-                    # MIN entre la regla y los antecedentes
-                    confianza_total = min(regla.confianza, confianza_ant)
+                    # MIN entre consecuente, regla y antecedentes
+                    confianza_total = min(regla.get_consecuente().confianza, regla.confianza, confianza_ant)
                     yield resultado_ss, confianza_total
 
 def query_antecedentes(antecedentes: list[Tripleta], kb: dict, ss_inicial: Sustitucion):
@@ -68,8 +68,9 @@ def descubrir(kb: dict) -> list[Tripleta]:
         for ss, confianza in query_antecedentes(regla.get_antecedentes(), kb, Sustitucion()):
             # Aplicar sustitución al consecuente
             nuevo_hecho = regla.get_consecuente().aplicar_sustitucion(ss)
-            # Asignar la confianza calculada
-            nuevo_hecho.confianza = confianza
+            # MIN entre consecuente, regla y antecedentes
+            confianza_calculada = min(nuevo_hecho.confianza, regla.confianza, confianza)
+            nuevo_hecho.confianza = confianza_calculada
             
             # Verificar que no exista ya en la KB
             if nuevo_hecho not in kb['hechos']:
