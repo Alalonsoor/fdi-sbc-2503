@@ -7,7 +7,7 @@ Define estructuras de datos:
 from dataclasses import dataclass, field
 
 def es_variable(term: str) -> bool:
-    """Comprueba si un termino es variable, las variables empiezan por ?"""
+    """Comprueba si un termino es variable, las variables empiezan por letra mayuscula"""
     return isinstance(term, str) and len(term) > 0 and term[0].isupper()
 
 def es_literal(term: str) -> bool:
