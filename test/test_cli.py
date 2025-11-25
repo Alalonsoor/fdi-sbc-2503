@@ -20,25 +20,26 @@ def test_extraer_variables_sin_variables(monkeypatch):
 
 def test_extraer_variables_con_variables_sin_duplicados(monkeypatch):
     """Extrae variables únicas manteniendo orden."""
-    # Consideramos variables las que empiezan por '?'
-    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t.startswith("?"))
+    # Consideramos variables las que empiezan por máyuscula
+    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper())
 
-    # La Tripleta devuelve terminos() como lista, p.ej ['?x', 'tipo', '?x']
-    t = Tripleta("?x", "tipo", "?x")
+
+    # La Tripleta devuelve terminos() como lista, p.ej ['X', 'tipo', 'X']
+    t = Tripleta("X", "tipo", "X")
     vars_encontradas = extraer_variables(t)
 
     # Debe mantener orden y no repetir
-    assert vars_encontradas == ["?x"]
+    assert vars_encontradas == ["X"]
 
 
 def test_extraer_variables_varias(monkeypatch):
     """Extrae múltiples variables correctamente."""
-    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t.startswith("?"))
+    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper())
 
-    t = Tripleta("?x", "rel", "?y")
+    t = Tripleta("X", "rel", "Y")
     vars_encontradas = extraer_variables(t)
 
-    assert vars_encontradas == ["?x", "?y"]
+    assert vars_encontradas == ["X", "Y"]
 
 
 # ============================
@@ -195,17 +196,17 @@ def test_formatear_resultados_consulta_sin_variables_si_confianza_menor(monkeypa
 def test_formatear_resultados_consulta_una_variable_sujeto(monkeypatch):
     """Consulta con variable en sujeto muestra valores correctamente."""
     def fake_parsear_consulta(_):
-        # ?x en sujeto
-        return Tripleta("?x", "tipo", "fruta"), "consulta"
+        # X en sujeto
+        return Tripleta("X", "tipo", "fruta"), "consulta"
 
     def fake_extraer_variables(tripleta):
-        return ["?x"]
+        return ["X"]
 
     def fake_query(tripleta, kb):
         # Dos resultados distintos
         return [
-            (DummySustitucion({"?x": "manzana"}), 1.0),
-            (DummySustitucion({"?x": "pera"}), 0.7),
+            (DummySustitucion({"X": "manzana"}), 1.0),
+            (DummySustitucion({"X": "pera"}), 0.7),
         ]
 
     monkeypatch.setattr("sbc.cli.parsear_consulta", fake_parsear_consulta)
@@ -213,7 +214,7 @@ def test_formatear_resultados_consulta_una_variable_sujeto(monkeypatch):
     monkeypatch.setattr("sbc.cli.query", fake_query)
 
     kb = {"hechos": [], "reglas": []}
-    resultados = list(formatear_resultados("?x tipo fruta ?", kb))
+    resultados = list(formatear_resultados("X tipo fruta ?", kb))
 
     # Confianza 1.0 -> sin sufijo; 0.7 -> [70%]
     assert sorted(resultados) == sorted(["manzana", "pera [70%]"])
@@ -222,15 +223,15 @@ def test_formatear_resultados_consulta_una_variable_sujeto(monkeypatch):
 def test_formatear_resultados_consulta_una_variable_objeto(monkeypatch):
     """Consulta con variable en objeto muestra predicado = valor."""
     def fake_parsear_consulta(_):
-        # ?x en objeto
-        return Tripleta("pizza", "contiene", "?x"), "consulta"
+        # X en objeto
+        return Tripleta("pizza", "contiene", "X"), "consulta"
 
     def fake_extraer_variables(tripleta):
-        return ["?x"]
+        return ["X"]
 
     def fake_query(tripleta, kb):
         return [
-            (DummySustitucion({"?x": "queso"}), 0.8),
+            (DummySustitucion({"X": "queso"}), 0.8),
         ]
 
     monkeypatch.setattr("sbc.cli.parsear_consulta", fake_parsear_consulta)
@@ -238,7 +239,7 @@ def test_formatear_resultados_consulta_una_variable_objeto(monkeypatch):
     monkeypatch.setattr("sbc.cli.query", fake_query)
 
     kb = {"hechos": [], "reglas": []}
-    resultados = list(formatear_resultados("pizza contiene ?x ?", kb))
+    resultados = list(formatear_resultados("pizza contiene X ?", kb))
 
     # Para una sola variable en objeto -> 'predicado = valor [conf]'
     assert resultados == ["contiene = queso [80%]"]
@@ -252,15 +253,15 @@ def test_formatear_resultados_consulta_varias_variables(monkeypatch):
     """Consulta con varias variables muestra valor1 valor2 con confianza."""
     def fake_parsear_consulta(_):
         # dos variables
-        return Tripleta("?x", "contiene", "?y"), "consulta"
+        return Tripleta("X", "contiene", "Y"), "consulta"
 
     def fake_extraer_variables(tripleta):
-        return ["?x", "?y"]
+        return ["X", "Y"]
 
     def fake_query(tripleta, kb):
         return [
-            (DummySustitucion({"?x": "pizza", "?y": "queso"}), 1.0),
-            (DummySustitucion({"?x": "ensalada", "?y": "tomate"}), 0.9),
+            (DummySustitucion({"X": "pizza", "Y": "queso"}), 1.0),
+            (DummySustitucion({"X": "ensalada", "Y": "tomate"}), 0.9),
         ]
 
     monkeypatch.setattr("sbc.cli.parsear_consulta", fake_parsear_consulta)
@@ -268,7 +269,7 @@ def test_formatear_resultados_consulta_varias_variables(monkeypatch):
     monkeypatch.setattr("sbc.cli.query", fake_query)
 
     kb = {"hechos": [], "reglas": []}
-    resultados = list(formatear_resultados("?x contiene ?y ?", kb))
+    resultados = list(formatear_resultados("X contiene Y ?", kb))
 
     # Formato: "valorX valorY[ conf]"
     assert "pizza queso" in resultados
