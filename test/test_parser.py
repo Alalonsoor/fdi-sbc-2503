@@ -10,21 +10,23 @@ from sbc.ed import Tripleta, Regla
 def test_literal_minuscula():
     """Test: literal = minus { caracter }"""
     t = parsear_tripleta("tomate tipo verdura")
-    assert t.sujeto == "tomate"
-    assert t.predicado == "tipo"
-    assert t.objeto == "verdura"
+    sujeto, predicado, objeto = t.terminos()
+    assert sujeto == "tomate"
+    assert predicado == "tipo"
+    assert objeto == "verdura"
 
 def test_variable_mayuscula():
     """Test: variable = mayus { caracter }"""
     t = parsear_tripleta("X tipo verdura")
-    assert t.sujeto == "X"
+    assert t.terminos()[0] == "X"
     
 def test_literal_con_numeros_y_guionbajo():
     """Test: caracter = minus | mayus | digito | "_" """
     t = parsear_tripleta("tomate_123 tipo_2 verdura_ABC")
-    assert t.sujeto == "tomate_123"
-    assert t.predicado == "tipo_2"
-    assert t.objeto == "verdura_ABC"
+    sujeto, predicado, objeto = t.terminos()
+    assert sujeto == "tomate_123"
+    assert predicado == "tipo_2"
+    assert objeto == "verdura_ABC"
 
 # ============================
 #  Tests EBNF - Tripleta
@@ -44,23 +46,23 @@ def test_afirmacion_sin_extension():
     """Test: afirmacion = tripleta "." [ extension ]"""
     # Sin extensión (confianza = 1.0 por defecto)
     t = parsear_tripleta("tomate tipo verdura")
-    assert t.confianza == 1.0
+    assert t.get_confianza() == 1.0
 
 def test_afirmacion_con_extension_difusa():
     """Test: afirmacion = tripleta "." [ extension ] con difusa"""
     t = parsear_tripleta("tomate tipo verdura [0.8]")
-    assert t.confianza == 0.8
+    assert t.get_confianza() == 0.8
 
 def test_difusa_formato_valido():
     """Test: difusa = "0." { digito } | "1" """
     t1 = parsear_tripleta("a b c [0.5]")
-    assert t1.confianza == 0.5
+    assert t1.get_confianza() == 0.5
     
     t2 = parsear_tripleta("a b c [0.95]")
-    assert t2.confianza == 0.95
+    assert t2.get_confianza() == 0.95
     
     t3 = parsear_tripleta("a b c [1]")
-    assert t3.confianza == 1.0
+    assert t3.get_confianza() == 1.0
 
 # ============================
 #  Tests EBNF - Regla
@@ -84,12 +86,12 @@ def test_regla_multiples_antecedentes():
 def test_regla_con_extension():
     """Test: regla con extensión de confianza"""
     r = parsear_regla("A tipo B [0.9] <- X color rojo")
-    assert r.get_consecuente().confianza == 0.9
+    assert r.get_consecuente().get_confianza() == 0.9
 
 def test_regla_antecedente_con_confianza():
     """Test: antecedente con confianza individual"""
     r = parsear_regla("A tipo B <- X color rojo [0.8]")
-    assert r.get_antecedentes()[0].confianza == 0.8
+    assert r.get_antecedentes()[0].get_confianza() == 0.8
 
 # ============================
 #  Tests EBNF - Consulta

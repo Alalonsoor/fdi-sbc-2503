@@ -38,6 +38,9 @@ class Tripleta:
             ss.aplicar(self.objeto),
             self.confianza  # Mantener la confianza
         )
+    def get_confianza(self):
+        """Devuelve eñ valor de la confianza"""
+        return self.confianza
     
 @dataclass
 class Regla:
