@@ -57,11 +57,11 @@ Representa una afirmación en formato sujeto-predicado-objeto. Es la unidad bás
 
 #### Métodos Principales
 
-**`terminos() -> list[str]`**
+##### **`terminos() -> list[str]`**
 
 **Proposito**: Devuelve una lista con los tres términos de la tripleta.
 
-**aplicar_sustituciones(ss: Sustitucion) -> Tripleta**
+##### **aplicar_sustituciones(ss: Sustitucion) -> Tripleta**
 
 **Proposito**: Crea una nueva tripleta aplicando una sustitución a todos sus términos.
 
@@ -80,7 +80,7 @@ nueva_tripleta = tripleta.aplicar_sustitucion(sustitucion)
 # Resultado: Tripleta("pizza", "contiene", "queso")
 ```
 
-**`get_confianza() -> float`**
+##### **`get_confianza() -> float`**
 
 **Proposito**: Obtiene el valor de confianza de la tripleta.
 
@@ -98,11 +98,11 @@ Representa una regla de inferencia en formato "consecuente <- antecedentes". Per
 
 #### Métodos Principales
 
-**`get_consecuentes() -> Tripleta`**
+##### **`get_consecuentes() -> Tripleta`**
 
 **Proposito**: Devuelve el consecuente de la regla.
 
-**`get_antecedentes() -> list[Tripleta]`**
+##### **`get_antecedentes() -> list[Tripleta]`**
 
 **Proposito**: Devuelve la lista de antecedentes de la regla.
 
@@ -118,11 +118,11 @@ Representa un mapeo de variables a valores. Esencial para el proceso de unificac
 
 #### Métodos Principales
 
-**`get_mappings() -> dict[str, str]`**
+##### **`get_mappings() -> dict[str, str]`**
 
 **Proposito**: Devuelve el diccionario de mapeos completo.
 
-**`get(var: str) -> str | None`**
+##### **`get(var: str) -> str | None`**
 
 **Proposito**: Obtiene el valor de una variable específica.
 
@@ -134,11 +134,11 @@ valor = ss.get("X") # pizza
 valor = ss.get("Z") # None
 ```
 
-**add(var: str, value: str) -> None**
+##### **`add(var: str, value: str) -> None`**
 
 **Proposito**: Agrega una nueva sustitución al mapeo.
 
-**`aplicar(termino: str) -> str`**
+##### **`aplicar(termino: str) -> str`**
 
 **Proposito**: Aplica la sustitución a un término de manera recursiva.
 
@@ -168,7 +168,9 @@ ss.aplicar("queso")  # "queso" (literal, no cambia)
 ss.aplicar("Z")  # "Z" (se mantiene igual)
 ```
 
-**__contains__(var: str) -> bool**
+##### **`__contains__(var: str) -> bool`**
+
+**Proposito**:  Permite usar el operador `in` para verificar si una variable tiene sustitución.
 
 ## Ejemplos de Uso Completo
 
