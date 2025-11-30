@@ -10,7 +10,8 @@ El archivo ed.py define las estructuras de datos fundamentales para el sistema d
 
 **Proposito**: Determina si un término es una variable en el sistema.
 
-**Algoritmo**: 
+**Algoritmo**:
+
 - Las variables se identifican por comenzar con una letra mayúscula.
 - Los literales (constantes) comienzan con minúscula o números.
 
@@ -27,7 +28,8 @@ es_variable("123") # False
 
 **Proposito**: Determina si un término es un literal
 
-**Algoritmo**: 
+**Algoritmo**:
+
 - Niega el resultado de es_variable().
 - Cualquier término que no sea variable, es literal.
 
@@ -125,11 +127,13 @@ Representa un mapeo de variables a valores. Esencial para el proceso de unificac
 **Proposito**: Obtiene el valor de una variable específica.
 
 **Ejemplo**:
+
 ```bash
 ss = Sustitucion({"X": "pizza", "Y": "queso"})
 valor = ss.get("X") # pizza
 valor = ss.get("Z") # None
 ```
+
 **add(var: str, value: str) -> None**
 
 **Proposito**: Agrega una nueva sustitución al mapeo.
@@ -147,6 +151,7 @@ valor = ss.get("Z") # None
    - (X → Y → "pizza")
 
 **Ejemplo**:
+
 ```bash
 ss = Sustitucion({"X": "Y", "Y": "pizza"})
 
