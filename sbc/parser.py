@@ -15,6 +15,7 @@ termino = variable | literal
 flecha = Suppress('<-')
 # Si se detecta ',' se ignora (para separar multiples antecedentes)
 coma = Suppress(',')
+punto = Suppress('.')
 
 # Parser para extensión de confianza: [0.8] o [1]
 difusa = Regex(r'0\.\d+|1\.0|1')
@@ -35,13 +36,19 @@ def crear_regla(tokens)->Regla:
     return Regla(consecuente, antecedentes, confianza)
 
 # Parser de tripleta con extensión opcional
-tripleta_parser = (termino + termino + termino + Optional(extension)).setParseAction(crear_tripleta)
+tripleta_parser = (termino + termino + termino + Optional(punto) + Optional(extension)).setParseAction(crear_tripleta)
+
+# Tripleta
+#tripleta_parser = (termino + termino + termino + Optional(extension)).setParseAction(crear_tripleta)
 # Parser de regla: consecuente <- antecedente1, antecedente2, ... [confianza]
-regla_parser = (tripleta_parser + flecha + delimitedList(tripleta_parser, delim=',') + Optional(extension)).setParseAction(crear_regla)
+regla_parser = (tripleta_parser + flecha + delimitedList(tripleta_parser, delim=',') + Optional(punto) + Optional(extension)).setParseAction(crear_regla)
 
 #
 # Funciones
 #
+# def parsear_tripleta_archivo(input: str) -> Tripleta:
+#     """Parsear un string en una Tripleta"""
+#     return tripleta_parser_archivo.parseString(input, parseAll=True)[0]
 
 def parsear_tripleta(input: str) -> Tripleta:
     """Parsear un string en una Tripleta"""
