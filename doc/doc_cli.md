@@ -205,16 +205,4 @@ Cuando se ejecuta directamente:
 3. El programa finaliza cuando el usuario escribe:
    - `exit`, `quit`, `q`, `cerrar` o `e`.
 
----
 
-## Resumen
-
-El módulo `cli.py`:
-
-- Es el punto de interacción directo con el usuario.
-- Traduce texto a estructuras lógicas mediante el parser.
-- Muestra resultados de consultas y razonamiento.
-- Gestiona comandos especiales como `descubrir!` y salida del programa.
-- No realiza inferencia directamente, sino que coordina el flujo entre módulos.
-
-Es la capa de presentación del sistema y el puente entre el usuario y el motor lógico.
