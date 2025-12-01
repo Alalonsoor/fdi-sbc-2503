@@ -138,7 +138,7 @@ Plato omega3 alto <- Plato ingrediente salmon
 Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente tipo pescado [0.7]
 
 
-Plato es completo <- Plato rico_en proteina, Plato rico_en fibra, Plato rico_en carbohidratos,
+Plato es completo <- Plato rico_en proteina, Plato rico_en fibra, Plato rico_en carbohidratos
 Plato es mediterraneo <- Plato ingrediente aceite_oliva, Plato rico_en fibra
 Plato es ensalada <- Plato rico_en fibra, Plato ingrediente lechuga
 Plato es de_mar <- Plato contiene pescado, Plato contiene marisco
