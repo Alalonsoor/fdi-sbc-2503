@@ -136,7 +136,6 @@ aceite tipo grasa
 aceite_oliva tipo grasa
 aceite_coco tipo grasa
 leche_vegetal tipo bebida
-semilla_chia tipo semilla
 huevo tipo proteina
 embutido tipo carne
 sal tipo condimento
@@ -201,6 +200,7 @@ mantequilla grasa alto
 nata grasa alto
 embutido grasa alto
 aguacate grasa alto
+queso grasa alto
 
 # PROPIEDADES NUTRICIONALES - VITAMINAS Y MINERALES
 naranja vitamina_c alto
@@ -269,6 +269,7 @@ crema textura cremoso
 queso textura cremoso
 yogur textura cremoso
 aguacate textura cremoso
+mayonesa textura cremoso
 fruto_seco textura crujiente
 verdura textura crujiente
 huevo textura suave
@@ -303,18 +304,11 @@ miel_mostaza sabor dulce
 sal sabor salado
 azucar sabor dulce
 mostaza sabor picante
-mayonesa sabor cremoso
 vinagre sabor acido
 soja_salsa sabor salado
 miel sabor dulce
 piña sabor dulce
 uva sabor dulce
-
-salsa_picante sabor picante
-ketchup sabor dulce
-miel_mostaza sabor dulce
-sal sabor salado
-azucar sabor dulce
 
 # RECETAS
 pasta_boloñesa tipo plato

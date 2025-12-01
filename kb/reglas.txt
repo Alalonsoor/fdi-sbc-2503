@@ -14,53 +14,23 @@ Plato marida cava <- Plato ingrediente chocolate
 Plato marida vermut <- Plato ingrediente aceituna
 
 # PROPIEDADES NUTRICIONALES - RICO EN PROTEÍNA
-Plato rico_en proteina <- Plato ingrediente huevo
-Plato rico_en proteina <- Plato ingrediente carne
-Plato rico_en proteina <- Plato ingrediente pollo
-Plato rico_en proteina <- Plato ingrediente cerdo
-Plato rico_en proteina <- Plato ingrediente pavo
-Plato rico_en proteina <- Plato ingrediente pescado
-Plato rico_en proteina <- Plato ingrediente salmon
-Plato rico_en proteina <- Plato ingrediente marisco
-Plato rico_en proteina <- Plato ingrediente legumbre
-Plato rico_en proteina <- Plato ingrediente soja
-Plato rico_en proteina <- Plato ingrediente tofu
-Plato rico_en proteina <- Plato ingrediente queso
+Plato rico_en proteina <- Plato ingrediente Ingrediente, Ingrediente proteina alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN GRASAS
-Plato rico_en grasas <- Plato ingrediente mantequilla
-Plato rico_en grasas <- Plato ingrediente nata
-Plato rico_en grasas <- Plato ingrediente aceite
-Plato rico_en grasas <- Plato ingrediente embutido
-Plato rico_en grasas <- Plato ingrediente fruto_seco
-Plato rico_en grasas <- Plato ingrediente queso
+Plato rico_en grasas <- Plato ingrediente Ingrediente, Ingrediente grasa alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN CARBOHIDRATOS
-Plato rico_en carbohidratos <- Plato ingrediente pasta
-Plato rico_en carbohidratos <- Plato ingrediente arroz
-Plato rico_en carbohidratos <- Plato ingrediente trigo
-Plato rico_en carbohidratos <- Plato ingrediente pan
-Plato rico_en carbohidratos <- Plato ingrediente platano
+Plato rico_en carbohidratos <- Plato ingrediente Ingrediente, Ingrediente carbohidrato alto
 Plato rico_en carbohidratos <- Plato ingrediente Ingrediente, Ingrediente tipo grano
 
 # PROPIEDADES NUTRICIONALES - RICO EN FIBRA
-Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
-Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
-Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo legumbre
-Plato rico_en fibra <- Plato ingrediente broccoli
-Plato rico_en fibra <- Plato ingrediente zanahoria
-Plato rico_en fibra <- Plato ingrediente manzana
-Plato rico_en fibra <- Plato ingrediente fresa
-Plato rico_en fibra <- Plato ingrediente repollo
+Ingrediente fibra alto <- Ingrediente tipo verdura
+Ingrediente fibra alto <- Ingrediente tipo fruta
+Ingrediente fibra alto <- Ingrediente tipo legumbre
+Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente fibra alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN HIERRO
-Plato rico_en hierro <- Plato ingrediente espinaca
-Plato rico_en hierro  <- Plato ingrediente lenteja
-Plato rico_en hierro <- Plato ingrediente garbanzo
-Plato rico_en hierro <- Plato ingrediente higado
-Plato rico_en hierro <- Plato ingrediente sardina
-Plato rico_en hierro <- Plato ingrediente semilla_chia
-Plato rico_en hierro <- Plato ingrediente carne_roja
+Plato rico_en hierro <- Plato ingrediente Ingrediente, Ingrediente hierro alto
 
 # ADVERTENCIAS NUTRICIONALES - EXCESO DE GRASAS SATURADAS
 Plato exceso_en grasas_saturadas <- Plato ingrediente mantequilla
@@ -93,11 +63,11 @@ Alimento conservar seco <- Alimento ingrediente chocolate
 Alimento conservar seco <- Alimento ingrediente aceite
 
 # Combinaciones
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido [0.85]
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor acido [0.8]
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor salado [0.75]
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo carne, Ingrediente2 tipo verdura [0.9]
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo pescado, Ingrediente2 tipo verdura [0.9]
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor acido
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor picante, Ingrediente2 sabor salado
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo carne, Ingrediente2 tipo verdura
+Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 tipo pescado, Ingrediente2 tipo verdura
 
 # ALERGENOS
 X alergeno pescado <- X ingrediente Ingrediente, Ingrediente tipo pescado
@@ -130,20 +100,34 @@ Plato contiene producto_animal <- Plato contiene marisco
 Plato contiene producto_animal <- Plato contiene lacteo
 Plato contiene producto_animal <- Plato contiene huevo
 
+# RESTRICCIONES DIETÉTICAS
+
+# RESTRICCIONES VEGANOS
+X no_apto_para vegano <- X tipo carne
+X no_apto_para vegano <- X tipo pescado
+X no_apto_para vegano <- X tipo marisco
+X no_apto_para vegano <- X tipo lacteo
+X no_apto_para vegano <- X ingrediente huevo
+Plato no_apto_para vegano <- Plato contiene producto_animal
+
+# RESTRICCIONES VEGETARIANOS
+X no_apto_para vegetariano <- X tipo carne
+X no_apto_para vegetariano <- X tipo pescado
+X no_apto_para vegetariano <- X tipo marisco
+Plato no_apto_para vegetariano <- Plato contiene carne
+Plato no_apto_para vegetariano <- Plato contiene pescado
+Plato no_apto_para vegetariano <- Plato contiene marisco
+
 # PROPIEDADES SALUDABLES - VITAMINAS Y MINERALES
-Plato vitaminac alta <- Plato ingrediente naranja
-Plato vitaminac alta <- Plato ingrediente limon
-Plato vitaminac alta <- Plato ingrediente fresa
-Plato omega3 alto <- Plato ingrediente salmon
-Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente tipo pescado [0.7]
+Plato vitaminac alta <- Plato ingrediente Ingrediente, Ingrediente vitamina_c alto
+Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente omega3 alto
 
-
+# ESTILOS DE PLATOS
 Plato es completo <- Plato rico_en proteina, Plato rico_en fibra, Plato rico_en carbohidratos
 Plato es mediterraneo <- Plato ingrediente aceite_oliva, Plato rico_en fibra
 Plato es ensalada <- Plato rico_en fibra, Plato ingrediente lechuga
 Plato es de_mar <- Plato contiene pescado, Plato contiene marisco
 Plato es energético <- Plato rico_en proteina,  Plato rico_en grasas
-
 Plato es balanceado <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en fibra
 Plato es energetico <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en grasas
 Plato es nutritivo <- Plato rico_en proteina, Plato rico_en fibra, Plato conservar frio
@@ -155,15 +139,10 @@ Plato estilo asiatico <- Plato ingrediente jengibre, Plato ingrediente soja_sals
 Plato estilo mexicano <- Plato ingrediente chile, Plato ingrediente maiz, Plato ingrediente aguacate
 
 # PLATOS TEXTURAS
-Plato textura cremosa <- Plato ingrediente aguacate
-Plato textura cremosa <- Plato ingrediente crema
-Plato textura cremosa <- Plato ingrediente mayonesa
+Plato textura cremosa <- Plato ingrediente Ingrediente, Ingrediente textura cremoso
 
 # SABORES
-Plato sabor picante <- Plato ingrediente salsa_picante
-Plato sabor picante <- Plato ingrediente chile
-Plato sabor picante <- Plato ingrediente jengibre
-
-Plato sabor dulce <- Plato ingrediente miel
-Plato sabor dulce <- Plato ingrediente azucar
-Plato sabor dulce <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
+Plato es_sabor picante <- Plato ingrediente Ingrediente, Ingrediente sabor picante
+Plato es_sabor dulce <- Plato ingrediente Ingrediente, Ingrediente sabor dulce
+Plato es_sabor salado <- Plato ingrediente Ingrediente, Ingrediente sabor salado
+Plato es_sabor suave <- Plato ingrediente Ingrediente, Ingrediente sabor suave
