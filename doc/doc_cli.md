@@ -25,7 +25,7 @@ Devuelve la lista de variables presentes en una tripleta sin duplicados y respet
 #### Ejemplo
 
 ```python
-Tripleta("?x", "tipo", "?y")  ->  ["?x", "?y"]
+Tripleta("X", "tipo", "Y")  ->  ["X", "Y"]
 Tripleta("tomate", "tipo", "verdura")  ->  []
 ```
 
@@ -118,7 +118,7 @@ tomate tipo verdura ?
 Ejemplo:
 
 ```
-?x tipo fruta ?
+X tipo fruta ?
 ```
 
 Salida:
@@ -130,7 +130,7 @@ pera [70%]
 Si la variable está en el objeto:
 
 ```
-pizza contiene ?x ?
+pizza contiene X ?
 ```
 
 Salida:
@@ -145,7 +145,7 @@ contiene = queso [80%]
 Ejemplo:
 
 ```
-?x contiene ?y ?
+X contiene Y ?
 ```
 
 Salida:
