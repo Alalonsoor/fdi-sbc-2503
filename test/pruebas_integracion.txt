@@ -1,0 +1,48 @@
+# Hechos con prefijo t_
+
+t_tomate t_color t_rojo .
+Hecho agregado: t_tomate t_color t_rojo
+
+t_tomate t_textura t_jugosa .
+Hecho agregado: t_tomate t_textura t_jugosa
+
+t_platano t_color t_amarillo .
+Hecho agregado: t_platano t_color t_amarillo
+
+t_patata t_color t_marron .
+Hecho agregado: t_patata t_color t_marron
+
+t_carne_roja t_color t_rojo .
+Hecho agregado: t_carne_roja t_color t_rojo
+
+t_vino_tinto t_color t_rojo .
+Hecho agregado: t_vino_tinto t_color t_rojo
+
+t_jamon t_color t_rojo .
+Hecho agregado: t_jamon t_color t_rojo
+
+# Consultas simples
+t_tomate t_color t_rojo ?
+T
+
+t_tomate t_color t_amarillo ?
+F
+
+t_arandano t_color t_azul ?
+F
+
+# Consulta con una variable
+t_tomate t_color X ?
+t_color = t_rojo
+
+# Consulta con múltiples resultados
+X t_color t_rojo ?
+! t_tomate, t_vino_tinto, t_jamon, t_carne_roja
+
+# Consulta con dos variables
+t_tomate X Y ?
+! t_color rojo, t_textura jugoso
+
+# Consulta grande
+X t_color Y ?
+! t_tomate t_rojo, t_platano t_amarillo, t_patata t_marron, t_carne_roja t_rojo, t_vino_tinto t_rojo, t_jamon t_rojo
