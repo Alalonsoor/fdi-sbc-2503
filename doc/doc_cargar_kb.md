@@ -115,15 +115,6 @@ X alergeno lactosa <- X tipo lacteo [0.8]
 
 ---
 
-## Gestión de errores
-
-- Si un fichero no existe, la lista correspondiente (hechos o reglas) se deja vacía.
-- La función no aborta el programa por ficheros inexistentes.
-- Si el contenido de una línea es incorrecto, la excepción se propagará desde
-  `parsear_tripleta` o `parsear_regla`.
-
----
-
 ## Relación con otros módulos
 
 `cargar_kb.py` depende directamente de:
@@ -136,16 +127,4 @@ X alergeno lactosa <- X tipo lacteo [0.8]
 Este módulo no realiza razonamiento ni consultas directamente: su única responsabilidad
 es **construir la base de conocimiento inicial**.
 
----
 
-## Resumen
-
-El módulo `cargar_kb.py`:
-
-- Centraliza la lectura de datos desde ficheros externos.
-- Limpia entradas inválidas (comentarios y líneas vacías).
-- Convierte texto en estructuras lógicas internas.
-- Construye una KB lista para ser usada por `query.py` y `cli.py`.
-
-Es el primer paso en el flujo general del sistema, ya que sin esta carga inicial
-no es posible realizar consultas ni razonamiento.

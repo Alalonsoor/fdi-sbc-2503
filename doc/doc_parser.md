@@ -203,4 +203,4 @@ Resultado:
 - Tipo: `"descubrir"`
 - Sin tripleta asociada (None)
 
----
+
