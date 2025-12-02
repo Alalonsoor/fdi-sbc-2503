@@ -46,7 +46,7 @@ cd fdi-sbc-25XX
 uv sync
 ```
 
-### Ejecición
+### Ejecución
 
 ```bash
 uv run -m sbc.cli
@@ -54,34 +54,36 @@ uv run -m sbc.cli
 
 ## Estructura del Proyecto
 
-fdi-sbc-2503/
-├── kb/                    # Base de conocimiento
-│   ├── `ingredientes.txt`
-│   └── `hechos.txt`
-├── sbc/                   # Motor de inferencia
-│   ├── `__init__.py`
-│   ├── `cargar_kb.py`
-│   ├── `cli.py`
-│   ├── `ed.py`
-│   ├── `parser.py`
-│   ├── `query.py`
-│   └── `unificar.py`
-├── test/                  # Tests funcionales
-│   ├── `test_cargar_kb.py`
-│   ├── `test_cli.py`
-│   ├── `test_descubrir.py`
-│   ├── `test_parser.py`
-│   ├── `test_query.py`
-│   └── `test_unify.py`
-├── doc/                   # Documentación
-│   ├── `doc_cargar_kb.md`
-│   ├── `doc_cli.md`
-│   ├── `doc_ed.md`
-│   ├── `doc_parser.md`
-│   ├── `doc_query.md`
-│   └── `doc_unificar.md`
-├── `pyproject.toml`
-└── `README.md`
+```bash
+  fdi-sbc-2503/
+  ├── kb/                    # Base de conocimiento
+  │   ├── `ingredientes.txt`
+  │   └── `hechos.txt`
+  ├── sbc/                   # Motor de inferencia
+  │   ├── `__init__.py`
+  │   ├── `cargar_kb.py`
+  │   ├── `cli.py`
+  │   ├── `ed.py`
+  │   ├── `parser.py`
+  │   ├── `query.py`
+  │   └── `unificar.py`
+  ├── test/                  # Tests funcionales
+  │   ├── `test_cargar_kb.py`
+  │   ├── `test_cli.py`
+  │   ├── `test_descubrir.py`
+  │   ├── `test_parser.py`
+  │   ├── `test_query.py`
+  │   └── `test_unify.py`
+  ├── doc/                   # Documentación
+  │   ├── `doc_cargar_kb.md`
+  │   ├── `doc_cli.md`
+  │   ├── `doc_ed.md`
+  │   ├── `doc_parser.md`
+  │   ├── `doc_query.md`
+  │   └── `doc_unificar.md`
+  ├── `pyproject.toml`
+  └── `README.md`
+```
 
 ## Uso del Sistema
 
@@ -154,8 +156,21 @@ Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
 
 ### Ejecución de Tests
 
+1. **Test unitarios**
+
 ```bash
     python -m pytest
+    uv format --check
+```
+2. **Test de integración**
+
+```bash
+    chmod +x test/corregir.sh
+    ./test/corregir.sh test/test_integracion.txt
+```
+3. **Comprobación de formato**
+
+```bash
     uv format --check
 ```
 
