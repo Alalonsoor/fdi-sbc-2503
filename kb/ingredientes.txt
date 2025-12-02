@@ -1,534 +1,197 @@
+# ========================================
+# INGREDIENTES BASE Y PROPIEDADES FÍSICAS
+# ========================================
+
 # COLORES
 tomate color rojo
-platano color amarillo
-patata color marron
-carne_roja color roja
-pollo color rosa
-pavo color rosa
-pasta color amarillo
-leche color blanco
-vino_tinto color rojo
-vino_blanco color blanco
-mantequilla color amarillo
-jamón color rojo
-cebolla color blanco
+salmon color naranja
 repollo color verde
 
-# CANTIDADES
-tomate cantidad mucho
-platano cantidad poco
-leche cantidad mucho
-cebolla cantidad mucho
+# TEXTURAS
+queso textura cremosa
+almendra textura crujiente
+carne textura firme
 
-# GRANOS
-pan tipo grano
-trigo tipo grano
-cebada tipo grano
-centeno tipo grano
-maíz tipo grano
+# ========================================
+# TAXONOMÍA DE INGREDIENTES
+# ========================================
+
+# GRANOS Y CEREALES
 arroz tipo grano
 pasta tipo grano
-harina_arroz tipo grano
-harina_trigo tipo grano
 quinoa tipo grano
-avena tipo grano
 
 # LÁCTEOS
 leche tipo lacteo
 queso tipo lacteo
-mantequilla tipo lacteo
-mozzarella tipo lacteo
-crema tipo lacteo
-yogur tipo lacteo
-nata tipo lacteo
 
 # FRUTOS SECOS
 almendra tipo fruto_seco
 nuez tipo fruto_seco
-avellana tipo fruto_seco
-pistacho tipo fruto_seco
 
 # CARNES
 carne_roja tipo carne
 pollo tipo carne
-cerdo tipo carne
-pavo tipo carne
 jamon tipo carne
-higado tipo carne
 
 # PESCADOS
-pescado tipo pescado
 salmon tipo pescado
-trucha tipo pescado
 sardina tipo pescado
-atun tipo pescado
-bacalao tipo pescado
-anchoa tipo pescado
-merluza tipo pescado
 
 # MARISCOS
-camaron tipo marisco
 gamba tipo marisco
-gambon tipo marisco
-langostino tipo marisco
-mejillon tipo marisco
-ostra tipo marisco
-almeja tipo marisco
-vieira tipo marisco
-cangrejo tipo marisco
+pulpo tipo marisco
 
-# LEGUMBRES Y PROTEÍNAS VEGETALES
-soja tipo legumbre
+# LEGUMBRES
 tofu tipo legumbre
-seitán tipo legumbre
 lenteja tipo legumbre
 garbanzo tipo legumbre
 
 # VERDURAS
-cebolla tipo verdura
 tomate tipo verdura
-ajo tipo verdura
-broccoli tipo verdura
 zanahoria tipo verdura
-pimiento tipo verdura
-repollo tipo verdura
-lechuga tipo verdura
 espinaca tipo verdura
-champinon tipo verdura
 
 # FRUTAS
 manzana tipo fruta
-naranja tipo fruta
 limon tipo fruta
-melon tipo fruta
-fresa tipo fruta
 platano tipo fruta
-aceituna tipo fruta
-aguacate tipo fruta
-piña tipo fruta
-uva tipo fruta
-
-# SEMILLAS
-semilla_chia tipo semilla
-
-# HIERBAS Y ESPECIAS
-cilantro tipo hierba
-albahaca tipo hierba
-jengibre tipo especia
-pimienta tipo especia
-canela tipo especia
-
-# CONDIMENTOS
-salsa_picante tipo condimento
-ketchup tipo condimento
-miel_mostaza tipo condimento
-sal tipo condimento
-azucar tipo condimento
-mostaza tipo condimento
-mayonesa tipo condimento
-vinagre tipo condimento
-soja_salsa tipo condimento
-miel tipo endulzante
 
 # OTROS
-chocolate tipo postre
-aceite tipo grasa
-aceite_oliva tipo grasa
-aceite_coco tipo grasa
-leche_vegetal tipo bebida
 huevo tipo proteina
-embutido tipo carne
-sal tipo condimento
-salsa tipo condimento
+aceite_oliva tipo grasa
 
-# CATEGORÍAS GENÉRICAS
-carne tipo carne
-verdura tipo verdura
-fruta tipo fruta
-fruto_seco tipo fruto_seco
-marisco tipo marisco
-legumbre tipo legumbre
-postre tipo postre
+# ========================================
+# ALERGENOS Y RESTRICCIONES DIETÉTICAS
+# ========================================
 
-# PROPIEDADES NUTRICIONALES - PROTEÍNA
-carne proteina alto
-pollo proteina alto
-cerdo proteina alto
-pavo proteina alto
-legumbre proteina alto
-soja proteina alto
-tofu proteina alto
-seitán proteina alto
-pescado proteina alto
-salmon proteina alto
-huevo proteina alto
-queso proteina alto
-quinoa proteina alto
-lenteja proteina alto
-garbanzo proteina alto
+# ALÉRGENOS PRINCIPALES
+leche contiene lactosa [0.95]
+queso contiene lactosa [0.9]
+pasta contiene gluten [0.95]
+gamba contiene marisco_alergeno [1.0]
+salmon contiene pescado_alergeno [1.0]
+huevo contiene huevo_alergeno [1.0]
+almendra contiene fruto_seco_alergeno [1.0]
+tofu contiene soja_alergeno [0.95]
 
-# PROPIEDADES NUTRICIONALES - CARBOHIDRATOS
-pasta carbohidrato alto
-arroz carbohidrato alto
-trigo carbohidrato alto
-platano carbohidrato alto
-melon carbohidrato bajo
-avena carbohidrato alto
+# RESTRICCIONES DIETÉTICAS
+carne_roja apto_para vegano [0.0]
+huevo apto_para vegano [0.0]
+tofu apto_para vegano [1.0]
+lenteja apto_para vegano [1.0]
+jamon apto_para kosher [0.0]
+pollo apto_para kosher [1.0]
+pasta apto_para celiaco [0.0]
+arroz apto_para celiaco [1.0]
 
-# PROPIEDADES NUTRICIONALES - FIBRA
-verdura fibra alto
-legumbre fibra alto
-fruta fibra alto
-broccoli fibra alto
-zanahoria fibra alto
-manzana fibra alto
-fresa fibra alto
-repollo fibra alto
-avena fibra alto
-quinoa fibra alto
-lenteja fibra alto
-garbanzo fibra alto
+# ========================================
+# PROPIEDADES NUTRICIONALES
+# ========================================
 
-# PROPIEDADES NUTRICIONALES - GRASAS
-aceite grasa alto
-aceite_oliva grasa alto
-aceite_coco grasa alto
-fruto_seco grasa alto
-almendra grasa alto
-nuez grasa alto
-mantequilla grasa alto
-nata grasa alto
-embutido grasa alto
-aguacate grasa alto
-queso grasa alto
+# PROTEÍNAS
+carne_roja proteina alto [0.9]
+salmon proteina alto [0.92]
+tofu proteina alto [0.8]
+lenteja proteina alto [0.75]
 
-# PROPIEDADES NUTRICIONALES - VITAMINAS Y MINERALES
-naranja vitamina_c alto
-limon vitamina_c alto
-fresa vitamina_c alto
-piña vitamina_c alto
-zanahoria vitamina_a alto
-broccoli vitamina_a alto
-espinaca vitamina_a alto
-salmon omega3 alto
-pescado omega3 alto
-huevo hierro alto
-legumbre hierro alto
-sardina omega3 alto
+# CARBOHIDRATOS
+arroz carbohidrato alto [0.95]
+platano carbohidrato alto [0.7]
+espinaca carbohidrato bajo [0.95]
 
-# ALIMENTOS RICOS EN HIERRO
-espinaca hierro alto
-lenteja hierro alto
-garbanzo hierro alto
-carne_roja hierro alto
-higado hierro alto
-sardina hierro alto
-semilla_chia hierro alto
+# GRASAS
+aceite_oliva grasa alto [0.98]
+almendra grasa alto [0.88]
+salmon omega3 alto [0.95]
+queso grasa_saturada alto [0.7]
 
+# FIBRA
+zanahoria fibra alto [0.7]
+lenteja fibra alto [0.9]
 
+# VITAMINAS
+limon vitamina_c alto [0.9]
+zanahoria vitamina_a alto [0.95]
+almendra vitamina_e alto [0.85]
+espinaca vitamina_k alto [0.95]
+
+# MINERALES
+lenteja hierro alto [0.9]
+queso calcio alto [0.95]
+platano potasio alto [0.9]
+
+# ANTIOXIDANTES
+te antioxidante alto [0.92]
+
+# ========================================
 # SUSTITUCIONES
-leche_vegetal sustituye leche
-tofu sustituye carne
-seitán sustituye carne
-semilla_chia sustituye huevo
-harina_arroz sustituye harina_trigo
-aceite_coco sustituye mantequilla
-aceite_vegetal sustituye aceite
-queso_vegano sustituye queso
-pollo sustituye carne_roja
-pavo sustituye carne_roja
-cerdo sustituye carne_roja
+# ========================================
+tofu sustituye carne_roja [0.8]
+quinoa sustituye pasta [0.8]
+semilla_chia sustituye huevo [0.7]
 
-# CONSERVACIÓN - REFRIGERACIÓN
-leche conservar refrigerado
-carne conservar refrigerado
-pollo conservar refrigerado
-cerdo conservar refrigerado
-pavo conservar refrigerado
-jamon conservar refrigerado
-pescado conservar refrigerado
-salmon conservar refrigerado
-atun conservar refrigerado
-marisco conservar refrigerado
-queso conservar refrigerado
-yogur conservar refrigerado
-crema conservar refrigerado
-nata conservar refrigerado
-mantequilla conservar refrigerado
+# ========================================
+# CONSERVACIÓN
+# ========================================
+carne_roja conservar refrigerado [1.0]
+salmon conservar refrigerado [1.0]
+arroz conservar ambiente [1.0]
+lenteja conservar ambiente [1.0]
 
-# CONSERVACIÓN - AMBIENTE
-arroz conservar ambiente
-pasta conservar ambiente
-harina_arroz conservar ambiente
-harina_trigo conservar ambiente
-fruta conservar ambiente
-chocolate conservar ambiente
+salmon duracion_dias 2 [0.95]
+carne_roja duracion_dias 3 [0.9]
+arroz duracion_meses 12 [1.0]
+lenteja duracion_meses 12 [1.0]
 
-# TEXTURAS
-crema textura cremoso
-queso textura cremoso
-yogur textura cremoso
-aguacate textura cremoso
-mayonesa textura cremoso
-fruto_seco textura crujiente
-verdura textura crujiente
-huevo textura suave
-tofu textura suave
-tomate textura jugoso
-melon textura jugoso
-pescado textura firme
-carne textura firme
-pasta textura firme
-arroz textura grumoso
-champinon textura carnoso
-
+# ========================================
 # SABORES
-queso sabor salado
-jamon sabor salado
-aceite_oliva sabor suave
-naranja sabor dulce
-limon sabor acido
-chocolate sabor dulce
-chile sabor picante
-jengibre sabor picante
-ajo sabor fuerte
-cilantro sabor fresco
-pimiento sabor picante
-tomate sabor acido
-fresa sabor dulce
-manzana sabor dulce
-melon sabor dulce
-salsa_picante sabor picante
-ketchup sabor dulce
-miel_mostaza sabor dulce
-sal sabor salado
-azucar sabor dulce
-mostaza sabor picante
-vinagre sabor acido
-soja_salsa sabor salado
-miel sabor dulce
-piña sabor dulce
-uva sabor dulce
+# ========================================
+jamon sabor salado [0.95]
+miel sabor dulce [0.98]
+limon sabor acido [0.98]
+salsa_picante sabor picante [0.98]
+ajo sabor fuerte [0.9]
+limon sabor fresco [0.85]
+tofu sabor suave [0.9]
+te sabor amargo [0.7]
 
 # RECETAS
 pasta_boloñesa tipo plato
-pasta_boloñesa ingrediente carne
+pasta_boloñesa ingrediente carne_roja
 pasta_boloñesa ingrediente pasta
 pasta_boloñesa ingrediente tomate
-pasta_boloñesa ingrediente cebolla
-pasta_boloñesa ingrediente zanahoria
-pasta_boloñesa ingrediente vino_tinto
-pasta_boloñesa ingrediente aceite_oliva
-
-huevo_frito tipo plato
-huevo_frito ingrediente huevo
-huevo_frito ingrediente aceite_oliva
-huevo_frito ingrediente sal
-
-tortilla tipo plato
-tortilla ingrediente huevo
-tortilla ingrediente patata
-tortilla ingrediente aceite_oliva
-tortilla ingrediente cebolla
-
-hamburguesa tipo plato
-hamburguesa ingrediente carne [0.8]
-hamburguesa ingrediente lechuga
-hamburguesa ingrediente pan
-hamburguesa ingrediente tomate
-hamburguesa ingrediente cebolla
-hamburguesa ingrediente salsa
-hamburguesa ingrediente queso
-
-ensalada_cesar tipo plato
-ensalada_cesar ingrediente lechuga
-ensalada_cesar ingrediente pollo
-ensalada_cesar ingrediente queso
-ensalada_cesar ingrediente pan
-
-paella_marisco tipo plato
-paella_marisco ingrediente arroz
-paella_marisco ingrediente marisco
-paella_marisco ingrediente pescado
-paella_marisco ingrediente pimiento
-paella_marisco ingrediente tomate
-paella_marisco ingrediente aceite_oliva
-
-risotto tipo plato
-risotto ingrediente arroz
-risotto ingrediente queso
-risotto ingrediente mantequilla
-risotto ingrediente vino_blanco
 
 salmon_horno tipo plato
 salmon_horno ingrediente salmon
 salmon_horno ingrediente limon
-salmon_horno ingrediente aceite_oliva
 
-ensalada_frutas tipo plato
-ensalada_frutas ingrediente manzana
-ensalada_frutas ingrediente naranja
-ensalada_frutas ingrediente fresa
-ensalada_frutas ingrediente melon
-
-gazpacho tipo plato
-gazpacho ingrediente tomate
-gazpacho ingrediente pimiento
-gazpacho ingrediente cebolla
-gazpacho ingrediente ajo
-gazpacho ingrediente aceite_oliva
-
-tarta_chocolate tipo plato
-tarta_chocolate ingrediente chocolate
-tarta_chocolate ingrediente harina_trigo
-tarta_chocolate ingrediente huevo
-tarta_chocolate ingrediente mantequilla
-
-curry_verduras tipo plato
-curry_verduras ingrediente zanahoria
-curry_verduras ingrediente broccoli
-curry_verduras ingrediente pimiento
-curry_verduras ingrediente leche_vegetal
-curry_verduras ingrediente jengibre
-
-sopa_lentejas tipo plato
-sopa_lentejas ingrediente soja
-sopa_lentejas ingrediente zanahoria
-sopa_lentejas ingrediente cebolla
-sopa_lentejas ingrediente tomate
-
-bocadillo_jamon tipo plato
-bocadillo_jamon ingrediente pan
-bocadillo_jamon ingrediente jamon
-bocadillo_jamon ingrediente tomate
-
-pizza tipo plato
-pizza ingrediente harina_trigo
-pizza ingrediente queso
-pizza ingrediente mozzarella
-pizza ingrediente tomate
-pizza ingrediente aceite_oliva
-
-ensalada_espinacas tipo plato
-ensalada_espinacas ingrediente espinaca
-ensalada_espinacas ingrediente tomate
-ensalada_espinacas ingrediente queso
-ensalada_espinacas ingrediente vinagre
+ensalada_vegana tipo plato
+ensalada_vegana ingrediente tofu
+ensalada_vegana ingrediente espinaca
+ensalada_vegana ingrediente zanahoria
 
 lentejas_estofadas tipo plato
 lentejas_estofadas ingrediente lenteja
 lentejas_estofadas ingrediente zanahoria
-lentejas_estofadas ingrediente cebolla
 lentejas_estofadas ingrediente tomate
+
+paella_marisco tipo plato
+paella_marisco ingrediente arroz
+paella_marisco ingrediente gamba
+paella_marisco ingrediente salmon
 
 hummus tipo plato
 hummus ingrediente garbanzo
 hummus ingrediente ajo
 hummus ingrediente aceite_oliva
-hummus ingrediente limon
 
-ensalada_quinoa tipo plato
-ensalada_quinoa ingrediente quinoa
-ensalada_quinoa ingrediente aguacate
-ensalada_quinoa ingrediente tomate
-ensalada_quinoa ingrediente limon
+ensalada_frutas tipo plato
+ensalada_frutas ingrediente manzana
+ensalada_frutas ingrediente platano
+ensalada_frutas ingrediente limon
 
-tostada_aguacate tipo plato
-tostada_aguacate ingrediente aguacate
-tostada_aguacate ingrediente pan
-tostada_aguacate ingrediente tomate
-tostada_aguacate ingrediente sal
-
-piña_asada tipo plato
-piña_asada ingrediente piña
-piña_asada ingrediente miel
-piña_asada ingrediente canela
-
-ensalada_frutas_tropical tipo plato
-ensalada_frutas_tropical ingrediente piña
-ensalada_frutas_tropical ingrediente uva
-ensalada_frutas_tropical ingrediente melon
-ensalada_frutas_tropical ingrediente naranja
-
-sardinas_plancha tipo plato
-sardinas_plancha ingrediente sardina
-sardinas_plancha ingrediente limon
-sardinas_plancha ingrediente aceite_oliva
-sardinas_plancha ingrediente sal
-
-higado_cebolla tipo plato
-higado_cebolla ingrediente higado
-higado_cebolla ingrediente cebolla
-higado_cebolla ingrediente aceite_oliva
-
-champinones_salteados tipo plato
-champinones_salteados ingrediente champinon
-champinones_salteados ingrediente ajo
-champinones_salteados ingrediente perejil
-champinones_salteados ingrediente aceite_oliva
-
-porridge_avena tipo plato
-porridge_avena ingrediente avena
-porridge_avena ingrediente leche
-porridge_avena ingrediente miel
-porridge_avena ingrediente canela
-
-pudding_chia tipo plato
-pudding_chia ingrediente semilla_chia
-pudding_chia ingrediente leche_vegetal
-pudding_chia ingrediente miel
-pudding_chia ingrediente fresa
-
-brocheta_pollo_piña tipo plato
-brocheta_pollo_piña ingrediente pollo
-brocheta_pollo_piña ingrediente piña
-brocheta_pollo_piña ingrediente pimiento
-brocheta_pollo_piña ingrediente cebolla
-
-wrap_vegano tipo plato
-wrap_vegano ingrediente tofu
-wrap_vegano ingrediente aguacate
-wrap_vegano ingrediente lechuga
-wrap_vegano ingrediente tomate
-
-curry_garbanzos tipo plato
-curry_garbanzos ingrediente garbanzo
-curry_garbanzos ingrediente leche_vegetal
-curry_garbanzos ingrediente jengibre
-curry_garbanzos ingrediente ajo
-
-sopa_espinacas tipo plato
-sopa_espinacas ingrediente espinaca
-sopa_espinacas ingrediente patata
-sopa_espinacas ingrediente cebolla
-sopa_espinacas ingrediente crema
-
-batido_verde tipo plato
-batido_verde ingrediente espinaca
-batido_verde ingrediente platano
-batido_verde ingrediente piña
-batido_verde ingrediente leche_vegetal
-
-tarta_zanahoria tipo plato
-tarta_zanahoria ingrediente zanahoria
-tarta_zanahoria ingrediente harina_trigo
-tarta_zanahoria ingrediente huevo
-tarta_zanahoria ingrediente azucar
-
-# MEZCLAS DE SALSAS
-salsa_agridulce tipo salsa
-salsa_agridulce ingrediente salsa_picante
-salsa_agridulce ingrediente ketchup
-salsa_agridulce ingrediente miel
-salsa_agridulce ingrediente soja_salsa
-
-vinagreta_miel_mostaza tipo salsa
-vinagreta_miel_mostaza ingrediente vinagre
-vinagreta_miel_mostaza ingrediente miel_mostaza
-vinagreta_miel_mostaza ingrediente aceite_oliva
-vinagreta_miel_mostaza ingrediente sal
-
-salsa_mayonesa_ajo tipo salsa
-salsa_mayonesa_ajo ingrediente mayonesa
-salsa_mayonesa_ajo ingrediente ajo
-salsa_mayonesa_ajo ingrediente limon
+tarta_almendra tipo plato
+tarta_almendra ingrediente almendra
+tarta_almendra ingrediente huevo
+tarta_almendra ingrediente miel
