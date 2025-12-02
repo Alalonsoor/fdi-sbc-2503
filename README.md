@@ -1,28 +1,33 @@
 # Sistema Experto Culinario - Grupo 03
 
 ## Información del Grupo
+
 - **Curso**: Sistemas Basados en Conocimiento 2025/26
 - **Grupo**: 03
 - **Integrantes**:
-    - Álvaro Alonso
-    - Jiahao Cheng
-    - Francisco Pastor
-    - Jiayi Wang
+  - Álvaro Alonso
+  - Jiahao Cheng
+  - Francisco Pastor
+  - Jiayi Wang
 
 ## Descripción del Proyecto
+
 Sistema experto para el dominio culinario capaz de resolver múltiples tareas relacionadas con gastronomía y restricciones dietéticas.
 
 ## Dominios y Tareas Implementadas
 
 ### 1. Gestión de Alergenos y Restricciones Dietéticas
+
 - Identificación de ingredientes.
 - Verificación de compatibilidad de recetas con restricciones.
 
 ### 2. Composición de Ingredientes y Recetas
+
 - Análisis nutricional de platos.
 - Compatibilidad de ingredientes.
 
 ### 3. Maridajes y Combinaciones Gastronómicas
+
 - Armonización de sabores.
 - Recomendaciones de maridajes.
 
@@ -49,30 +54,34 @@ uv run -m sbc.cli
 
 ## Estructura del Proyecto
 
-fdi-sbc-25XX/
+fdi-sbc-2503/
 ├── kb/                    # Base de conocimiento
-│   ├── ingredientes.txt
-│   └── hechos.txt
+│   ├── `ingredientes.txt`
+│   └── `hechos.txt`
 ├── sbc/                   # Motor de inferencia
-│   ├── __init__.py
-│   ├── cargar_kb.py
-│   ├── cli.py
-│   ├── ed.py
-│   ├── parser.py
-│   ├── query.py
-│   └── unificar.py
+│   ├── `__init__.py`
+│   ├── `cargar_kb.py`
+│   ├── `cli.py`
+│   ├── `ed.py`
+│   ├── `parser.py`
+│   ├── `query.py`
+│   └── `unificar.py`
 ├── test/                  # Tests funcionales
-│   ├── test_cargar_kb.py
-│   ├── test_cli.py
-│   ├── test_descubrir.py
-│   ├── test_parser.py
-│   ├── test_query.py
-│   └── test_unify.py
+│   ├── `test_cargar_kb.py`
+│   ├── `test_cli.py`
+│   ├── `test_descubrir.py`
+│   ├── `test_parser.py`
+│   ├── `test_query.py`
+│   └── `test_unify.py`
 ├── doc/                   # Documentación
-│   ├── ...
-│   └── ...
-├── pyproject.toml
-└── README.md
+│   ├── `doc_cargar_kb.md`
+│   ├── `doc_cli.md`
+│   ├── `doc_ed.md`
+│   ├── `doc_parser.md`
+│   ├── `doc_query.md`
+│   └── `doc_unificar.md`
+├── `pyproject.toml`
+└── `README.md`
 
 ## Uso del Sistema
 
@@ -84,48 +93,51 @@ fdi-sbc-25XX/
 - Razonamiento: razona si X Y Z ? ("razona si pizza contiene glutén ?")
 
 ### Ejemplos de consultas
+
 ```bash
-> tomate color rojo ?
-< NO
-> tomate color rojo .
-> tomate color rojo ?
-< SI
-> tomate color X ?
-< color = rojo
-> X color rojo ?
-< tomate
+    > tomate color rojo ?
+    < NO
+    > tomate color rojo .
+    > tomate color rojo ?
+    < SI
+    > tomate color X ?
+    < color = rojo
+    > X color rojo ?
+    < tomate
 ```
 
 ## Base de conocimiento
 
 ### Sintaxis Implementada
 
-minus = "a" | ... | "z" ;
-mayus = "A" | ... | "Z" ;
-digito = "0" | ... | "9" ;
-caracter = minus | mayus | digito | "_" ;
-literal = minus { caracter } ;
-variable = mayus { caracter } ;
-termino = literal | variable ;
-tripleta = termino "  " termino " " termino ;
-afirmacion = tripleta "." [ extension ] ;
-comentario = "#" { .... } "\n" ;
-consulta = tripleta "?" | "razona si " tripleta "?" ;
-palabra = { caracter } ;
-comando = palabra { " " palabra } "!" ;
-regla = tripleta "<-" tripleta { ", " tripleta } "." [extension ] ;
-extension = "[" opcional { "; " opcional } " ]" ;
-opcional = difusa | precedencia | restriccion ;
-difusa = "0." { digito } | "1" ;
+```bash
+    minus = "a" | ... | "z" ;
+    mayus = "A" | ... | "Z" ;
+    digito = "0" | ... | "9" ;
+    caracter = minus | mayus | digito | "_" ;
+    literal = minus { caracter } ;
+    variable = mayus { caracter } ;
+    termino = literal | variable ;
+    tripleta = termino "  " termino " " termino ;
+    afirmacion = tripleta "." [ extension ] ;
+    comentario = "#" { .... } "\n" ;
+    consulta = tripleta "?" | "razona si " tripleta "?" ;
+    palabra = { caracter } ;
+    comando = palabra { " " palabra } "!" ;
+    regla = tripleta "<-" tripleta { ", " tripleta } "." [extension ] ;
+    extension = "[" opcional { "; " opcional } " ]" ;
+    opcional = difusa | precedencia | restriccion ;
+    difusa = "0." { digito } | "1" ;
+```
 
 ### Ejemplo de hechos
 
 ```bash
-# COLORES
-tomate color rojo [0.90]
+    # COLORES
+    tomate color rojo [0.90]
 
-# GRANOS
-pan tipo grano
+    # GRANOS
+    pan tipo grano
 ```
 
 ### Ejemplo de reglas
@@ -141,28 +153,27 @@ Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
 ## Tests y Validación
 
 ### Ejecución de Tests
+
 ```bash
-python -m pytest
-uv format --check
+    python -m pytest
+    uv format --check
 ```
 
 ### Cobertura de Funcionalidades
+
 - Motor de interferencia estándar.
 - Base de conocimiento modular.
 - CLI interactiva.
 - Encadenamiento hacia adelante/atrás.
 - Gestión de errores.
-
-## Documentación Adicional
-...
-
+  
 ## Desarrollo
 
 ### Convenciones del Código
+
 - Formateo automático con uv format
-...
 
 ### Gestión de Proyecto
+
 - Seguimiento mediante GitHub
 - Revisiones de código entre pares y grupales
-
