@@ -1,5 +1,6 @@
 from sbc.ed import Tripleta, Sustitucion, es_literal
 
+
 def ocurre(var: str, term: str, ss: Sustitucion) -> bool:
     """
     Comprueba si `var` aparece (directa o indirectamente) en `term`
@@ -28,7 +29,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion | None:
         # Caso 1: literal con literal (tomate, tomate)
         case (True, True):
             return ss if t1 == t2 else None
-        
+
         # Caso 2: literal con variable (tomate, X)
         case (True, False):
             if t2 in ss:
@@ -38,7 +39,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion | None:
                 return None
             ss.add(t2, t1)
             return ss
-        
+
         # Caso 3: variable con literal (X, tomate)
         case (False, True):
             if t1 in ss:
@@ -47,7 +48,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion | None:
                 return None
             ss.add(t1, t2)
             return ss
-        
+
         # Caso 4: variable con variable (X, P)
         case (False, False):
             if t1 in ss:
@@ -66,7 +67,7 @@ def unify_terms(t1: str, t2: str, ss: Sustitucion) -> Sustitucion | None:
 
 def unify(x: Tripleta, y: Tripleta, ss: Sustitucion | None = None) -> list[Sustitucion]:
     """
-    Unifica dos tripletas x, y. 
+    Unifica dos tripletas x, y.
     Retorna una lista con una Sustitucion si tiene éxito, lista vacía en caso contrario.
     """
 

@@ -7,6 +7,7 @@ from sbc.ed import Tripleta
 #  Tests extraer_variables
 # ============================
 
+
 def test_extraer_variables_sin_variables(monkeypatch):
     """Extrae variables cuando no hay ninguna variable."""
     # Forzamos es_variable a devolver siempre False
@@ -21,8 +22,9 @@ def test_extraer_variables_sin_variables(monkeypatch):
 def test_extraer_variables_con_variables_sin_duplicados(monkeypatch):
     """Extrae variables únicas manteniendo orden."""
     # Consideramos variables las que empiezan por máyuscula
-    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper())
-
+    monkeypatch.setattr(
+        "sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper()
+    )
 
     # La Tripleta devuelve terminos() como lista, p.ej ['X', 'tipo', 'X']
     t = Tripleta("X", "tipo", "X")
@@ -34,7 +36,9 @@ def test_extraer_variables_con_variables_sin_duplicados(monkeypatch):
 
 def test_extraer_variables_varias(monkeypatch):
     """Extrae múltiples variables correctamente."""
-    monkeypatch.setattr("sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper())
+    monkeypatch.setattr(
+        "sbc.cli.es_variable", lambda t: isinstance(t, str) and t[0].isupper()
+    )
 
     t = Tripleta("X", "rel", "Y")
     vars_encontradas = extraer_variables(t)
@@ -45,6 +49,7 @@ def test_extraer_variables_varias(monkeypatch):
 # ============================
 #  Helpers para formatear_resultados
 # ============================
+
 
 class DummySustitucion:
     def __init__(self, mapping):
@@ -69,8 +74,10 @@ class DummyHecho:
 #  Tests formatear_resultados: tipo 'hecho'
 # ============================
 
+
 def test_formatear_resultados_hecho_nuevo(monkeypatch):
     """Agrega hecho nuevo a la KB y lo informa."""
+
     # Simulamos que parsear_consulta detecta un hecho
     def fake_parsear_consulta(_):
         return Tripleta("pan", "tipo", "cereal"), "hecho"
@@ -91,8 +98,10 @@ def test_formatear_resultados_hecho_nuevo(monkeypatch):
 #  Tests formatear_resultados: tipo 'razonar'
 # ============================
 
+
 def test_formatear_resultados_razonar_true(monkeypatch):
     """Razonamiento devuelve SI cuando es verdadero."""
+
     def fake_parsear_consulta(_):
         return Tripleta("tomate", "tipo", "verdura"), "razonar"
 
@@ -111,6 +120,7 @@ def test_formatear_resultados_razonar_true(monkeypatch):
 
 def test_formatear_resultados_razonar_false(monkeypatch):
     """Razonamiento devuelve NO cuando es falso."""
+
     def fake_parsear_consulta(_):
         return Tripleta("tomate", "tipo", "carne"), "razonar"
 
@@ -130,8 +140,10 @@ def test_formatear_resultados_razonar_false(monkeypatch):
 #  Tests formatear_resultados: tipo 'consulta' sin variables
 # ============================
 
+
 def test_formatear_resultados_consulta_sin_variables_no_resultados(monkeypatch):
     """Consulta sin variables devuelve NO si no hay resultados."""
+
     def fake_parsear_consulta(_):
         return Tripleta("tomate", "tipo", "verdura"), "consulta"
 
@@ -150,6 +162,7 @@ def test_formatear_resultados_consulta_sin_variables_no_resultados(monkeypatch):
 
 def test_formatear_resultados_consulta_sin_variables_si_confianza_1(monkeypatch):
     """Consulta sin variables con confianza 1 devuelve SI."""
+
     def fake_parsear_consulta(_):
         return Tripleta("tomate", "tipo", "verdura"), "consulta"
 
@@ -169,6 +182,7 @@ def test_formatear_resultados_consulta_sin_variables_si_confianza_1(monkeypatch)
 
 def test_formatear_resultados_consulta_sin_variables_si_confianza_menor(monkeypatch):
     """Consulta sin variables muestra confianza en porcentaje."""
+
     def fake_parsear_consulta(_):
         return Tripleta("tomate", "tipo", "verdura"), "consulta"
 
@@ -193,8 +207,10 @@ def test_formatear_resultados_consulta_sin_variables_si_confianza_menor(monkeypa
 #  Tests formatear_resultados: tipo 'consulta' con 1 variable
 # ============================
 
+
 def test_formatear_resultados_consulta_una_variable_sujeto(monkeypatch):
     """Consulta con variable en sujeto muestra valores correctamente."""
+
     def fake_parsear_consulta(_):
         # X en sujeto
         return Tripleta("X", "tipo", "fruta"), "consulta"
@@ -222,6 +238,7 @@ def test_formatear_resultados_consulta_una_variable_sujeto(monkeypatch):
 
 def test_formatear_resultados_consulta_una_variable_objeto(monkeypatch):
     """Consulta con variable en objeto muestra predicado = valor."""
+
     def fake_parsear_consulta(_):
         # X en objeto
         return Tripleta("pizza", "contiene", "X"), "consulta"
@@ -249,8 +266,10 @@ def test_formatear_resultados_consulta_una_variable_objeto(monkeypatch):
 #  Tests formatear_resultados: tipo 'consulta' con varias variables
 # ============================
 
+
 def test_formatear_resultados_consulta_varias_variables(monkeypatch):
     """Consulta con varias variables muestra valor1 valor2 con confianza."""
+
     def fake_parsear_consulta(_):
         # dos variables
         return Tripleta("X", "contiene", "Y"), "consulta"
@@ -280,8 +299,10 @@ def test_formatear_resultados_consulta_varias_variables(monkeypatch):
 #  Tests formatear_resultados: tipo 'descubrir'
 # ============================
 
+
 def test_formatear_resultados_descubrir_sin_nuevos_hechos(monkeypatch):
     """Descubrir sin nuevos hechos informa correctamente."""
+
     def fake_parsear_consulta(_):
         return None, "descubrir"
 
@@ -299,6 +320,7 @@ def test_formatear_resultados_descubrir_sin_nuevos_hechos(monkeypatch):
 
 def test_formatear_resultados_descubrir_con_nuevos_hechos(monkeypatch):
     """Descubrir muestra lista de hechos nuevos con confianza."""
+
     def fake_parsear_consulta(_):
         return None, "descubrir"
 

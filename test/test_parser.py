@@ -7,6 +7,7 @@ from sbc.ed import Tripleta, Regla
 #  Tests EBNF - Sintaxis Básica
 # ============================
 
+
 def test_literal_minuscula():
     """Test: literal = minus { caracter }"""
     t = parsear_tripleta("tomate tipo verdura")
@@ -15,11 +16,13 @@ def test_literal_minuscula():
     assert predicado == "tipo"
     assert objeto == "verdura"
 
+
 def test_variable_mayuscula():
     """Test: variable = mayus { caracter }"""
     t = parsear_tripleta("X tipo verdura")
     assert t.terminos()[0] == "X"
-    
+
+
 def test_literal_con_numeros_y_guionbajo():
     """Test: caracter = minus | mayus | digito | "_" """
     t = parsear_tripleta("tomate_123 tipo_2 verdura_ABC")
@@ -28,9 +31,11 @@ def test_literal_con_numeros_y_guionbajo():
     assert predicado == "tipo_2"
     assert objeto == "verdura_ABC"
 
+
 # ============================
 #  Tests EBNF - Tripleta
 # ============================
+
 
 def test_tripleta_basica():
     """Test: tripleta = termino " " termino " " termino"""
@@ -38,9 +43,11 @@ def test_tripleta_basica():
     assert isinstance(t, Tripleta)
     assert t.terminos() == ["tomate", "tipo", "verdura"]
 
+
 # ============================
 #  Tests EBNF - Afirmación
 # ============================
+
 
 def test_afirmacion_sin_extension():
     """Test: afirmacion = tripleta "." [ extension ]"""
@@ -48,25 +55,29 @@ def test_afirmacion_sin_extension():
     t = parsear_tripleta("tomate tipo verdura")
     assert t.get_confianza() == 1.0
 
+
 def test_afirmacion_con_extension_difusa():
     """Test: afirmacion = tripleta "." [ extension ] con difusa"""
     t = parsear_tripleta("tomate tipo verdura [0.8]")
     assert t.get_confianza() == 0.8
 
+
 def test_difusa_formato_valido():
     """Test: difusa = "0." { digito } | "1" """
     t1 = parsear_tripleta("a b c [0.5]")
     assert t1.get_confianza() == 0.5
-    
+
     t2 = parsear_tripleta("a b c [0.95]")
     assert t2.get_confianza() == 0.95
-    
+
     t3 = parsear_tripleta("a b c [1]")
     assert t3.get_confianza() == 1.0
+
 
 # ============================
 #  Tests EBNF - Regla
 # ============================
+
 
 def test_regla_simple():
     """Test: regla = tripleta "<-" tripleta { ", " tripleta } "." [ extension ]"""
@@ -76,6 +87,7 @@ def test_regla_simple():
     assert len(r.get_antecedentes()) == 1
     assert r.get_antecedentes()[0].terminos() == ["X", "color", "rojo"]
 
+
 def test_regla_multiples_antecedentes():
     """Test: regla con múltiples antecedentes separados por coma"""
     r = parsear_regla("A tipo B <- X color rojo, Y tamaño grande")
@@ -83,19 +95,23 @@ def test_regla_multiples_antecedentes():
     assert r.get_antecedentes()[0].terminos() == ["X", "color", "rojo"]
     assert r.get_antecedentes()[1].terminos() == ["Y", "tamaño", "grande"]
 
+
 def test_regla_con_extension():
     """Test: regla con extensión de confianza"""
     r = parsear_regla("A tipo B [0.9] <- X color rojo")
     assert r.get_consecuente().get_confianza() == 0.9
+
 
 def test_regla_antecedente_con_confianza():
     """Test: antecedente con confianza individual"""
     r = parsear_regla("A tipo B <- X color rojo [0.8]")
     assert r.get_antecedentes()[0].get_confianza() == 0.8
 
+
 # ============================
 #  Tests EBNF - Consulta
 # ============================
+
 
 def test_consulta_simple():
     """Test: consulta = tripleta "?" """
@@ -103,15 +119,18 @@ def test_consulta_simple():
     assert tipo == "consulta"
     assert tripleta.terminos() == ["tomate", "tipo", "verdura"]
 
+
 def test_consulta_razonar():
     """Test: consulta = "razona si " tripleta "?" """
     tripleta, tipo = parsear_consulta("razona si tomate tipo verdura ?")
     assert tipo == "razonar"
     assert tripleta.terminos() == ["tomate", "tipo", "verdura"]
 
+
 # ============================
 #  Tests EBNF - Comando
 # ============================
+
 
 def test_comando_descubrir():
     """Test: comando = palabra { " " palabra } "!" """
@@ -123,6 +142,7 @@ def test_comando_descubrir():
 # ============================
 #  Test EBNF - El parser NO debe crashear con ninguna sintaxis válida
 # ============================
+
 
 def test_ebnf_parser_no_crashea():
     """
@@ -137,79 +157,98 @@ def test_ebnf_parser_no_crashea():
         ("literal con números", lambda: parsear_tripleta("abc123 def456 ghi789")),
         ("literal con guion bajo", lambda: parsear_tripleta("abc_def ghi_jkl mno_pqr")),
         ("mezcla caracteres", lambda: parsear_tripleta("abc_123 DEF_456 ghi_XYZ")),
-        
         # Tripletas
         ("tripleta básica", lambda: parsear_tripleta("tomate tipo verdura")),
         ("tripleta con variables", lambda: parsear_tripleta("X tipo Y")),
         ("tripleta mixta", lambda: parsear_tripleta("tomate tipo X")),
-        
         # Afirmaciones con extensión difusa
         ("afirmación sin extensión", lambda: parsear_tripleta("a b c")),
         ("afirmación con difusa 0.X", lambda: parsear_tripleta("a b c [0.5]")),
         ("afirmación con difusa 0.XX", lambda: parsear_tripleta("a b c [0.95]")),
         ("afirmación con difusa 1", lambda: parsear_tripleta("a b c [1]")),
         ("afirmación con difusa 1.0", lambda: parsear_tripleta("a b c [1.0]")),
-        
         # Extensión con precedencia (puede no estar implementada)
         ("extensión precedencia 3 dígitos", lambda: parsear_tripleta("a b c [100]")),
         ("extensión precedencia 2 dígitos", lambda: parsear_tripleta("a b c [50]")),
         ("extensión precedencia 1 dígito", lambda: parsear_tripleta("a b c [5]")),
-        
         # Extensión con restricción (puede no estar implementada)
         ("restricción <", lambda: parsear_tripleta("a b c [X < 5]")),
         ("restricción <=", lambda: parsear_tripleta("a b c [X <= 10]")),
         ("restricción =", lambda: parsear_tripleta("a b c [Y = 3]")),
         ("restricción >=", lambda: parsear_tripleta("a b c [Z >= 20]")),
         ("restricción >", lambda: parsear_tripleta("a b c [X > 100]")),
-        
         # Extensión con múltiples opcionales (puede no estar implementada)
         ("múltiple: difusa; precedencia", lambda: parsear_tripleta("a b c [0.8; 100]")),
-        ("múltiple: difusa; restricción", lambda: parsear_tripleta("a b c [0.9; X > 5]")),
-        ("múltiple: precedencia; restricción", lambda: parsear_tripleta("a b c [100; X < 10]")),
+        (
+            "múltiple: difusa; restricción",
+            lambda: parsear_tripleta("a b c [0.9; X > 5]"),
+        ),
+        (
+            "múltiple: precedencia; restricción",
+            lambda: parsear_tripleta("a b c [100; X < 10]"),
+        ),
         ("múltiple: todos", lambda: parsear_tripleta("a b c [0.8; 100; X > 5]")),
-        
         # Reglas simples
         ("regla simple", lambda: parsear_regla("A tipo B <- X color rojo")),
-        ("regla con literales", lambda: parsear_regla("tomate tipo verdura <- tomate color rojo")),
-        
+        (
+            "regla con literales",
+            lambda: parsear_regla("tomate tipo verdura <- tomate color rojo"),
+        ),
         # Reglas con múltiples antecedentes
-        ("regla 2 antecedentes", lambda: parsear_regla("A tipo B <- X color rojo, Y tamaño grande")),
+        (
+            "regla 2 antecedentes",
+            lambda: parsear_regla("A tipo B <- X color rojo, Y tamaño grande"),
+        ),
         ("regla 3 antecedentes", lambda: parsear_regla("A b C <- X y Z, P q R, S t U")),
-        
         # Reglas con confianza
-        ("regla consecuente con difusa", lambda: parsear_regla("A tipo B [0.9] <- X color rojo")),
-        ("regla antecedente con difusa", lambda: parsear_regla("A tipo B <- X color rojo [0.8]")),
-        ("regla ambos con difusa", lambda: parsear_regla("A tipo B [0.9] <- X color rojo [0.8]")),
-        ("regla múltiples ant con difusa", lambda: parsear_regla("A B C <- X Y Z [0.8], P Q R [0.7]")),
-        
+        (
+            "regla consecuente con difusa",
+            lambda: parsear_regla("A tipo B [0.9] <- X color rojo"),
+        ),
+        (
+            "regla antecedente con difusa",
+            lambda: parsear_regla("A tipo B <- X color rojo [0.8]"),
+        ),
+        (
+            "regla ambos con difusa",
+            lambda: parsear_regla("A tipo B [0.9] <- X color rojo [0.8]"),
+        ),
+        (
+            "regla múltiples ant con difusa",
+            lambda: parsear_regla("A B C <- X Y Z [0.8], P Q R [0.7]"),
+        ),
         # Reglas con extensiones (puede no estar implementada)
         ("regla con precedencia", lambda: parsear_regla("A B C [100] <- X Y Z")),
         ("regla con restricción", lambda: parsear_regla("A B C [X > 5] <- X Y Z")),
-        
         # Consultas
         ("consulta simple", lambda: parsear_consulta("tomate tipo verdura ?")),
         ("consulta con variables", lambda: parsear_consulta("X tipo verdura ?")),
         ("consulta todas variables", lambda: parsear_consulta("X Y Z ?")),
-        
         # Razonamiento
-        ("razonamiento simple", lambda: parsear_consulta("razona si tomate tipo verdura ?")),
-        ("razonamiento con variables", lambda: parsear_consulta("razona si X tipo Y ?")),
-        
+        (
+            "razonamiento simple",
+            lambda: parsear_consulta("razona si tomate tipo verdura ?"),
+        ),
+        (
+            "razonamiento con variables",
+            lambda: parsear_consulta("razona si X tipo Y ?"),
+        ),
         # Comandos
         ("comando descubrir", lambda: parsear_consulta("descubrir!")),
-        
         # Hechos
         ("hecho simple", lambda: parsear_consulta("tomate tipo verdura .")),
         ("hecho con variables", lambda: parsear_consulta("X tipo verdura .")),
-        
         # Negación (puede no estar implementada)
         ("negación simple", lambda: parsear_consulta("no tomate tipo verdura ?")),
         ("negación con variables", lambda: parsear_consulta("no X tipo Y ?")),
-        ("negación en razonamiento", lambda: parsear_consulta("razona si no tomate tipo verdura ?")),
+        (
+            "negación en razonamiento",
+            lambda: parsear_consulta("razona si no tomate tipo verdura ?"),
+        ),
     ]
-    
+
     fallos = []
-    
+
     for nombre, funcion in casos_ebnf:
         try:
             resultado = funcion()
@@ -220,18 +259,18 @@ def test_ebnf_parser_no_crashea():
             # ValueError: errores de formato/validación
             # ParseException: sintaxis EBNF no implementada aún
             # Ambos son aceptables - solo crashea si es IndexError, AttributeError, etc.
-            if type(e).__name__ in ('ValueError', 'ParseException'):
+            if type(e).__name__ in ("ValueError", "ParseException"):
                 pass  # Excepción controlada - OK
             else:
                 # Crash real (IndexError, KeyError, etc.) - NO está bien
                 fallos.append(f"{nombre}: {type(e).__name__}: {str(e)}")
-    
+
     # Si hay fallos (crashes), mostrarlos
     if fallos:
         mensaje = "El parser CRASHEÓ con las siguientes entradas EBNF válidas:\n"
         mensaje += "\n".join(f"  - {fallo}" for fallo in fallos)
         assert False, mensaje
-    
+
     # Si no hay fallos, el test pasa
     assert True
 
@@ -239,6 +278,7 @@ def test_ebnf_parser_no_crashea():
 # ============================
 #  Tests parsear_tripleta / regla (originales)
 # ============================
+
 
 def test_parsear_tripleta_basico():
     """
@@ -261,7 +301,8 @@ def test_parsear_regla_basica():
     # antecedentes es lista de Tripleta
     assert len(r.get_antecedentes()) == 1
     assert r.antecedentes[0].terminos() == ["tomate", "color", "rojo"]
-    
+
+
 def test_parsear_tripleta_basico_con_confianza():
     """
     Test parsear tripleta con confianza
@@ -286,13 +327,14 @@ def test_parsear_regla_basica_con_confianza():
     assert len(r.get_antecedentes()) == 1
     assert r.antecedentes[0].terminos() == ["tomate", "color", "rojo"]
     assert r.get_antecedentes()[0].confianza == 0.8
-    
+
     assert r.confianza == 1.0
 
 
 # ============================
 #  Tests parsear_consulta OK
 # ============================
+
 
 def test_parsear_consulta_hecho():
     """
@@ -337,6 +379,7 @@ def test_parsear_consulta_descubrir():
 #  Tests parsear_consulta ERRORES
 # ============================
 
+
 def test_parsear_consulta_vacia():
     """
     Test de comprobación de manejo de errores para consultas vacías
@@ -354,7 +397,10 @@ def test_parsear_consulta_formato_invalido_pocos_terminos():
     # Falta objeto y signo final
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("tomate tipo")
-    assert "formato de consulta" in str(excinfo.value).lower() or "debe ser" in str(excinfo.value).lower()
+    assert (
+        "formato de consulta" in str(excinfo.value).lower()
+        or "debe ser" in str(excinfo.value).lower()
+    )
 
 
 def test_parsear_consulta_formato_invalido_demasiados_terminos():
@@ -363,7 +409,10 @@ def test_parsear_consulta_formato_invalido_demasiados_terminos():
     """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("tomate tipo verdura extra ?")
-    assert "formato de consulta" in str(excinfo.value).lower() or "debe ser" in str(excinfo.value).lower()
+    assert (
+        "formato de consulta" in str(excinfo.value).lower()
+        or "debe ser" in str(excinfo.value).lower()
+    )
 
 
 def test_parsear_consulta_ultimo_no_valido():
@@ -377,18 +426,21 @@ def test_parsear_consulta_ultimo_no_valido():
 
 def test_parsear_consulta_razonar_longitud_incorrecta():
     """
-    Test de comprobación de manejo de errores para consultas de 
+    Test de comprobación de manejo de errores para consultas de
     tipo "razonar" incompletos
     """
     # le falta el objeto
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("razona si tomate tipo ?")
-    assert "razonamiento" in str(excinfo.value).lower() or "razona si" in str(excinfo.value).lower()
+    assert (
+        "razonamiento" in str(excinfo.value).lower()
+        or "razona si" in str(excinfo.value).lower()
+    )
 
 
 def test_parsear_consulta_razonar_sin_interrogacion():
     """
-    Test de comprobación de manejo de errores para consultas de 
+    Test de comprobación de manejo de errores para consultas de
     tipo "razonar" sin signo de interrogación final.
     """
     with pytest.raises(ValueError) as excinfo:
@@ -398,9 +450,12 @@ def test_parsear_consulta_razonar_sin_interrogacion():
 
 def test_parsear_consulta_descubrir_con_argumentos():
     """
-    Test de comprobación de manejo de errores para consultas de 
+    Test de comprobación de manejo de errores para consultas de
     tipo "descubrir" con argumentos.
     """
     with pytest.raises(ValueError) as excinfo:
         parsear_consulta("descubrir! algo")
-    assert "descubrir" in str(excinfo.value).lower() or "no lleva argumentos" in str(excinfo.value).lower()
+    assert (
+        "descubrir" in str(excinfo.value).lower()
+        or "no lleva argumentos" in str(excinfo.value).lower()
+    )
