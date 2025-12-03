@@ -1,58 +1,58 @@
 # MARIDAJES
-Plato marida vino_blanco <- plato ingrediente pescado
-Plato marida vino_blanco <- plato ingrediente marisco
-Plato marida vino_blanco <- plato ingrediente pollo
-Plato marida vino_blanco <- plato ingrediente limon
-Plato marida vino_tinto <- plato ingrediente carne
-Plato marida vino_tinto <- plato ingrediente queso
-Plato marida vino_tinto <- plato ingrediente jamon
-Plato marida cerveza <- plato ingrediente embutido
-Plato marida cerveza <- plato ingrediente carne
-Plato marida cerveza <- plato ingrediente queso
-Plato marida cava <- plato ingrediente postre
-Plato marida cava <- plato ingrediente chocolate
-Plato marida vermut <- plato ingrediente aceituna
+Plato marida vino_blanco <- Plato ingrediente pescado
+Plato marida vino_blanco <- Plato ingrediente marisco
+Plato marida vino_blanco <- Plato ingrediente pollo
+Plato marida vino_blanco <- Plato ingrediente limon
+Plato marida vino_tinto <- Plato ingrediente carne
+Plato marida vino_tinto <- Plato ingrediente queso
+Plato marida vino_tinto <- Plato ingrediente jamon
+Plato marida cerveza <- Plato ingrediente embutido
+Plato marida cerveza <- Plato ingrediente carne
+Plato marida cerveza <- Plato ingrediente queso
+Plato marida cava <- Plato ingrediente postre
+Plato marida cava <- Plato ingrediente chocolate
+Plato marida vermut <- Plato ingrediente aceituna
 
 # PROPIEDADES NUTRICIONALES - RICO EN PROTEÍNA
-Plato rico_en proteina <- plato ingrediente Ingrediente, Ingrediente proteina alto
+Plato rico_en proteina <- Plato ingrediente Ingrediente, Ingrediente proteina alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN GRASAS
-Plato rico_en grasas <- plato ingrediente Ingrediente, Ingrediente grasa alto
+Plato rico_en grasas <- Plato ingrediente Ingrediente, Ingrediente grasa alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN CARBOHIDRATOS
-Plato rico_en carbohidratos <- plato ingrediente Ingrediente, Ingrediente carbohidrato alto
-Plato rico_en carbohidratos <- plato ingrediente Ingrediente, Ingrediente tipo grano
+Plato rico_en carbohidratos <- Plato ingrediente Ingrediente, Ingrediente carbohidrato alto
+Plato rico_en carbohidratos <- Plato ingrediente Ingrediente, Ingrediente tipo grano
 
 # PROPIEDADES NUTRICIONALES - RICO EN FIBRA
 Ingrediente fibra alto <- Ingrediente tipo verdura
 Ingrediente fibra alto <- Ingrediente tipo fruta
 Ingrediente fibra alto <- Ingrediente tipo legumbre
-Plato rico_en fibra <- plato ingrediente Ingrediente, Ingrediente fibra alto
+Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente fibra alto
 
 # PROPIEDADES NUTRICIONALES - RICO EN HIERRO
-Plato rico_en hierro <- plato ingrediente Ingrediente, Ingrediente hierro alto
+Plato rico_en hierro <- Plato ingrediente Ingrediente, Ingrediente hierro alto
 
 # ADVERTENCIAS NUTRICIONALES - EXCESO DE GRASAS SATURADAS
-Plato exceso_en grasas_saturadas <- plato ingrediente mantequilla
-Plato exceso_en grasas_saturadas <- plato ingrediente nata
-Plato exceso_en grasas_saturadas <- plato ingrediente embutido
+Plato exceso_en grasas_saturadas <- Plato ingrediente mantequilla
+Plato exceso_en grasas_saturadas <- Plato ingrediente nata
+Plato exceso_en grasas_saturadas <- Plato ingrediente embutido
 
 # ADVERTENCIAS NUTRICIONALES - EXCESO DE SODIO
-Plato exceso_en sodio <- plato ingrediente embutido
-Plato exceso_en sodio <- plato ingrediente jamon
+Plato exceso_en sodio <- Plato ingrediente embutido
+Plato exceso_en sodio <- Plato ingrediente jamon
 
 # INDICACIONES DE CONSERVACIÓN - REFRIGERACIÓN
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo pescado
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo pescado
 X conservar frio <- X tipo pescado
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo marisco
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo marisco
 X conservar frio <- X tipo marisco
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo carne
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo carne
 X conservar frio <- X tipo carne
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo lacteo
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo lacteo
 X conservar frio <- X tipo lacteo
-Plato conservar frio <- plato ingrediente huevo
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo verdura
-Plato conservar frio <- plato ingrediente Ingrediente, Ingrediente tipo fruta
+Plato conservar frio <- Plato ingrediente huevo
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
+Plato conservar frio <- Plato ingrediente Ingrediente, Ingrediente tipo fruta
 
 # INDICACIONES DE CONSERVACIÓN - SECO/AMBIENTE
 Alimento conservar seco <- Alimento ingrediente arroz
@@ -89,16 +89,16 @@ X alergeno huevo <- X ingrediente huevo
 X alergeno soja <- X ingrediente Ingrediente, Ingrediente tipo legumbre
 
 # CONTIENE
-Plato contiene carne <- plato ingrediente Ingrediente, Ingrediente tipo carne
-Plato contiene pescado <- plato ingrediente Ingrediente, Ingrediente tipo pescado
-Plato contiene marisco <- plato ingrediente Ingrediente, Ingrediente tipo marisco
-Plato contiene lacteo <- plato ingrediente Ingrediente, Ingrediente tipo lacteo
-Plato contiene huevo <- plato ingrediente huevo
-Plato contiene producto_animal <- plato contiene carne
-Plato contiene producto_animal <- plato contiene pescado
-Plato contiene producto_animal <- plato contiene marisco
-Plato contiene producto_animal <- plato contiene lacteo
-Plato contiene producto_animal <- plato contiene huevo
+Plato contiene carne <- Plato ingrediente Ingrediente, Ingrediente tipo carne
+Plato contiene pescado <- Plato ingrediente Ingrediente, Ingrediente tipo pescado
+Plato contiene marisco <- Plato ingrediente Ingrediente, Ingrediente tipo marisco
+Plato contiene lacteo <- Plato ingrediente Ingrediente, Ingrediente tipo lacteo
+Plato contiene huevo <- Plato ingrediente huevo
+Plato contiene producto_animal <- Plato contiene carne
+Plato contiene producto_animal <- Plato contiene pescado
+Plato contiene producto_animal <- Plato contiene marisco
+Plato contiene producto_animal <- Plato contiene lacteo
+Plato contiene producto_animal <- Plato contiene huevo
 
 # RESTRICCIONES DIETÉTICAS
 
@@ -108,41 +108,41 @@ X no_apto_para vegano <- X tipo pescado
 X no_apto_para vegano <- X tipo marisco
 X no_apto_para vegano <- X tipo lacteo
 X no_apto_para vegano <- X ingrediente huevo
-Plato no_apto_para vegano <- plato contiene producto_animal
+Plato no_apto_para vegano <- Plato contiene producto_animal
 
 # RESTRICCIONES VEGETARIANOS
 X no_apto_para vegetariano <- X tipo carne
 X no_apto_para vegetariano <- X tipo pescado
 X no_apto_para vegetariano <- X tipo marisco
-Plato no_apto_para vegetariano <- plato contiene carne
-Plato no_apto_para vegetariano <- plato contiene pescado
-Plato no_apto_para vegetariano <- plato contiene marisco
+Plato no_apto_para vegetariano <- Plato contiene carne
+Plato no_apto_para vegetariano <- Plato contiene pescado
+Plato no_apto_para vegetariano <- Plato contiene marisco
 
 # PROPIEDADES SALUDABLES - VITAMINAS Y MINERALES
-Plato vitaminac alta <- plato ingrediente Ingrediente, Ingrediente vitamina_c alto
-Plato omega3 alto <- plato ingrediente Ingrediente, Ingrediente omega3 alto
+Plato vitaminac alta <- Plato ingrediente Ingrediente, Ingrediente vitamina_c alto
+Plato omega3 alto <- Plato ingrediente Ingrediente, Ingrediente omega3 alto
 
-# ESTILOS DE platoS
-Plato es completo <- plato rico_en proteina, plato rico_en fibra, plato rico_en carbohidratos
-Plato es mediterraneo <- plato ingrediente aceite_oliva, plato rico_en fibra
-Plato es ensalada <- plato rico_en fibra, plato ingrediente lechuga
-Plato es de_mar <- plato contiene pescado, plato contiene marisco
-Plato es energético <- plato rico_en proteina,  plato rico_en grasas
-Plato es balanceado <- plato rico_en proteina, plato rico_en carbohidratos, plato rico_en fibra
-Plato es energetico <- plato rico_en proteina, plato rico_en carbohidratos, plato rico_en grasas
-Plato es nutritivo <- plato rico_en proteina, plato rico_en fibra, plato conservar frio
-Plato es cardio_saludable <- plato contiene pescado, plato rico_en fibra, plato omega3 alto
+# ESTILOS DE PLATOS
+Plato es completo <- Plato rico_en proteina, Plato rico_en fibra, Plato rico_en carbohidratos
+Plato es mediterraneo <- Plato ingrediente aceite_oliva, Plato rico_en fibra
+Plato es ensalada <- Plato rico_en fibra, Plato ingrediente lechuga
+Plato es de_mar <- Plato contiene pescado, Plato contiene marisco
+Plato es energético <- Plato rico_en proteina,  Plato rico_en grasas
+Plato es balanceado <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en fibra
+Plato es energetico <- Plato rico_en proteina, Plato rico_en carbohidratos, Plato rico_en grasas
+Plato es nutritivo <- Plato rico_en proteina, Plato rico_en fibra, Plato conservar frio
+Plato es cardio_saludable <- Plato contiene pescado, Plato rico_en fibra, Plato omega3 alto
 
 # ESTILOS CULINARIOS
-Plato estilo mediterraneo <- plato ingrediente aceite_oliva, plato ingrediente tomate, plato ingrediente verdura
-Plato estilo asiatico <- plato ingrediente jengibre, plato ingrediente soja_salsa, plato ingrediente arroz
-Plato estilo mexicano <- plato ingrediente chile, plato ingrediente maiz, plato ingrediente aguacate
+Plato estilo mediterraneo <- Plato ingrediente aceite_oliva, Plato ingrediente tomate, Plato ingrediente verdura
+Plato estilo asiatico <- Plato ingrediente jengibre, Plato ingrediente soja_salsa, Plato ingrediente arroz
+Plato estilo mexicano <- Plato ingrediente chile, Plato ingrediente maiz, Plato ingrediente aguacate
 
 # PLATOS TEXTURAS
-Plato textura cremosa <- plato ingrediente Ingrediente, Ingrediente textura cremoso
+Plato textura cremosa <- Plato ingrediente Ingrediente, Ingrediente textura cremoso
 
 # SABORES
-Plato es_sabor picante <- plato ingrediente Ingrediente, Ingrediente sabor picante
-Plato es_sabor dulce <- plato ingrediente Ingrediente, Ingrediente sabor dulce
-Plato es_sabor salado <- plato ingrediente Ingrediente, Ingrediente sabor salado
-Plato es_sabor suave <- plato ingrediente Ingrediente, Ingrediente sabor suave
+Plato es_sabor picante <- Plato ingrediente Ingrediente, Ingrediente sabor picante
+Plato es_sabor dulce <- Plato ingrediente Ingrediente, Ingrediente sabor dulce
+Plato es_sabor salado <- Plato ingrediente Ingrediente, Ingrediente sabor salado
+Plato es_sabor suave <- Plato ingrediente Ingrediente, Ingrediente sabor suave
