@@ -1,0 +1,40 @@
+# VARIABLES
+
+## A
+
+X e_hermano Y <- Z e_padre X , Z e_padre Y .
+
+X e_tio Y <- X e_hermano Z , Z e_padre Y .
+
+X e_abuelo Y <- X e_padre Z , Z e_padre Y .
+
+X e_primo Y <- Z e_padre X , W e_padre Y , Z e_hermano W .
+
+## B
+
+X e_rel_sim Y <- Y e_rel_sim X .
+
+
+## C
+
+X Y Z <- Y e_tipo e_trans , X Y A , A Y Z .
+
+# DIFUSA
+
+X e_tiene e_suma <- X e_tiene e_prop1 . [1.0]
+
+X e_tiene e_suma <- X e_tiene e_prop2 . [0.6]
+
+X e_tiene e_prod <- X e_tiene e_prop1 , X e_tiene e_prop2 . [1.0]
+
+# ARITMETICA
+
+#X e_numero e_positivo <- X e_vale VX . [ VX >= 0 ]
+
+#X e_mayor Y <- X e_vale VX , Y e_vale VY . [ VX >= VY ]
+
+# PRECEDENCIA
+
+#X e_cantidad e_poco <- X e_vale 100 . [200]
+
+#X e_cantidad e_mucho <- X e_vale 100 . [300]

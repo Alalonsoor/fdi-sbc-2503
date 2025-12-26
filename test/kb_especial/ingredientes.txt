@@ -1,0 +1,39 @@
+# VARIABLES
+
+## A
+
+e_pepe e_padre e_juan .
+
+e_pepe e_padre e_maria .
+
+e_juan e_padre e_ana .
+
+e_juan e_padre e_luis .
+
+e_maria e_padre e_paco .
+
+## B
+
+e_a e_rel_sim e_b .
+
+## C
+
+e_rel2 e_tipo e_trans .
+
+e_c e_rel2 e_d .
+
+e_d e_rel2 e_e .
+
+# DIFUSA
+
+e_nodo e_tiene e_prop1 . [0.4]
+
+e_nodo e_tiene e_prop2 . [0.5]
+
+# ARITMETICA
+
+e_uno e_vale 100 .
+
+e_dos e_vale 200 .
+
+# PRECEDENCIA

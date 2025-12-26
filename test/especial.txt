@@ -1,0 +1,47 @@
+# VARIABLES
+
+## A
+
+razona si e_luis e_primo e_paco ?
+T
+
+## B
+
+razona si e_b e_rel_sim e_a ?
+T
+
+descubrir!
+
+e_b e_rel_sim e_a ?
+T
+
+## C
+
+razona si e_c e_rel2 e_e ?
+T
+
+# DIFUSA
+
+descubrir!
+
+e_nodo e_tiene e_suma ?
+!confianza menor que uno
+
+e_nodo e_tiene e_prod ?
+!confianza menor que la anterior
+
+# ARITMETICA
+
+e_uno e_numero e_positivo ?
+T
+
+e_dos e_mayor e_uno ?
+T
+
+# PRECEDENCIA
+
+e_uno e_cantidad e_poco ?
+F
+
+e_dos e_cantidad e_mucho ?
+T
