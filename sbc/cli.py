@@ -11,7 +11,7 @@ def extraer_variables(tripleta: Tripleta) -> list[str]:
     for termino in tripleta.terminos():
         if es_variable(termino) and termino not in variables:
             variables.append(termino)
-    return variables
+    return variables  
 
 
 def formatear_resultados(consulta_str: str, kb: dict):
@@ -22,11 +22,33 @@ def formatear_resultados(consulta_str: str, kb: dict):
     # Si es hecho, agregar a la KB
     if tipo == "hecho":
         sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
-        if tripleta_usr not in kb["hechos"]:
+        
+        # Buscar si ya existe (ahora __eq__ ignora confianza)
+        encontrado = False
+        for i, hecho in enumerate(kb["hechos"]):
+            if hecho == tripleta_usr:
+                # Ya existe: actualizar confianza con MAX (lógica OR)
+                if tripleta_usr.confianza > hecho.confianza:
+                    kb["hechos"][i] = tripleta_usr
+                    yield f"Hecho actualizado con mayor confianza: {sujeto_usr} {predicado_usr} {objeto_usr}"
+                else:
+                    yield f"Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}"
+                encontrado = True
+                break
+        
+        if not encontrado:
             kb["hechos"].append(tripleta_usr)
             yield f"Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}"
-        else:
-            yield f"Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}"
+    
+    elif tipo == "revocar":
+        # Revocar hecho (eliminar de la KB)
+        sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
+        
+        # Eliminar TODAS las ocurrencias (puede haber duplicados con diferente confianza)
+        kb["hechos"] = [h for h in kb["hechos"] if h != tripleta_usr]
+        
+        yield f"Hecho revocado: {sujeto_usr} {predicado_usr} {objeto_usr}"
+    
     elif tipo == "razonar":
         resultado = razonar(tripleta_usr, kb)
         yield "SI" if resultado else "NO"
@@ -93,10 +115,7 @@ def formatear_resultados(consulta_str: str, kb: dict):
 if __name__ == "__main__":
     # Cargar la base de conocimientos
     kb_dir = Path("kb")
-    fichero_hechos = kb_dir / "ingredientes.txt"
-    fichero_reglas = kb_dir / "reglas.txt"
-
-    kb = carga_kb(fichero_hechos=fichero_hechos, fichero_reglas=fichero_reglas)
+    kb = carga_kb(kb_dir)
     continuando = True
     while continuando:
         try:
