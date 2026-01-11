@@ -3,6 +3,7 @@ from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
 from sbc.query import query, descubrir, razonar
 from sbc.ed import Tripleta, es_variable
+import argparse
 
 
 def extraer_variables(tripleta: Tripleta) -> list[str]:
@@ -111,11 +112,22 @@ def formatear_resultados(consulta_str: str, kb: dict):
         else:
             yield ("No se descubrieron nuevos hechos")
 
+def main():
+    """Función principal"""
+    # Configuración de argumentos
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--kb",
+        type=Path,
+        default=Path("kb"),
+        help="Directorio de la base de conocimientos. Por defecto usa kb"
+    )
 
-if __name__ == "__main__":
-    # Cargar la base de conocimientos
-    kb_dir = Path("kb")
-    kb = carga_kb(kb_dir)
+    args = parser.parse_args()
+
+    # Carga de la base de conocimientos
+    kb = carga_kb(args.kb)
+
     continuando = True
     while continuando:
         try:
@@ -131,3 +143,6 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Error: {e}")
             print()
+
+if __name__ == "__main__":
+    main()

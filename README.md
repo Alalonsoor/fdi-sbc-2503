@@ -48,8 +48,15 @@ uv sync
 
 ### Ejecución
 
+Por defecto carga la base de conocimientos que se encuentra en /kb.
 ```bash
 uv run -m sbc.cli
+```
+
+Se puede cargar otra base de conocimientos directamente con:
+
+```bash
+uv run -m sbc.cli --kb /ruta/otra_kb
 ```
 
 ## Estructura del Proyecto
