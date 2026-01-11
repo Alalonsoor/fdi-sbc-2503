@@ -92,6 +92,7 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     Retorna (Tripleta, tipo) donde tipo es:
     - 'consulta': consulta (termina en ?)
     - 'hecho': agregar hecho (termina en .)
+    - 'revocar': revocar hecho (empieza por 'no' y termina en .)
     - 'descubrir' : 'descubrir nuevos hechos (descubrir!)'
     - 'razonar': consulta con razonamiento (empieza por 'razona si ... ?')
     """
@@ -119,6 +120,17 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
         tripleta = parsear_tripleta(tripleta_str)
 
         return tripleta, "razonar"
+
+    # Consultas de revocación 'no S P O .'
+    if partes[0].lower() == "no":
+        # Debe tener: ['no', S, P, O, '.']
+        if len(partes) != 5:
+            raise ValueError("La revocación debe ser: no S P O .")
+        if partes[-1] != ".":
+            raise ValueError("La revocación debe terminar en .")
+        tripleta_str = " ".join(partes[1:4])
+        tripleta = parsear_tripleta(tripleta_str)
+        return tripleta, "revocar"
 
     # Consultas normales: s p o ?
     if len(partes) != 4:
