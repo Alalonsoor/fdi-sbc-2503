@@ -18,7 +18,7 @@ def es_literal(term: str) -> bool:
     return not es_variable(term)
 
 
-@dataclass
+@dataclass(eq=False)
 class Tripleta:
     """Una Tripleta es un objeto con 3 terminos: Sujeto, Predicado, Objeto"""
 
@@ -26,6 +26,18 @@ class Tripleta:
     predicado: str
     objeto: str
     confianza: float = 1.0  # Nivel de confianza (lógica difusa), por defecto 100%
+
+    def __eq__(self, other):
+        """Compara solo S, P, O (ignora confianza para evitar duplicados)"""
+        if not isinstance(other, Tripleta):
+            return False
+        return (self.sujeto == other.sujeto and 
+                self.predicado == other.predicado and 
+                self.objeto == other.objeto)
+    
+    def __hash__(self):
+        """Hash basado solo en S, P, O para usar en conjuntos y diccionarios"""
+        return hash((self.sujeto, self.predicado, self.objeto))
 
     def __iter__(self):
         """Permite desempaquetar Tripletas: s, p, v = una tripelta o iterar sobre una tripleta"""
@@ -84,13 +96,36 @@ class Sustitucion:
     def add(self, var: str, value: str) -> None:
         self.mappings[var] = value
 
-    def aplicar(self, termino: str) -> str:
-        """Aplica una sustitución a un término de manera recursiva"""
+    def aplicar(self, termino: str, visitados: set[str] | None = None) -> str:
+        """Aplica una sustitución a un término de manera recursiva
+        
+        Parámetros: 
+        - termino: variable o término que se quiera sustituir.
+        - visitados: conjunto para detectar ciclos infinitos.
+
+        """
+        # Crea un conjunto vacío para rastrear variables ya visitadas.
+        if visitados is None:
+            visitados = set()
+
+        # Caso recursivo:
+
+        # Procesamiento de variables
         if es_variable(termino):
-            valor = self.get(termino)
-            if valor is not None:
-                return self.aplicar(valor)
+            # 1. Detección ciclos: Si ya visitamos esta variable, paramos para evitar recursión infinita del tipo {x: x} o {x: y, y: x}
+            if termino in visitados:
+                return termino
+            # 2. Búsqueda de sustitución: 
+            valor = self.get(termino) # Busca en el diccionario de sustituciones
+            if valor is not None: # Existe sustitución
+                # Marcamos el término como visitado
+                visitados.add(termino)
+                # Aplica recursivamente la sustitución al valor encontrado
+                return self.aplicar(valor, visitados)
+            # 3. Si la variable no tiene sustitución definida, la devuelve tal cual.
             return termino
+        
+        # Caso base: Si el término no es una variable (es un valor constante), lo devuelve tal cual.
         return termino
 
     def __contains__(self, var: str) -> bool:
