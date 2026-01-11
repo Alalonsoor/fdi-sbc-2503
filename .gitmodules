@@ -7,3 +7,6 @@
 [submodule "kb-optativa-diagnosticopc"]
 	path = kb-optativa-diagnosticopc
 	url = https://github.com/matturati/kb-opcional.git
+[submodule "kb-optativa-fran"]
+	path = kb-optativa-fran
+	url = https://github.com/Marcospoza/fdi-sbc-optativo.git
