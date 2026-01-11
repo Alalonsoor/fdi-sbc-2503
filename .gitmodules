@@ -1,3 +1,6 @@
 [submodule "kb-optativa-reciclaje"]
 	path = kb-optativa-reciclaje
 	url = https://github.com/tudouerr/kb_optativa_reciclaje
+[submodule "kb-opcional-jiahao"]
+	path = kb-opcional-jiahao
+	url = https://github.com/CarlosJHG/KB---Opcional.git
