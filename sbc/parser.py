@@ -133,18 +133,29 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
         return tripleta, "revocar"
 
     # Consultas normales: s p o ?
-    if len(partes) != 4:
-        raise ValueError("Formato de consulta inválido: debe ser S P O ? o S P O .")
+    # Agregar hechos s p o . 
+    # Agregar hechos con confianza s p o . [confianza]
+    if len(partes) < 4 or len(partes) > 5:
+        raise ValueError("Formato de consulta inválido: debe ser S P O ? // S P O . // S P O . [confianza]")
 
-    # El ultimo elemento debe ser ? o .
-    ultimo = partes[3]
-    if ultimo not in ["?", "."]:
-        raise ValueError(f"La consulta debe terminar en ? (consulta) o . (hecho)")
+    # El cuarto elemento debe ser ? o .
+    if partes[3] not in ["?", "."]:
+        raise ValueError("La consulta debe terminar en ? (consulta) o . (agregar hecho)")
 
-    tipo = "consulta" if ultimo == "?" else "hecho"
+    tipo = "consulta" if partes[3] == "?" else "hecho"
 
-    # Parsear la tripleta (primeros 3 elementos)
-    tripleta_str = " ".join(partes[:3])
+    # Parsear la tripleta
+    if tipo == "hecho":
+        # Si lleva factor de confianza.
+        if len(partes) == 5:
+            tripleta_str = " ".join(partes[:3]) + " . " + partes[4]
+        else:
+            # Si no lleva factor de confianza
+            tripleta_str = " ".join(partes[:3]) + " . "
+    else:
+        # Si es una consulta normal S P O ?
+        tripleta_str = " ".join(partes[:3])
+    
     tripleta = parsear_tripleta(tripleta_str)
 
     return tripleta, tipo
