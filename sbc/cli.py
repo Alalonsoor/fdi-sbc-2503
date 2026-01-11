@@ -3,6 +3,7 @@ from sbc.cargar_kb import carga_kb
 from sbc.parser import parsear_consulta
 from sbc.query import query, descubrir, razonar
 from sbc.ed import Tripleta, es_variable
+from sbc.help import mostrar_ayuda
 import argparse
 
 
@@ -136,6 +137,9 @@ def main():
             if usr_input.lower() in ("exit", "quit", "q", "cerrar", "e"):
                 print("Hasta luego!!!")
                 continuando = False
+            elif usr_input.lower() in ("help", "h", "ayuda"):
+                for a in mostrar_ayuda():
+                    print(a)
             else:
                 for res in formatear_resultados(usr_input, kb):
                     print(res)
