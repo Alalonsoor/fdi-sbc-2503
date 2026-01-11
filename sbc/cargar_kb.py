@@ -5,25 +5,64 @@ from sbc.ed import Tripleta, Regla
 from sbc.parser import parsear_regla, parsear_tripleta
 
 
-def carga_kb(fichero_hechos: Path, fichero_reglas: Path) -> list[Tripleta | Regla]:
-    """Carga la base de conocimiento y retorna un diccionario con hechos y reglas"""
+def carga_kb(path: Path) -> dict:
+    """
+    Carga una base de conocimiento desde un archivo o directorio.
+    """
+    hechos = [] # Lista para almacenar hechos parseados
+    reglas = [] # Lista para almacenar reglas parseadas
+
+    # Caso 1: Si es un directorio, carga TODOS los archivos .txt
+    if path.is_dir():
+        # sorted() asegura orden consistente entre ejecuciones
+        for archivo in sorted(path.glob("*.txt")):
+            # Carga hechos y reglas de cada archivo
+            h, r = _cargar_archivo(archivo)
+            # Agrega a la lista acumulativa
+            hechos.extend(h) 
+            reglas.extend(r)
+    # Caso 2: Si es un archivo .txt individual
+    elif path.is_file() and path.suffix == ".txt":
+        hechos, reglas = _cargar_archivo(path)
+
+    # Si no es ni directorio ni archivo .txt, retorna listas vacías.
+    # Retorna la estructura estándar del sistema.
+    return {"hechos": hechos, "reglas": reglas}
+
+
+def _cargar_archivo(archivo: Path) -> tuple[list[Tripleta], list[Regla]]:
+    """
+    Función interna que carga un único archivo.
+    """
     hechos = []
     reglas = []
 
-    # Cargar hechos
-    if fichero_hechos.exists():
-        for linea in fichero_hechos.read_text(encoding="utf-8").splitlines():
-            linea = linea.strip()
-            # Ignorar lineas que empiezan con '#'
-            if linea and not linea.startswith("#"):
-                hechos.append(parsear_tripleta(linea))
+    # Intenta leer el archivo con encoding UTF-8
+    try:
+        contenido = archivo.read_text(encoding="utf-8")
+    except Exception:
+        # Si falla la lectura (archivo no existe, permisos, etc.)
+        # retorna listas vacías; fallo silencioso
+        return hechos, reglas
+    
+    # Procesa cada línea del archivo
+    for linea in contenido.splitlines():
+        linea = linea.strip() # Elimina espacios al inicio/final
 
-    # Cargar reglas
-    if fichero_reglas.exists():
-        for linea in fichero_reglas.read_text(encoding="utf-8").splitlines():
-            linea = linea.strip()
-            # Ignorar lineas que empiezan con '#'
-            if linea and not linea.startswith("#"):
+        # Líneas vacías o comentarios (que empiezan con #) se ignoran
+        if not linea or linea.startswith("#"):
+            continue
+        
+        try:
+            # DETECTOR DE REGLAS: Si la línea contiene "<-"
+            if "<-" in linea:
                 reglas.append(parsear_regla(linea))
-
-    return {"hechos": hechos, "reglas": reglas}
+            # DETECTOR DE HECHOS: Todo lo demás se considera un hecho
+            else:
+                hechos.append(parsear_tripleta(linea))
+        except Exception:
+            # Si el parser falla (sintaxis incorrecta), ignora la línea
+            # y continúa con la siguiente
+            continue
+    
+    return hechos, reglas
