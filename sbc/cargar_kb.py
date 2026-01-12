@@ -49,8 +49,17 @@ def _cargar_archivo(archivo: Path) -> tuple[list[Tripleta], list[Regla]]:
     for linea in contenido.splitlines():
         linea = linea.strip() # Elimina espacios al inicio/final
 
-        # Líneas vacías o comentarios (que empiezan con #) se ignoran
-        if not linea or linea.startswith("#"):
+        # Elimina comentarios al final de la línea
+        # Busca el primer '#' que no esté entre comillas
+        # (versión simple: elimina todo después del primer '#')
+        if '#' in linea:
+            # Encuentra la posición del primer '#'
+            pos_comentario = linea.find('#')
+            # Toma solo la parte antes del comentario
+            linea = linea[:pos_comentario].strip()
+        
+        # Líneas vacías después de eliminar comentarios se ignoran
+        if not linea:
             continue
         
         try:
