@@ -141,7 +141,7 @@ def descubrir(kb: dict) -> list[Tripleta]:
     return nuevos_hechos
 
 
-def razonar(tripleta: Tripleta, kb: dict) -> bool:
+def razonar(tripleta: Tripleta, kb: dict) -> list:
     """
     Realiza encadenamiento hacia atrás.
     Retorna lista de (sustitucion, confianza) que satisfacen la consulta.
