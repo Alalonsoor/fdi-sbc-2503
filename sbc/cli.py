@@ -51,12 +51,16 @@ def formatear_resultados(consulta_str: str, kb: dict):
         
         yield f"Hecho revocado: {sujeto_usr} {predicado_usr} {objeto_usr}"
     
-    elif tipo == "razonar":
-        resultado = razonar(tripleta_usr, kb)
-        yield "SI" if resultado else "NO"
-    elif tipo == "consulta":
-        # Si es consulta, procesar normalmente
-        resultados = list(query(tripleta_usr, kb))
+    # elif tipo == "razonar":
+    #     resultado = razonar(tripleta_usr, kb)
+    #     yield "SI" if resultado else "NO"
+    elif tipo == "consulta" or tipo == "razonar":
+        if tipo == "consulta":
+            # Si es consulta, procesar normalmente
+            resultados = list(query(tripleta_usr, kb))
+        else:
+            resultados = razonar(tripleta_usr, kb)
+            
         variables = extraer_variables(tripleta_usr)
 
         # No existen variables -> SI/NO con confianza

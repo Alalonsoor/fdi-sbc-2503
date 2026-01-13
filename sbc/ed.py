@@ -96,36 +96,13 @@ class Sustitucion:
     def add(self, var: str, value: str) -> None:
         self.mappings[var] = value
 
-    def aplicar(self, termino: str, visitados: set[str] | None = None) -> str:
-        """Aplica una sustitución a un término de manera recursiva
-        
-        Parámetros: 
-        - termino: variable o término que se quiera sustituir.
-        - visitados: conjunto para detectar ciclos infinitos.
-
-        """
-        # Crea un conjunto vacío para rastrear variables ya visitadas.
-        if visitados is None:
-            visitados = set()
-
-        # Caso recursivo:
-
-        # Procesamiento de variables
+    def aplicar(self, termino: str) -> str:
+        """Aplica una sustitución a un término de manera recursiva"""
         if es_variable(termino):
-            # 1. Detección ciclos: Si ya visitamos esta variable, paramos para evitar recursión infinita del tipo {x: x} o {x: y, y: x}
-            if termino in visitados:
-                return termino
-            # 2. Búsqueda de sustitución: 
-            valor = self.get(termino) # Busca en el diccionario de sustituciones
-            if valor is not None: # Existe sustitución
-                # Marcamos el término como visitado
-                visitados.add(termino)
-                # Aplica recursivamente la sustitución al valor encontrado
-                return self.aplicar(valor, visitados)
-            # 3. Si la variable no tiene sustitución definida, la devuelve tal cual.
+            valor = self.get(termino)
+            if valor is not None:
+                return self.aplicar(valor)
             return termino
-        
-        # Caso base: Si el término no es una variable (es un valor constante), lo devuelve tal cual.
         return termino
 
     def __contains__(self, var: str) -> bool:
