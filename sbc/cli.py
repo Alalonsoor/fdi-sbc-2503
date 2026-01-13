@@ -13,7 +13,7 @@ def extraer_variables(tripleta: Tripleta) -> list[str]:
     for termino in tripleta.terminos():
         if es_variable(termino) and termino not in variables:
             variables.append(termino)
-    return variables  
+    return variables
 
 
 def formatear_resultados(consulta_str: str, kb: dict):
@@ -24,7 +24,7 @@ def formatear_resultados(consulta_str: str, kb: dict):
     # Si es hecho, agregar a la KB
     if tipo == "hecho":
         sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
-        
+
         # Buscar si ya existe (ahora __eq__ ignora confianza)
         encontrado = False
         for i, hecho in enumerate(kb["hechos"]):
@@ -37,20 +37,20 @@ def formatear_resultados(consulta_str: str, kb: dict):
                     yield f"Ya existe el hecho: {sujeto_usr} {predicado_usr} {objeto_usr}"
                 encontrado = True
                 break
-        
+
         if not encontrado:
             kb["hechos"].append(tripleta_usr)
             yield f"Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}"
-    
+
     elif tipo == "revocar":
         # Revocar hecho (eliminar de la KB)
         sujeto_usr, predicado_usr, objeto_usr = tripleta_usr.terminos()
-        
+
         # Eliminar TODAS las ocurrencias (puede haber duplicados con diferente confianza)
         kb["hechos"] = [h for h in kb["hechos"] if h != tripleta_usr]
-        
+
         yield f"Hecho revocado: {sujeto_usr} {predicado_usr} {objeto_usr}"
-    
+
     # elif tipo == "razonar":
     #     resultado = razonar(tripleta_usr, kb)
     #     yield "SI" if resultado else "NO"
@@ -60,7 +60,7 @@ def formatear_resultados(consulta_str: str, kb: dict):
             resultados = list(query(tripleta_usr, kb))
         else:
             resultados = razonar(tripleta_usr, kb)
-            
+
         variables = extraer_variables(tripleta_usr)
 
         # No existen variables -> SI/NO con confianza
@@ -117,6 +117,7 @@ def formatear_resultados(consulta_str: str, kb: dict):
         else:
             yield ("No se descubrieron nuevos hechos")
 
+
 def main():
     """Función principal"""
     # Configuración de argumentos
@@ -125,7 +126,7 @@ def main():
         "--kb",
         type=Path,
         default=Path("kb"),
-        help="Directorio de la base de conocimientos. Por defecto usa kb"
+        help="Directorio de la base de conocimientos. Por defecto usa kb",
     )
 
     args = parser.parse_args()
@@ -151,6 +152,7 @@ def main():
         except Exception as e:
             print(f"Error: {e}")
             print()
+
 
 if __name__ == "__main__":
     main()

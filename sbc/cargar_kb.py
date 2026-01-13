@@ -9,8 +9,8 @@ def carga_kb(path: Path) -> dict:
     """
     Carga una base de conocimiento desde un archivo o directorio.
     """
-    hechos = [] # Lista para almacenar hechos parseados
-    reglas = [] # Lista para almacenar reglas parseadas
+    hechos = []  # Lista para almacenar hechos parseados
+    reglas = []  # Lista para almacenar reglas parseadas
 
     # Caso 1: Si es un directorio, carga TODOS los archivos .txt
     if path.is_dir():
@@ -19,7 +19,7 @@ def carga_kb(path: Path) -> dict:
             # Carga hechos y reglas de cada archivo
             h, r = _cargar_archivo(archivo)
             # Agrega a la lista acumulativa
-            hechos.extend(h) 
+            hechos.extend(h)
             reglas.extend(r)
     # Caso 2: Si es un archivo .txt individual
     elif path.is_file() and path.suffix == ".txt":
@@ -44,24 +44,24 @@ def _cargar_archivo(archivo: Path) -> tuple[list[Tripleta], list[Regla]]:
         # Si falla la lectura (archivo no existe, permisos, etc.)
         # retorna listas vacías; fallo silencioso
         return hechos, reglas
-    
+
     # Procesa cada línea del archivo
     for linea in contenido.splitlines():
-        linea = linea.strip() # Elimina espacios al inicio/final
+        linea = linea.strip()  # Elimina espacios al inicio/final
 
         # Elimina comentarios al final de la línea
         # Busca el primer '#' que no esté entre comillas
         # (versión simple: elimina todo después del primer '#')
-        if '#' in linea:
+        if "#" in linea:
             # Encuentra la posición del primer '#'
-            pos_comentario = linea.find('#')
+            pos_comentario = linea.find("#")
             # Toma solo la parte antes del comentario
             linea = linea[:pos_comentario].strip()
-        
+
         # Líneas vacías después de eliminar comentarios se ignoran
         if not linea:
             continue
-        
+
         try:
             # DETECTOR DE REGLAS: Si la línea contiene "<-"
             if "<-" in linea:
@@ -73,5 +73,5 @@ def _cargar_archivo(archivo: Path) -> tuple[list[Tripleta], list[Regla]]:
             # Si el parser falla (sintaxis incorrecta), ignora la línea
             # y continúa con la siguiente
             continue
-    
+
     return hechos, reglas

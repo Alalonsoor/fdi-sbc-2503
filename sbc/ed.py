@@ -31,10 +31,12 @@ class Tripleta:
         """Compara solo S, P, O (ignora confianza para evitar duplicados)"""
         if not isinstance(other, Tripleta):
             return False
-        return (self.sujeto == other.sujeto and 
-                self.predicado == other.predicado and 
-                self.objeto == other.objeto)
-    
+        return (
+            self.sujeto == other.sujeto
+            and self.predicado == other.predicado
+            and self.objeto == other.objeto
+        )
+
     def __hash__(self):
         """Hash basado solo en S, P, O para usar en conjuntos y diccionarios"""
         return hash((self.sujeto, self.predicado, self.objeto))

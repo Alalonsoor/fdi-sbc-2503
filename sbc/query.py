@@ -15,10 +15,10 @@ def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
     kb: Base de conocimiento con hechos y reglas
     Si razonamiento=True, aplica backward chaining (usa reglas).
     Si razonamiento=False, solo busca en hechos.
-    visitados: Conjunto de tripletas que estamos intentando provar, 
+    visitados: Conjunto de tripletas que estamos intentando provar,
                evita ciclos infinitos en la recursión (solo se usa cuando se razona)
     """
-    #Incializar visitados si no existe
+    # Incializar visitados si no existe
     if visitados is None:
         visitados = set()
 
@@ -27,7 +27,7 @@ def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
         match unify(tripleta, hecho):
             case [ss]:
                 yield ss, hecho.confianza
-    
+
     # Si razonamiento=True, buscar también en reglas
     if razonamiento:
         clave = (tripleta.sujeto, tripleta.predicado, tripleta.objeto)
@@ -37,7 +37,7 @@ def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
 
         # Agregar a visitados
         # crea un nuevo conjunto que contiene todos los elementos de visitados más clave
-        # equivalente a : 
+        # equivalente a :
         # nuevos_visitados = visitados.copy()
         # nuevos_visitados.add(clave)
         nuevos_visitados = visitados | {clave}
@@ -46,7 +46,13 @@ def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
             match unify(tripleta, regla.get_consecuente()):
                 case [ss]:
                     # Satisfacer TODOS los antecedentes
-                    for resultado_ss, confianza_ant in _query_antecedentes(regla.get_antecedentes(), kb, ss, razonamiento=True, visitados = nuevos_visitados):
+                    for resultado_ss, confianza_ant in _query_antecedentes(
+                        regla.get_antecedentes(),
+                        kb,
+                        ss,
+                        razonamiento=True,
+                        visitados=nuevos_visitados,
+                    ):
                         # MIN entre consecuente, regla y antecedentes
                         confianza_total = min(
                             regla.get_consecuente().confianza,
@@ -56,7 +62,13 @@ def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
                         yield resultado_ss, confianza_total
 
 
-def _query_antecedentes(antecedentes: list[Tripleta], kb: dict, ss_inicial: Sustitucion, razonamiento=False, visitados=None):
+def _query_antecedentes(
+    antecedentes: list[Tripleta],
+    kb: dict,
+    ss_inicial: Sustitucion,
+    razonamiento=False,
+    visitados=None,
+):
     """
     Satisface TODOS los antecedentes de una regla recursivamente.
     Devuelve sustitución y confianza mínima de todos los antecedentes.
@@ -64,9 +76,9 @@ def _query_antecedentes(antecedentes: list[Tripleta], kb: dict, ss_inicial: Sust
     # CASO BASE
     # Si no hay más antecedentes, hemos terminado todas las comprobaciones
     if not antecedentes:
-        yield ss_inicial, 1.0 # Confianza máxima si no hay antecedentes
+        yield ss_inicial, 1.0  # Confianza máxima si no hay antecedentes
         return
-    
+
     # CASO RECURSIVO
     # Tomar el primer antecedente
     primer_antecedente = antecedentes[0]
@@ -77,16 +89,21 @@ def _query_antecedentes(antecedentes: list[Tripleta], kb: dict, ss_inicial: Sust
 
     # Crea todas las combinaciones posibles
     # Consultar el primer antecedente
-    for ss_primer, confianza_primer in query(primer_antecedente_ss, kb, razonamiento,visitados):
+    for ss_primer, confianza_primer in query(
+        primer_antecedente_ss, kb, razonamiento, visitados
+    ):
         # Combinar sustituciones
         merged = Sustitucion(ss_inicial.get_mappings().copy())
         merged.get_mappings().update(ss_primer.get_mappings())
 
         # Recursivamente satisfacer el resto de antecedentes
         for ss_resto, confianza_resto in _query_antecedentes(
-            resto_antecedentes, kb, merged, razonamiento,visitados
+            resto_antecedentes, kb, merged, razonamiento, visitados
         ):
-            yield ss_resto, min(confianza_primer, confianza_resto) # MIN de todas las confianzas (AND)
+            yield (
+                ss_resto,
+                min(confianza_primer, confianza_resto),
+            )  # MIN de todas las confianzas (AND)
 
 
 def descubrir(kb: dict) -> list[Tripleta]:
@@ -99,11 +116,15 @@ def descubrir(kb: dict) -> list[Tripleta]:
     for regla in kb["reglas"]:
         # Buscar todas las formas de satisfacer los antecedentes
         # usando SOLO hechos (razonamiento=False para forward chaining)
-        for ss, confianza in _query_antecedentes(regla.get_antecedentes(), kb, Sustitucion(), razonamiento=False):
+        for ss, confianza in _query_antecedentes(
+            regla.get_antecedentes(), kb, Sustitucion(), razonamiento=False
+        ):
             # Aplicar sustitución al consecuente
             nuevo_hecho = regla.get_consecuente().aplicar_sustitucion(ss)
             # MIN entre consecuente, regla y antecedentes
-            nuevo_hecho.confianza = min(nuevo_hecho.confianza, regla.confianza, confianza)
+            nuevo_hecho.confianza = min(
+                nuevo_hecho.confianza, regla.confianza, confianza
+            )
 
             # Verificar que el hecho esté completamente resuelto (sin variables)
             tiene_variables = any(es_variable(t) for t in nuevo_hecho.terminos())
@@ -132,11 +153,13 @@ def descubrir(kb: dict) -> list[Tripleta]:
                 for i, hecho_kb in enumerate(kb["hechos"]):
                     if nuevo_hecho == hecho_kb:
                         if nuevo_hecho.confianza > hecho_kb.confianza:
-                            kb["hechos"][i] = nuevo_hecho # Actualizar en KB si la confianza es mayor
+                            kb["hechos"][i] = (
+                                nuevo_hecho  # Actualizar en KB si la confianza es mayor
+                            )
                             # Eliminada esta linea porque luego al hacer extend(nuevos_hechos) se inserta el hecho duplicado.
                             # nuevos_hechos.append(nuevo_hecho) # Reportar como "nuevo"
                         break
-    # Agregar los nuevos hechos en kb y retornar.                    
+    # Agregar los nuevos hechos en kb y retornar.
     kb["hechos"].extend(nuevos_hechos)
     return nuevos_hechos
 

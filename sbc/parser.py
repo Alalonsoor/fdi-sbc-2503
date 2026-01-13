@@ -133,14 +133,18 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
         return tripleta, "revocar"
 
     # Consultas normales: s p o ?
-    # Agregar hechos s p o . 
+    # Agregar hechos s p o .
     # Agregar hechos con confianza s p o . [confianza]
     if len(partes) < 4 or len(partes) > 5:
-        raise ValueError("Formato de consulta inválido: debe ser S P O ? // S P O . // S P O . [confianza]")
+        raise ValueError(
+            "Formato de consulta inválido: debe ser S P O ? // S P O . // S P O . [confianza]"
+        )
 
     # El cuarto elemento debe ser ? o .
     if partes[3] not in ["?", "."]:
-        raise ValueError("La consulta debe terminar en ? (consulta) o . (agregar hecho)")
+        raise ValueError(
+            "La consulta debe terminar en ? (consulta) o . (agregar hecho)"
+        )
 
     tipo = "consulta" if partes[3] == "?" else "hecho"
 
@@ -155,7 +159,7 @@ def parsear_consulta(input: str) -> tuple[Tripleta, str]:
     else:
         # Si es una consulta normal S P O ?
         tripleta_str = " ".join(partes[:3])
-    
+
     tripleta = parsear_tripleta(tripleta_str)
 
     return tripleta, tipo

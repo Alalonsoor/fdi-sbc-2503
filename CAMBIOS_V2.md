@@ -4,7 +4,7 @@
 
 Antes `cargar_kb.py` requeria de archivos `.txt` específicos para reglas y hechos. Ahora, es más flexible. Acepta un único parámetro `Path` que puede ser un archivo o un directorio con archivos `*.txt` y carga el contenido a la `kb`.
 
-## 2. Solución test `comun.txt` .
+## 2. Solución test `comun.txt`
 
 El test `comun.txt` no pasaba las últimas dos consultas de t_pinguino por las siguientes razones:
 
@@ -18,7 +18,7 @@ En `parser.py` no identificaba factores de confianza a la hora de agregar nuevos
 
 ## 3. Motor de inferencia (`query.py`)
 
-### 3.1 Nuevo parámetro `razonamiento`.
+### 3.1 Nuevo parámetro `razonamiento`
 
 ```python
 def query(tripleta: Tripleta, kb: dict, razonamiento=False, visitados=None):
@@ -33,14 +33,15 @@ Ahora la función `query` distingue entre consultas simples y razonamiento, evit
 
 ### 3.2 Prevención en recursión infinita
 
-`Nota:` Antes habia problemas de recursión infinita hasta en consultas normales `X Y Z ?` porque como se ha mencionado antes, `query.py` no distinguia entre consultas simples y razonamiento. 
+`Nota:` Antes habia problemas de recursión infinita hasta en consultas normales `X Y Z ?` porque como se ha mencionado antes, `query.py` no distinguia entre consultas simples y razonamiento.
 
 Para prevenir la recursión infinita se ha agregado un nuevo parámetro `visitados`.
 
 - Es un conjunto de tripletas que rastrea las tripletas que ya estamos intentando probar.
 - Antes de procesar uan regla, verifica si la tripleta ya está en `visitados`
 - Si está, detiene la recursión para evitar ciclos infinitos.
-- Cada llamada recursia pasa un **NUEVO** conjunto actualizado para que cada rama tenga su propio conjunto.
+- Cada llamada recursiva pasa un **NUEVO** conjunto actualizado para que cada rama tenga su propio conjunto.
+
 ```python
 if razonamiento:
         clave = (tripleta.sujeto, tripleta.predicado, tripleta.objeto)
@@ -58,6 +59,7 @@ if razonamiento:
 ```
 
 ### 3.3 `_query_antecedentes`
+
 - Ahora es privada `query_antecedentes` -> `_query_antecedentes`.
 - Acepta `razonamiento` y `visitados` para propagar la recurisón.
 
@@ -89,7 +91,7 @@ return list(query(tripleta, kb, razonamiento=True))
 
 ## 4 Estructuras de datos
 
-Se ha implemetado `__eq__` y `__hash__` 
+Se ha implemetado `__eq__` y `__hash__`
 
 - `__eq__` Comparar dos tripletas ignorando el factor de confianza.
 - `__hash__` Necesario apra uso de `Tripleta` en conjuntos.
@@ -135,8 +137,8 @@ uv run -m sbc.cli
             yield f"Hecho agregado: {sujeto_usr} {predicado_usr} {objeto_usr}"
 ```
 
-- Ahora busca si el hecho ya existe
-- SI existe con menor confianza, lo actualiza con MAX (lógica OR)
+- Ahora busca si el hecho ya existe.
+- Si existe con menor confianza, lo actualiza con MAX (lógica OR).
 - Si no existe, se agrega.
 
 ### 5.3 Unificación de consultas y razonamiento
