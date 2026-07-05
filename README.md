@@ -1,201 +1,48 @@
-# Sistema Experto Culinario - Grupo 03
+# Culinary Expert System
 
-## Información del Grupo
+Rule-based culinary expert system built in Python for reasoning about recipes, ingredients, allergens, dietary restrictions, nutrition, and food pairings.
 
-- **Curso**: Sistemas Basados en Conocimiento 2025/26
-- **Grupo**: 03
-- **Integrantes**:
-  - Álvaro Alonso
-  - Jiahao Cheng
-  - Francisco Pastor
-  - Jiayi Wang
+## Overview
 
-## Descripción del Proyecto
+This is a collaborative academic project for a Knowledge-Based Systems course. The goal was to model culinary knowledge in a way that can be queried and explained, using symbolic rules instead of a black-box model.
 
-Sistema experto para el dominio culinario capaz de resolver múltiples tareas relacionadas con gastronomía y restricciones dietéticas.
+The system focuses on practical questions such as:
 
-## Dominios y Tareas Implementadas
+- Which recipes are compatible with a dietary restriction?
+- Which ingredients introduce allergens or nutritional constraints?
+- Which ingredient or dish combinations make sense together?
+- How can culinary knowledge be represented in a structured knowledge base?
 
-### 1. Gestión de Alergenos y Restricciones Dietéticas
+## Tech Stack
 
-- Identificación de ingredientes.
-- Verificación de compatibilidad de recetas con restricciones.
+- Python 3.13
+- Custom knowledge-base parser and query engine
+- PyParsing
+- Pytest
+- uv for dependency management
 
-### 2. Composición de Ingredientes y Recetas
+## Repository Highlights
 
-- Análisis nutricional de platos.
-- Compatibilidad de ingredientes.
+- `kb/` contains the main culinary knowledge base.
+- `sbc/` contains the parser, loader, unification logic, query handling, and CLI.
+- `test/` contains automated tests for the reasoning components.
+- `doc/` and delivery notes document the project context and iterations.
 
-### 3. Maridajes y Combinaciones Gastronómicas
-
-- Armonización de sabores.
-- Recomendaciones de maridajes.
-
-## Instalación y Ejecución
-
-### Prerrequisitos
-
-- Python ≥ 3.10, recomendado 3.13
-- UV package manager
-
-### Instalación
+## How to Run
 
 ```bash
-git clone https://github.com/usuario/fdi-sbc-25XX.git
-cd fdi-sbc-25XX
 uv sync
+uv run python -m sbc.cli
+uv run pytest
 ```
 
-### Ejecución
+## What This Shows
 
-Por defecto carga la base de conocimientos que se encuentra en /kb.
-```bash
-uv run -m sbc.cli
-```
+- Modeling a domain with explicit rules and structured facts.
+- Building a small inference-oriented Python codebase.
+- Testing core reasoning utilities.
+- Translating open-ended domain knowledge into executable logic.
 
-Se puede cargar otra base de conocimientos directamente con:
+## Context
 
-```bash
-uv run -m sbc.cli --kb /ruta/otra_kb
-```
-
-## Estructura del Proyecto
-
-```bash
-  fdi-sbc-2503/
-  ├── kb/                    # Base de conocimiento
-  │   ├── `ingredientes.txt`
-  │   └── `hechos.txt`
-  ├── sbc/                   # Motor de inferencia
-  │   ├── `__init__.py`
-  │   ├── `cargar_kb.py`
-  │   ├── `cli.py`
-  │   ├── `ed.py`
-  │   ├── `parser.py`
-  │   ├── `query.py`
-  │   └── `unificar.py`
-  ├── test/                  # Tests funcionales
-  │   ├── `test_cargar_kb.py`
-  │   ├── `test_cli.py`
-  │   ├── `test_descubrir.py`
-  │   ├── `test_parser.py`
-  │   ├── `test_query.py`
-  │   └── `test_unify.py`
-  ├── doc/                   # Documentación
-  │   ├── `doc_cargar_kb.md`
-  │   ├── `doc_cli.md`
-  │   ├── `doc_ed.md`
-  │   ├── `doc_parser.md`
-  │   ├── `doc_query.md`
-  │   └── `doc_unificar.md`
-  ├── `pyproject.toml`
-  └── `README.md`
-```
-
-## Uso del Sistema
-
-### Comandos Disponibles
-
-- Consultas: X Y Z ? ("tomate color rojo ?")
-- Añadir hechos: X Y Z . ("tomate color rojo .")
-- Descubrir conocimiento: describir!
-- Razonamiento: razona si X Y Z ? ("razona si pizza contiene glutén ?")
-
-### Ejemplos de consultas
-
-```bash
-    > tomate color rojo ?
-    < NO
-    > tomate color rojo .
-    > tomate color rojo ?
-    < SI
-    > tomate color X ?
-    < color = rojo
-    > X color rojo ?
-    < tomate
-```
-
-## Base de conocimiento
-
-### Sintaxis Implementada
-
-```bash
-    minus = "a" | ... | "z" ;
-    mayus = "A" | ... | "Z" ;
-    digito = "0" | ... | "9" ;
-    caracter = minus | mayus | digito | "_" ;
-    literal = minus { caracter } ;
-    variable = mayus { caracter } ;
-    termino = literal | variable ;
-    tripleta = termino "  " termino " " termino ;
-    afirmacion = tripleta "." [ extension ] ;
-    comentario = "#" { .... } "\n" ;
-    consulta = tripleta "?" | "razona si " tripleta "?" ;
-    palabra = { caracter } ;
-    comando = palabra { " " palabra } "!" ;
-    regla = tripleta "<-" tripleta { ", " tripleta } "." [extension ] ;
-    extension = "[" opcional { "; " opcional } " ]" ;
-    opcional = difusa | precedencia | restriccion ;
-    difusa = "0." { digito } | "1" ;
-```
-
-### Ejemplo de hechos
-
-```bash
-    # COLORES
-    tomate color rojo [0.90]
-
-    # GRANOS
-    pan tipo grano
-```
-
-### Ejemplo de reglas
-
-```bash
-# Combinaciones
-Ingrediente1 combina_bien Ingrediente2 <- Ingrediente1 sabor dulce, Ingrediente2 sabor acido [0.85]
-
-# PROPIEDADES NUTRICIONALES - RICO EN FIBRA
-Plato rico_en fibra <- Plato ingrediente Ingrediente, Ingrediente tipo verdura
-```
-
-## Tests y Validación
-
-### Ejecución de Tests
-
-1. **Test unitarios**
-
-```bash
-    python -m pytest
-    uv format --check
-```
-2. **Test de integración**
-
-```bash
-    chmod +x test/corregir.sh
-    ./test/corregir.sh test/test_integracion.txt
-```
-3. **Comprobación de formato**
-
-```bash
-    uv format --check
-```
-
-### Cobertura de Funcionalidades
-
-- Motor de interferencia estándar.
-- Base de conocimiento modular.
-- CLI interactiva.
-- Encadenamiento hacia adelante/atrás.
-- Gestión de errores.
-  
-## Desarrollo
-
-### Convenciones del Código
-
-- Formateo automático con uv format
-
-### Gestión de Proyecto
-
-- Seguimiento mediante GitHub
-- Revisiones de código entre pares y grupales
+Collaborative academic project by Alvaro Alonso, Jiahao Cheng, Francisco Pastor, and Jiayi Wang.
